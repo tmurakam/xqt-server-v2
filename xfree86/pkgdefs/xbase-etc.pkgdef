@@ -3,7 +3,7 @@ Package: xbase-etc
 Priority: optional
 Section: X11
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
-Architecture: arm
+Architecture: all
 Version: 4.3.0-3
 Depends:
 Description: X11 base etc files

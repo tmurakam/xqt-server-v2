@@ -3,7 +3,7 @@ Package: xqt-fonts-type1
 Priority: optional
 Section: fonts
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
-Architecture: arm
+Architecture: all
 Version: 4.3.0-3
 Depends: xlibs
 Description: X11 Type1 fonts
