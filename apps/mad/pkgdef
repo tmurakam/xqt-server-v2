@@ -1,0 +1,39 @@
+#
+# mad
+# 
+
+%site
+ftp://ftp.mars.org/pub/mpeg
+
+%source
+mad-0.14.2b.tar.gz
+
+%define builddir  mad-0.14.2b
+
+%build
+./configure --prefix=%{prefix} --host=arm-linux --disable-static --enable-shared
+make
+
+%install
+make prefix=%{destdir}%{prefix} install
+
+%files
+%{prefix}/bin
+%{prefix}/lib
+%{prefix}/share
+
+%strip
+!%{prefix}/bin/*
+*.so*
+
+%control
+Package: mad
+Priority: optional
+Section: multimedia
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 0.14.2b
+Depends:
+Cardinst: enable
+License: GPL
+Description: MPEG audio decoder
