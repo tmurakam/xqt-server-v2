@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=X/Qt Server, XFree86 server on Qtopia
+Exec=Xqt
+Icon=Xqt.png
+Name=X/Qt Server
+Type=Application
+Display=640x480/144dpi,480x640/144dpi
