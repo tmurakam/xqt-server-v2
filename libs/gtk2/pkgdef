@@ -1,0 +1,45 @@
+#
+# GTK+ 2
+# 
+
+%site
+ftp://ftp.gtk.org/pub/gtk/v2.4
+
+%source
+gtk+-2.4.13.tar.bz2
+
+%define builddir	gtk+-2.4.13
+
+%build
+./configure %{config_opts} --enable-shared --disable-static
+
+# なぜか -O2 ではビルドエラーになる。このディレクトリだけ -O1 でビルド。
+make -C gdk/x11 CFLAGS='-O1 -fno-exceptions -Wall'
+
+make
+
+%install
+make %{install_opts} install
+
+%define devpkg	gtk+-2
+
+%files
+%{prefix}/lib
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: gtk+-2
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 2.4.13
+Depends:
+License: LGPL
+Description: GTK+-2
