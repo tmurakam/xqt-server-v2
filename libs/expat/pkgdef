@@ -43,7 +43,7 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 1.95.8
+Version: 1.95.8-1
 Depends:
 License: BSD
 Description: expat xml parser
