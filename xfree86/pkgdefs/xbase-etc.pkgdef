@@ -1,7 +1,4 @@
-%%% source
-root
-
-%%% control
+%control
 Package: xbase-etc
 Priority: optional
 Section: X11
@@ -13,5 +10,5 @@ Description: X11 base etc files
  XFree86 etc files
 License: MIT
 
-%%% files
+%files
 etc

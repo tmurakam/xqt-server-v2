@@ -1,7 +1,4 @@
-%%% source
-root
-
-%%% control
+%control
 Package: xbase-clients
 Priority: optional
 Section: X11
@@ -13,12 +10,11 @@ Description: X11 base clients
  XFree86 base clients.
 License: MIT
 
-%%% files
+%files
 opt/QtPalmtop/bin
 
-%%% excludes
+%excludes
 Xqt
 
-%%% strip
+%strip
 *
-

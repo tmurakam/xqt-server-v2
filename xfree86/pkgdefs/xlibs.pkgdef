@@ -1,7 +1,4 @@
-%%% source
-root
-
-%%% control
+%control
 Package: xlibs
 Priority: optional
 Section: X11
@@ -13,15 +10,13 @@ Description: X11 libraries
  XFree86 libraries.
 License: MIT
 
-%%% files
+%files
 opt/QtPalmtop/lib
 
-%%% excludes
+%excludes
 *.la
 *.a
 !opt/QtPalmtop/lib/X11/config
 
-%%% strip
-*.so
-*.so.*
-
+%strip
+*.so*

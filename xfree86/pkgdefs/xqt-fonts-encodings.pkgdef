@@ -1,7 +1,4 @@
-%%% source
-root
-
-%%% control
+%control
 Package: xqt-fonts-encodings
 Priority: optional
 Section: fonts
@@ -13,10 +10,5 @@ Description: X11 base font encodings
  XFree86 base font encodings files
 License: MIT
 
-%%% files
+%files
 opt/QtPalmtop/lib/X11/fonts/encodings
-
-%%% excludes
-
-%%% strip
-

@@ -1,0 +1,12 @@
+pkgdefs/Build.pkgdef
+pkgdefs/xqt-server.pkgdef
+pkgdefs/xbase-clients.pkgdef
+pkgdefs/xbase-etc.pkgdef
+pkgdefs/xlibs.pkgdef
+pkgdefs/xqt-fonts-75dpi.pkgdef
+pkgdefs/xqt-fonts-100dpi.pkgdef
+pkgdefs/xqt-fonts-misc.pkgdef
+pkgdefs/xqt-fonts-ttf.pkgdef
+pkgdefs/xqt-fonts-type1.pkgdef
+pkgdefs/xqt-fonts-encodings.pkgdef
+pkgdefs/xqt-startup-scripts.pkgdef

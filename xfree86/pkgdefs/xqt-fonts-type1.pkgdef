@@ -1,7 +1,4 @@
-%%% source
-root
-
-%%% control
+%control
 Package: xqt-fonts-type1
 Priority: optional
 Section: fonts
@@ -13,10 +10,5 @@ Description: X11 Type1 fonts
  XFree86 Type1 fonts files
 License: MIT
 
-%%% files
+%files
 opt/QtPalmtop/lib/X11/fonts/Type1
-
-%%% excludes
-
-%%% strip
-

@@ -1,7 +1,4 @@
-%%% source
-root
-
-%%% control
+%control
 Package: xqt-fonts-75dpi
 Priority: optional
 Section: fonts
@@ -13,10 +10,5 @@ Description: X11 base 75dpi fonts
  XFree86 base 75dpi fonts files
 License: MIT
 
-%%% files
+%files
 opt/QtPalmtop/lib/X11/fonts/75dpi
-
-%%% excludes
-
-%%% strip
-

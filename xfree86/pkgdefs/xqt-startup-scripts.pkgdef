@@ -1,4 +1,4 @@
-%%% control
+%control
 Package: xqt-startup-scripts
 Priority: optional
 Section: X11
@@ -9,24 +9,22 @@ Depends: xqt-server,xlibs,xbase-clients,rxvt,blackbox
 Description: X/Qt server startup scripts
 License: GPL
 
-#%%% conffiles
+#%conffiles
 #/home/zaurus/.xinitrc
 #/home/zaurus/.xserverrc
 
-#%%% postinst
+#%postinst
 #chown zaurus /home/zaurus/.xinitrc
 #chown zaurus /home/zaurus/.xserverrc
 
-%%% source
-.
-
 %%% files
-startx.desktop			opt/QtPalmtop/apps/Applications/
-startx-wrapper			opt/QtPalmtop/bin/
-dot.xinitrc			home/zaurus/.xinitrc
-dot.xserverrc			home/zaurus/.xserverrc
+!files/startx.desktop		opt/QtPalmtop/apps/Applications/
+!files/startx-wrapper		opt/QtPalmtop/bin/
+!files/dot.xinitrc		home/zaurus/.xinitrc
+!files/dot.xserverrc		home/zaurus/.xserverrc
 
-%%% exec
-chmod 0755 .dist/opt/QtPalmtop/bin/startx-wrapper
-chown 500:500 .dist/home/zaurus/.xinitrc
-chown 500:500 .dist/home/zaurus/.xserverrc
+# TBD!!!
+#%%% exec
+#chmod 0755 .dist/opt/QtPalmtop/bin/startx-wrapper
+#chown 500:500 .dist/home/zaurus/.xinitrc
+#chown 500:500 .dist/home/zaurus/.xserverrc
