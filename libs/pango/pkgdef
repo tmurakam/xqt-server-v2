@@ -11,14 +11,12 @@ pango-1.4.1.tar.gz
 %define builddir	pango-1.4.1
 
 %build
-./configure %{config_opts} --enable-shared --disable-static --disable-gtk-doc
+./configure --host=arm-linux --prefix=%{prefix} \
+	--enable-shared --disable-static --disable-gtk-doc
 make
 
 %install
 make DESTDIR=%{destdir} install
-
-# ad hoc...
-mv %{destdir}%{cross_prefix}/* %{destdir}%{prefix}/
 
 %define devpkg	pango
 
@@ -45,3 +43,6 @@ Version: 1.4.1
 Depends: glib-2, xlibs
 License: LGPL
 Description: System for layout and rendering of internationalized text
+
+%postinst
+%{prefix}/bin/pango-querymodules > %{prefix}/etc/pango/pango.modules
