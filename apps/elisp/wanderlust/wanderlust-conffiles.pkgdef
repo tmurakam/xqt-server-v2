@@ -1,0 +1,25 @@
+#
+# wanderlust-conffiles
+# 
+
+%files
+!dot.addresses	/home/zaurus/.addresses
+!dot.folders	/home/zaurus/.folders
+!dot.wl		/home/zaurus/.wl
+
+%conffiles
+/home/zaurus/.addresses
+/home/zaurus/.folders
+/home/zaurus/.wl
+
+%control
+Package: wanderlust-conffiles
+Priority: optional
+Section: elisp
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 2.10.1-2
+Depends: wanderlust
+License: GPL
+Description: Wanderlust configuration files
+ Includes .addresses, .wl, .folders

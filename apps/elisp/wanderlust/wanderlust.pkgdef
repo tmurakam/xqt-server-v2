@@ -1,0 +1,42 @@
+#
+# wanderlust
+# 
+
+%site
+http://www.ring.gr.jp/archives/text/elisp/wl/stable
+
+%source
+wl-2.10.1.tar.gz
+
+%define builddir wl-2.10.1
+
+%define makeopts EMACS=emacs LISPDIR=%{destdir}%{prefix}/share/emacs/site-lisp \
+ PIXMAPDIR=%{destdir}%{prefix}/share/emacs/21.3/etc/wl/icons
+
+%build
+make %{makeopts}
+
+%install
+make install %{makeopts}
+
+%files
+%{prefix}/share/emacs
+
+%excludes
+*.el
+
+%control
+Package: wanderlust
+Priority: optional
+Section: elisp
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 2.10.1-2
+Depends: emacs21-withx
+Cardinst: enable
+License: GPL
+Description: Wanderlust Message Interface on Emacsen
+ Yet Another Message Interface on Emacsen.
+ Includes semi 1.14.6, flim 1.14.7, apel 10.6
+
+
