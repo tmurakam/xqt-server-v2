@@ -6,7 +6,7 @@ module Ipkg
     def BuildIpkg
 	@destdir = GetDefine("destdir")
 	ipkgdir  = GetDefine("ipkgdir")
-	@tmpdir = ipkgdir + "/.ipktmp"
+	@tmpdir  = GetDefine("ipkgtmp")
 
 	# パッケージ作成用ディレクトリ
 	if (FileTest.exist?(@tmpdir))

@@ -23,6 +23,7 @@ topdir    = File.expand_path(scriptdir + "/..")
 distfiledir = topdir + "/distfile"
 devpkgdir   = topdir + "/devpkg"
 ipkgdir     = topdir + "/ipkg"
+ipkgtmp     = topdir + "/ipkg/.ipktmp"
 destdir = File.expand_path("./dest")
 
 $ipkg_build = File.expand_path(scriptdir + "/ipkg-build")
@@ -42,6 +43,8 @@ if (cmd == "World")
     cmds = ["source", "build", "install", "ipkg"]
 elsif (cmd == "DevWorld")
     cmds = ["source", "build", "install", "devpkg", "install-devpkg", "ipkg"]
+elsif (cmd == "DevWorldClean")
+    cmds = ["source", "build", "install", "devpkg", "install-devpkg", "ipkg", "post-cleanup"]
 else
     cmds = [cmd]
 end
@@ -70,6 +73,7 @@ deffiles.each do |file|
     pkg.SetDefine("destdir", destdir)
     pkg.SetDefine("scriptdir", scriptdir)
     pkg.SetDefine("ipkgdir", ipkgdir)
+    pkg.SetDefine("ipkgtmp", ipkgtmp)
     pkg.SetDefine("distfiledir", distfiledir)
 
     pkg.Load(scriptdir + "/config.def")
@@ -86,6 +90,7 @@ workstate = WorkState.new
 CmdDeps = {"build"=>"source", "install"=>"build", "ipkg"=>"install",
     "devpkg"=>"install", "install-devpkg"=>"devpkg", "post-cleanup"=>"ipkg"}
 
+puts `date`
 cmds.each do |cmd|
     # 二重処理の防止
     next if (cmd != "cleanup" && workstate.done?(cmd))
@@ -134,4 +139,4 @@ cmds.each do |cmd|
     workstate.setdone(cmd) if (cmd != "cleanup")
     workstate.save()
 end
-
+puts `date`

@@ -33,7 +33,6 @@ class Pkgdef
 
     # ソース取得と展開処理
     def getSource
-	cleanup()
 	GetSource(@sections["source"], @sections["site"])
     end
 
