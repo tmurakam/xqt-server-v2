@@ -1,4 +1,5 @@
 #!/bin/sh
+../../script/mkpkg cleanup stage1.pkgdef
 ../../script/mkpkg source stage1.pkgdef
 ../../script/mkpkg build stage1.pkgdef
 

@@ -10,6 +10,8 @@ emacs-21.3.tar.gz
 
 %define builddir emacs-21.3
 
+%define x_prefix	/opt/Embedix/tools/armlinux
+
 %build
 # Step 1: i386 用のビルドを行う
 mkdir i386
@@ -26,8 +28,8 @@ cd arm
 
 ### execute configure
 ../configure --prefix=%{prefix} --host=arm-linux \
-    -x-includes=%{x_prefix}/include -x-libraries=%{x_prefix}/lib \
-    --without-pop --with-x
+    --without-pop --with-x \
+    -x-includes="%{x_prefix}/include" -x-libraries="%{x_prefix}/lib"
 
 ### copy some needed files
 mkdir lib-src
