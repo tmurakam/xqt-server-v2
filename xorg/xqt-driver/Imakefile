@@ -1,0 +1,48 @@
+XCOMM $Id$
+
+#include <Server.tmpl>
+
+#if BuildRender
+RENDERINCS=-I../../render
+#endif
+
+#if BuildRandR
+RANDRINCS=-I../../randr
+#endif
+
+QTDIR = QtDir
+
+MOC   = QtDir/bin/moc
+
+INCLUDES = -I. \
+	 -I$(XBUILDINCDIR) -I$(FONTINCSRC) \
+	 -I../../fb -I../../mi -I../../Xext \
+	 -I../../miext/shadow -I../../miext/layer \
+	 -I../../include -I../../os \
+         -I$(EXTINCSRC) -I$(XINCLUDESRC) $(RENDERINCS) $(RANDRINCS) \
+	 -I$(QTDIR)/include
+
+DEFINES = $(OS_DEFINES) $(EXT_DEFINES) QtDefs
+
+CSRCS   = InitOutput.c InitInput.c qtscrinit.c qtmouse.c qtshadow.c \
+	qtwakeup.c qtcmap.c qtallpriv.c qtblock.c qtcursor.c qtkeybd.c qttimer.c \
+	qtwindow.c qtlayer.c
+CPPSRCS = qtapplication.cc qtscreen.cc qtddraw.cc qtkeytrans.cc qtutil.cc \
+	moc_qtapplication.cc moc_qtscreen.cc
+
+SRCS = $(CSRCS) $(CPPSRCS)
+OBJS = 	$(CSRCS:.c=.o) $(CPPSRCS:.cc=.o)
+
+.cc.o:
+	$(RM) $@
+	 CplusplusCmd -c $(CFLAGS) $(_NOOP_) $*.cc
+
+moc_qtapplication.cc: qtapplication.h
+	$(MOC) qtapplication.h -o moc_qtapplication.cc
+
+moc_qtscreen.cc: qtscreen.h
+	$(MOC) qtscreen.h -o moc_qtscreen.cc
+
+NormalLibraryObjectRule()
+NormalLibraryTarget(xqt,$(OBJS))
+DependTarget()
