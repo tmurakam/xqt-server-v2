@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="EUC-JP"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
   "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 
 <article lang="ja">
   <articleinfo>
-    <title>X/Qt-2 ��ȯ�Ը��� HOWTO</title>
+    <title>X/Qt-2 開発者向け HOWTO</title>
     <author lang="ja">
-      <surname>¼��</surname>
-      <firstname>����</firstname>
+      <surname>村上</surname>
+      <firstname>卓弥</firstname>
       <affiliation>
 	<address>
       <email>tmurakam at users.sourceforge.jp</email>
@@ -28,106 +28,106 @@
 
     <abstract>
       <para>
-���Υɥ�����Ȥϡ�X/Qt-2 �γ�ȯ�Ը���������Ǥ���
+このドキュメントは、X/Qt-2 の開発者向け手引きです。
 </para>
     </abstract>
   </articleinfo>
 
   <sect1 id="intro">
-    <title>�Ϥ����</title>
-    <para>����ʸ��ϡ�X/Qt-2 �γ�ȯ�Ը����μ�����Ǥ�������ʸ��Ǥϡ���������ȯ�Ķ��Υ��åȥ��åס�
-X/Qt �Υ������μ����ȥӥ�ɼ�硢�����ƿ����ʥѥå��������ɲü��ˤĤ��ƽҤ٤Ƥ��ޤ���</para>
-    <para>ɮ�Ԥϥ���ե���ѥ���Ķ�����äƤ��ʤ��Τǡ�����ʸ��Ǥ� Zaurus ��ǤΥ���ե���ѥ���Ķ����ۤˤĤ��ƤϿ���Ƥ��ޤ���</para>
+    <title>はじめに</title>
+    <para>この文書は、X/Qt-2 の開発者向けの手引きです。この文書では、クロス開発環境のセットアップ、
+X/Qt のソースの取得とビルド手順、そして新たなパッケージの追加手順について述べています。</para>
+    <para>筆者はセルフコンパイル環境を持っていないので、この文書では Zaurus 上でのセルフコンパイル環境構築については触れていません。</para>
   </sect1>
 
   <sect1 id="presetup">
-    <title>ɬ�״Ķ�</title>
-    <para>Linux �򥤥󥹥ȡ��뤷�� PC ��ɬ�פǤ����ǥ����ȥ�ӥ塼�����ϴ���Ū�ˤϲ��Ǥ�褤�Ϥ��Ǥ�����
-Fedora ���Ȥ��֤� glibc-locale �����ޤ��ӥ�ɤǤ��ʤ��Ȼפ��ޤ���</para>
-    <para>���ʤߤ�ɮ�Ԥ����Ѥ��Ƥ���Τ� <ulink url="http://www.whiteboxlinux.org/">White Box Enterprise Linux 3.0</ulink> �Ǥ���</para>
-    <para>�ޤ�����ȯ�ϤΥġ���/�饤�֥�������Ƥ���ɬ�פ�����ޤ���
-make �� gcc �������Ȥ��ơ�autoconf / automake / libtool �ʤɤ�ɬ�פǤ���
-���ȥӥ�ɥ�����ץȤ� ruby �ǵ��Ҥ���Ƥ���ط��ǡ�ruby ��ɬ�פǤ���
-��ȯ�饤�֥��ϡ�X �� GTK+ ��Ϣ�Τ�Τϰ��̤ꤤ��Ƥ����褦�ˤ��Ƥ���������</para>
-    <para>�ʤ���X/Qt-2 �Υե�ӥ�ɤˤϡ����ʤ�ǥ��������̤�ɬ�פǤ���
-('04/10������Ǥϡ�2GB ���٤Υǥ��������̤�ɬ��)</para>
+    <title>必要環境</title>
+    <para>Linux をインストールした PC が必要です。ディストリビューションは基本的には何でもよいはずですが、
+Fedora だとたぶん glibc-locale がうまくビルドできないと思います。</para>
+    <para>ちなみに筆者が使用しているのは <ulink url="http://www.whiteboxlinux.org/">White Box Enterprise Linux 3.0</ulink> です。</para>
+    <para>また、開発系のツール/ライブラリを入れておく必要があります。
+make や gcc は当然として、autoconf / automake / libtool などが必要です。
+あとビルドスクリプトが ruby で記述されている関係で、ruby も必要です。
+開発ライブラリは、X や GTK+ 関連のものは一通りいれておくようにしてください。</para>
+    <para>なお、X/Qt-2 のフルビルドには、かなりディスク容量が必要です。
+('04/10月時点では、2GB 程度のディスク容量が必要)</para>
   </sect1>
 
   <sect1 id="setup">
-    <title>��ȯ�Ķ��Υ��åȥ��å�</title>
+    <title>開発環境のセットアップ</title>
 
     <sect2>
-      <title>��������ȯ�ġ��������ȥ��󥹥ȡ���</title>
+      <title>クロス開発ツールの入手とインストール</title>
 
-      <para>����Ū�ˡ�SHARP �Υ����ȤǸ�������Ƥ����Qtopia��ȯ���塼�ȥꥢ��פ�Ʊ���Ķ���ɬ�פˤʤ�ޤ���
-����������ѥ������ܥ饤�֥��/�إå��ʤɤ�<ulink url="http://developer.ezaurus.com">Zaurus ��Ȣ Pro</ulink>
-�������ꤷ�Ƥ���������(��������� SL���꡼�������륹��Linux��Ϣ��ȯ�ġ���ˤ���ޤ�)</para>
+      <para>基本的に、SHARP のサイトで公開されている「Qtopia開発チュートリアル」と同じ環境が必要になります。
+クロスコンパイラや基本ライブラリ/ヘッダなどを<ulink url="http://developer.ezaurus.com">Zaurus 宝箱 Pro</ulink>
+から入手してください。(→国内向け SLシリーズザウルス→Linux関連開発ツールにあります)</para>
 
-      <para>�ʲ��Σ��ĤΥե����뤬ɬ�פǤ���</para>
+      <para>以下の４つのファイルが必要です。</para>
       <itemizedlist>
-	  <listitem><para>����������ѥ��� (gcc)</para></listitem>
-	  <listitem><para>�饤�֥�� (glibc)</para></listitem>
-	  <listitem><para>�إå��ե�����</para></listitem>
-	  <listitem><para>�桼�ƥ���ƥ�</para></listitem>
+	  <listitem><para>クロスコンパイラ (gcc)</para></listitem>
+	  <listitem><para>ライブラリ (glibc)</para></listitem>
+	  <listitem><para>ヘッダファイル</para></listitem>
+	  <listitem><para>ユーティリティ</para></listitem>
 	</itemizedlist>
-      <para>tmake �ϤȤꤢ���� X/Qt-2 �γ�ȯ�Ǥ����פǤ���</para>
-      <para>���� RPM �ե�����ˤʤäƤ���Τǡ�<command>rpm -Uvh <replaceable>�ե�����̾</replaceable></command> �ǥ��󥹥ȡ��뤷�Ƥ���������</para>
+      <para>tmake はとりあえず X/Qt-2 の開発では不要です。</para>
+      <para>全部 RPM ファイルになっているので、<command>rpm -Uvh <replaceable>ファイル名</replaceable></command> でインストールしてください。</para>
       <note>
-	<para>Debian �ξ��� alien ��Ȥ�ɬ�פ�����Ǥ��礦��</para>
+	<para>Debian の場合は alien を使う必要があるでしょう。</para>
       </note>
     </sect2>
 
     <sect2>
-      <title>Qtopia �Υ��󥹥ȡ���</title>
-      <para>X/Qt-2 �����Ф�ӥ�ɤ��뤿��ˡ�Qtopia SDK ��ɬ�פˤʤ�ޤ���
-      Zaurus �����äƤ���Τ� Qtopia 1.5.0 �ʤΤǡ�������б�������Τ����ꡢ���󥹥ȡ��뤷�Ƥ���������</para>
+      <title>Qtopia のインストール</title>
+      <para>X/Qt-2 サーバをビルドするために、Qtopia SDK が必要になります。
+      Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものを入手、インストールしてください。</para>
 
       <note>
-	<para>1.5.0 �Υե꡼�ǤϤ⤦ Trolltech �Υ����Ȥ��֤��Ƥʤ��Τǰʲ�������ꤷ�Ƥ���������</para>
+	<para>1.5.0 のフリー版はもう Trolltech のサイトに置いてないので以下より入手してください。</para>
 	<para><ulink url="http://xqt.sourceforge.jp/bin/">http://xqt.sourceforge.jp/bin/</ulink></para>
       </note>
     </sect2>
 
     <sect2>
-      <title>����ܥ�å���󥯤�ĥ��</title>
-      <para>�ʲ��Τ褦�ˤ��� /opt/QtPalmtop �Υ���ܥ�å���󥯤�ĥ�äƤ����ޤ���
-��������ȡ�Zaurus �� prefix ����פ����뤳�Ȥ��Ǥ����������Թ礬�褤�Ǥ���</para>
+      <title>シンボリックリンクを張る</title>
+      <para>以下のようにして /opt/QtPalmtop のシンボリックリンクを張っておきます。
+こうすると、Zaurus と prefix を一致させることができ、何かと都合がよいです。</para>
       <programlisting>
 <command># ln -s /opt/Embedix/tools/arm-linux /opt/QtPalmtop</command>
 </programlisting>
 
-      <para>�Ĥ��Ǥˡ��ʲ��Υ���ܥ�å���󥯤�ĥ�äƤ����ޤ�������� Emacs ��ӥ�ɤ���Ȥ���ɬ�פǤ���</para>
+      <para>ついでに、以下のシンボリックリンクも張っておきます。これは Emacs をビルドするときに必要です。</para>
       <programlisting>
 <command># ln -s arm-linux /opt/Embedix/tools/armlinux</command>
 </programlisting>
     </sect2>
 
     <sect2>
-      <title>�������åȥǥ��쥯�ȥ��񤭹��߲�ǽ�ˤ���</title>
-      <para>�ӥ����˥饤�֥���إå��򥤥󥹥ȡ��뤹��Τǡ��������åȥǥ��쥯�ȥ�Υ����ʤ�
-�ѹ����ơ��񤭹��߲�ǽ�ˤ��Ƥ����ޤ���</para>
+      <title>ターゲットディレクトリを書き込み可能にする</title>
+      <para>ビルド中にライブラリやヘッダをインストールするので、ターゲットディレクトリのオーナを
+変更して、書き込み可能にしておきます。</para>
       <programlisting>
 <command># chown -R <replaceable>username</replaceable> /opt/Embedix/tools/arm-linux</command>
 </programlisting>
       <tip>
-	<para>�⤷�񤭹��߲�ǽ�ˤ������ʤ����ϡ�sudo ��Ȥäƥ��󥹥ȡ��뤹�뤳�Ȥ��ǽ�Ǥ���
-���ξ��ϡ�<filename>script/config.def</filename> �ե��������Ƭ�������������sudo ��Ȥ���褦��
-���Ƥ����Ƥ���������</para></tip>
+	<para>もし書き込み可能にしたくない場合は、sudo を使ってインストールすることも可能です。
+この場合は、<filename>script/config.def</filename> ファイルの先頭あたりを修正し、sudo を使えるように
+しておいてください。</para></tip>
     </sect2>
   </sect1>
 
   <sect1 id="buildxqt">
-    <title>X/Qt-2 �Υӥ��</title>
-    <para>�����Ǥϡ�X/Qt-2 �Υӥ�ɤ�Ԥ��ޤ���</para>
+    <title>X/Qt-2 のビルド</title>
+    <para>ここでは、X/Qt-2 のビルドを行います。</para>
 
     <sect2>
-      <title>X/Qt-2 �Υӥ�ɤ�ɬ����</title>
-      <para>X/Qt-2 �Υӥ�ɤˤϡ����Ĥΰ�̣������ޤ�����Ĥϡ�X/Qt-2 ������ʪ������ʤ� ipkg �ե�����������Ǥ���
-�������������� ipkg �ե�����ϡ����Τޤ�Zaurus �˥��󥹥ȡ��뤷�ƻ��Ѥ��뤳�Ȥ�����ޤ���</para>
-      <para>�⤦��Ĥϡ���ȯ�饤�֥��/�إå��Υ��󥹥ȡ���Ǥ���X/Qt-2 ��ư��륢�ץꥱ��������ӥ�ɤ����硢X �� GTK+ �Υإå��ե������饤�֥�꤬ɬ�פˤʤ�ޤ��������ϡ�SHARP ���󶡤��볫ȯ�饤�֥��ˤϴޤޤ�Ƥ��ޤ���Τǡ���ʬ�ǥӥ�ɤ��ʤ���Фʤ�ޤ���</para>
+      <title>X/Qt-2 のビルドの必要性</title>
+      <para>X/Qt-2 のビルドには、２つの意味があります。一つは、X/Qt-2 の配布物、すわなち ipkg ファイルの生成です。
+ここで生成した ipkg ファイルは、そのままZaurus にインストールして使用することが出来ます。</para>
+      <para>もう一つは、開発ライブラリ/ヘッダのインストールです。X/Qt-2 で動作するアプリケーションをビルドする場合、X や GTK+ のヘッダファイルやライブラリが必要になります。これらは、SHARP が提供する開発ライブラリには含まれていませんので、自分でビルドしなければなりません。</para>
 
-      <para>X/Qt-2 �Υӥ�ɤˤ����ƥ��󥹥ȡ��뤵���饤�֥��ˤϡ���˰ʲ��Τ�Τ�����ޤ���
-�����Υ饤�֥��ϡ����ޤ��ޤʥ��ץꥱ�������Υӥ�ɻ��ˤ褯ɬ�פˤʤ��ΤФ���Ǥ���</para>
+      <para>X/Qt-2 のビルドにおいてインストールされるライブラリには、主に以下のものがあります。
+これらのライブラリは、さまざまなアプリケーションのビルド時によく必要になるものばかりです。</para>
 
       <itemizedlist>
 	<listitem><para>XFree86</para></listitem>
@@ -147,94 +147,94 @@ make �� gcc �������Ȥ��ơ�autoconf / automake / libtool �ʤɤ�ɬ�פǤ���
       </itemizedlist>
 
       <note>
-	<para>GTK+-2 �ϤΥѥå�����(Glib-2, ATK, Pango, GTK+-2)�ϡ����߽�����Ǥ���</para>
+	<para>GTK+-2 系のパッケージ(Glib-2, ATK, Pango, GTK+-2)は、現在準備中です。</para>
       </note>
     </sect2>
 
     <sect2>
-      <title>�������μ��Ф�</title>
-      <para>X/Qt-2 �Υ����������ɤ� CVS ��ȤäƼ��Ф��ޤ����ʲ��Τ褦�ˤ��Ƥ���������</para>
+      <title>ソースの取り出し</title>
+      <para>X/Qt-2 のソースコードを CVS を使って取り出します。以下のようにしてください。</para>
       <programlisting>
  $ export CVSROOT=:pserver:anonymous@cvs.sourceforge.jp:/cvsroot/xqt
  $ cvs login
-   [�ѥ���ɤ϶��Ǥ褤]
+   [パスワードは空でよい]
  $ cvs checkout xqt2
 </programlisting>
     </sect2>
 
     <sect2>
-      <title>wget ������</title>
-      <para>X/Qt-2 �Υӥ�ɥ�����ץȤϡ��ӥ����˥������� wget ��Ȥäƥ���������ɤ���褦�ˤʤäƤ��ޤ���
-Proxy ��Ȥ����ϡ�wgetrc �ե�����������ԤäƤ�������http_proxy �� ftp_proxy �Ķ��ѿ������ꤷ�Ƥ����Ƥ���������
+      <title>wget の設定</title>
+      <para>X/Qt-2 のビルドスクリプトは、ビルド中にソースを wget を使ってダウンロードするようになっています。
+Proxy を使う場合は、wgetrc ファイルに設定を行っておくか、http_proxy や ftp_proxy 環境変数を設定しておいてください。
 </para>
     </sect2>
 
     <sect2>
-      <title>�ե�ӥ��</title>
-      <para>X/Qt-2 �Υե�ӥ�ɤ�Ԥ��ޤ����ե�ӥ�ɤ�Ԥ����Ȥˤ�ꡢipkg �������ȡ���ȯ�饤�֥��/�إå��Υ��󥹥ȡ��뤬�Ԥ��ޤ���</para>
+      <title>フルビルド</title>
+      <para>X/Qt-2 のフルビルドを行います。フルビルドを行うことにより、ipkg の生成と、開発ライブラリ/ヘッダのインストールが行われます。</para>
       <programlisting>
  $ cd xqt2
  $ ./build DevWorld
 </programlisting>
       
-      <para>�ӥ�ɤ��줿�ѥå������� <filename class="directory">ipkg</filename> �ǥ��쥯�ȥ������ޤ���
-�ޤ�����ȯ�ѥ饤�֥��ѥå������� <filename class="directory">devpkg</filename>���������졢<filename class="directory">/opt/Embedix/tools/arm-linux</filename> �ʲ��˥��󥹥ȡ��뤵��ޤ���
+      <para>ビルドされたパッケージは <filename class="directory">ipkg</filename> ディレクトリに入ります。
+また、開発用ライブラリパッケージが <filename class="directory">devpkg</filename>に生成され、<filename class="directory">/opt/Embedix/tools/arm-linux</filename> 以下にインストールされます。
 </para>
-      <para>�ե�ӥ�ɤ�Ԥ��ȡ�<filename>dirlist</filename>�ե�����˻��ꤷ�����֤ǥѥå������Υӥ�ɤ��Ԥ��ޤ����ƥѥå������Υӥ�ɤˤ����Ƥϡ��ʲ��ν��������֤˼¹Ԥ����褦�ˤʤäƤ��ޤ���</para>
+      <para>フルビルドを行うと、<filename>dirlist</filename>ファイルに指定した順番でパッケージのビルドが行われます。各パッケージのビルドにおいては、以下の処理が順番に実行されるようになっています。</para>
       <orderedlist>
-	<listitem><para>�������ե�����Υ����������</para></listitem>
-	<listitem><para>�������ե������Ÿ��</para></listitem>
-	<listitem><para>�ѥå���Ŭ��</para></listitem>
-	<listitem><para>configure �� make �μ¹�</para></listitem>
-	<listitem><para>make install �μ¹�</para></listitem>
-	<listitem><para>ipkg ������</para></listitem>
-	<listitem><para>��ȯ�饤�֥��ѥå�����������</para></listitem>
-	<listitem><para>��ȯ�饤�֥��ѥå������Υ��󥹥ȡ���</para></listitem>
+	<listitem><para>ソースファイルのダウンロード</para></listitem>
+	<listitem><para>ソースファイルの展開</para></listitem>
+	<listitem><para>パッチの適用</para></listitem>
+	<listitem><para>configure と make の実行</para></listitem>
+	<listitem><para>make install の実行</para></listitem>
+	<listitem><para>ipkg の生成</para></listitem>
+	<listitem><para>開発ライブラリパッケージの生成</para></listitem>
+	<listitem><para>開発ライブラリパッケージのインストール</para></listitem>
       </orderedlist>
     </sect2>
 
     <sect2>
-      <title id="build-each">���̥ӥ��</title>
-      <para>�ե�ӥ�ɤ�Ԥä���硢<filename>dirlist</filename> �˻��ꤷ������Ǥ��٤ƤΥѥå��������ӥ�ɤ���ޤ������ѥå���������̤˥ӥ�ɤ��뤳�Ȥ��ǽ�Ǥ���</para>
-      <para>���̥ӥ�ɤ�Ԥ����ϡ��ƥѥå������Υǥ��쥯�ȥ�� <command>chdir</command>���ơ�make ��¹Ԥ��ޤ���make �Υ������åȤˤϰʲ��Τ�Τ�����Ǥ��ޤ���</para>
+      <title id="build-each">個別ビルド</title>
+      <para>フルビルドを行った場合、<filename>dirlist</filename> に指定した順序ですべてのパッケージがビルドされますが、パッケージを個別にビルドすることも可能です。</para>
+      <para>個別ビルドを行う場合は、各パッケージのディレクトリに <command>chdir</command>して、make を実行します。make のターゲットには以下のものが指定できます。</para>
 
       <itemizedlist>
-	<listitem><para>source : �������μ�����Ÿ��</para></listitem>
-	<listitem><para>build : �ӥ��(configure / make)</para></listitem>
-	<listitem><para>install : ���ۥ��󥹥ȡ���</para></listitem>
-	<listitem><para>ipkg : ipkg ������</para></listitem>
-	<listitem><para>devpkg : ��ȯ�ѥå�����������</para></listitem>
-	<listitem><para>install-devpkg : ��ȯ�ѥå������Υ��󥹥ȡ���</para></listitem>
-	<listitem><para>World : source/build/install/ipkg �ޤǤ�¹�</para></listitem>
-	<listitem><para>DevWorld : World �˲ä���devpkg/install-devpkg �ޤǼ¹�</para></listitem>
-	<listitem><para>cleanup : �ӥ�ɥǥ��쥯�ȥ�/���ۥ��󥹥ȡ���ǥ��쥯�ȥ��������</para></listitem>
+	<listitem><para>source : ソースの取得と展開</para></listitem>
+	<listitem><para>build : ビルド(configure / make)</para></listitem>
+	<listitem><para>install : 仮想インストール</para></listitem>
+	<listitem><para>ipkg : ipkg の生成</para></listitem>
+	<listitem><para>devpkg : 開発パッケージの生成</para></listitem>
+	<listitem><para>install-devpkg : 開発パッケージのインストール</para></listitem>
+	<listitem><para>World : source/build/install/ipkg までを実行</para></listitem>
+	<listitem><para>DevWorld : World に加え、devpkg/install-devpkg まで実行</para></listitem>
+	<listitem><para>cleanup : ビルドディレクトリ/仮想インストールディレクトリを削除する</para></listitem>
       </itemizedlist>
     </sect2>
   </sect1>
 
   <sect1 id="addpkg">
-    <title>�ѥå��������ɲü��</title>
-    <para>������Ǥϡ��ȼ��ѥå��������ɲä�����ˤĤ����������ޤ���</para>
+    <title>パッケージの追加手順</title>
+    <para>この節では、独自パッケージを追加する手順について説明します。</para>
     <sect2>
-      <title>�ѥå������ǥ��쥯�ȥ���������</title>
-      <para>�ޤ��ǽ�ˡ��ѥå������ǥ��쥯�ȥ��������ޤ���</para>
-      <para>X/Qt-2 �Ǥϡ��ѥå�������˥ǥ��쥯�ȥ��������Ƥ��ޤ����ѥå������μ�����ˡ��ʲ��Τ褦�ʥǥ��쥯�ȥ꤬����ޤ��Τǡ�Ŭ�������β��˥ǥ��쥯�ȥ��������Ƥ���������</para>
+      <title>パッケージディレクトリを作成する</title>
+      <para>まず最初に、パッケージディレクトリを作成します。</para>
+      <para>X/Qt-2 では、パッケージ毎にディレクトリを作成しています。パッケージの種別毎に、以下のようなディレクトリがありますので、適宜これらの下にディレクトリを作成してください。</para>
       <itemizedlist>
-	<listitem><para>apps: ���ץꥱ�������</para></listitem>
-	<listitem><para>net: �ͥåȥ����</para></listitem>
-	<listitem><para>fonts: �ե����</para></listitem>
-	<listitem><para>wm: ������ɥ��ޥ͡�����</para></listitem>
-	<listitem><para>im: ����ץåȥ᥽�å�</para></listitem>
-	<listitem><para>libs: �饤�֥��</para></listitem>
-	<listitem><para>sys: �����ƥ�</para></listitem>
+	<listitem><para>apps: アプリケーション</para></listitem>
+	<listitem><para>net: ネットワーキング</para></listitem>
+	<listitem><para>fonts: フォント</para></listitem>
+	<listitem><para>wm: ウィンドウマネージャ</para></listitem>
+	<listitem><para>im: インプットメソッド</para></listitem>
+	<listitem><para>libs: ライブラリ</para></listitem>
+	<listitem><para>sys: システム</para></listitem>
       </itemizedlist>
     </sect2>
 
     <sect2>
-      <title>pkgdef �ե�����κ���</title>
-      <para>pkgdef �ե������������ޤ���</para>
-      <para>pkgdef �ե�����ϡ�RPM �� spec �ե�����Τ褦�ʤ�Τǡ��ѥå������μ�����ˡ�䡢�ӥ�ɼ�硢ipkg ���������ʤɤ����ܤ���Ƥ��ޤ���</para>
-      <para>�ʲ��ϡ�Glib �� pkgdef �ե�����Ǥ���</para>
+      <title>pkgdef ファイルの作成</title>
+      <para>pkgdef ファイルを作成します。</para>
+      <para>pkgdef ファイルは、RPM の spec ファイルのようなもので、パッケージの取得方法や、ビルド手順、ipkg の生成手順などが記載されています。</para>
+      <para>以下は、Glib の pkgdef ファイルです。</para>
       <programlisting>
 #
 # Glib 1.2
@@ -288,53 +288,53 @@ License: LGPL
 Description: glib additional libraries
   libgmodule.so and libgthread.so
 </programlisting>
-      <para>���Υե�����ˤϡ��ʲ������Ƥ����Ҥ���Ƥ��ޤ���</para>
+      <para>このファイルには、以下の内容が記述されています。</para>
       <itemizedlist>
-	<listitem><para>%site �ˤϡ��������ѥå����������������ɤ��륵���Ȥ� URL �򵭺ܤ��ޤ�</para></listitem>
-	<listitem><para>%source �ˤϡ��������ѥå������Υե�����̾�򵭺ܤ��ޤ���
-�̾�ϡ�%site �ǻ��ꤷ�������Ȥ���ե����뤬����������ɤ���ޤ���</para>
+	<listitem><para>%site には、ソースパッケージをダウンロードするサイトの URL を記載します</para></listitem>
+	<listitem><para>%source には、ソースパッケージのファイル名を記載します。
+通常は、%site で指定したサイトからファイルがダウンロードされます。</para>
 
-<para>��Ƭ�� local: �ǻϤޤäƤ�����ϡ���������ե��������Ѥ��ޤ����ޤ��������� ;patch=n �ȵ��Ҥ���Ƥ�����ϡ����Υե������ѥå��ե�����ȸ��ʤ��Ƽ�ưŪ�˥ѥå���Ŭ�Ѥ��ޤ���n ���ͤ� patch ���ޥ�ɤ� -p ���ץ������Ϥ�����ͤǤ���
+<para>先頭が local: で始まっている場合は、ローカルファイルを使用します。また、末尾が ;patch=n と記述されている場合は、このファイルをパッチファイルと見なして自動的にパッチを適用します。n の値は patch コマンドの -p オプションに渡される値です。
 </para></listitem>
-	<listitem><para>%define builddir �ˤϡ��ӥ�ɤ�Ԥ��ǥ��쥯�ȥ����ꤷ�ޤ���</para></listitem>
-	<listitem><para>%prep �ˤϡ�������Ÿ����˹Ԥ������򵭽Ҥ��ޤ���</para></listitem>
-	<listitem><para>%build �ˤϡ��ӥ�ɥ�����ץȤ򵭽Ҥ��ޤ���</para></listitem>
-	<listitem><para>%install �ˤϡ����ۥ��󥹥ȡ������������ץȤ򵭽Ҥ��ޤ���</para></listitem>
-	<listitem><para>%define devpkg �ˤϡ���ȯ�ѥå�����̾�ʤΥץ�ե������ˤ���ꤷ�ޤ���</para></listitem>
-	<listitem><para>%files �ˤϡ�ipkg �˴ޤ��ե������������󤷤ޤ���</para></listitem>
-	<listitem><para>%excludes �ˤϡ�ipkg �˴ޤ�ʤ��ե�����ѥ��������󤷤ޤ���</para></listitem>
-	<listitem><para>%strip �ˤϡ�ipkg �������� strip ��Ԥ��ե�����ѥ��������󤷤ޤ���</para></listitem>
-	<listitem><para>%control �ˤϡ�ipkg �� control �ե�����򵭽Ҥ��ޤ���</para></listitem>
+	<listitem><para>%define builddir には、ビルドを行うディレクトリを指定します。</para></listitem>
+	<listitem><para>%prep には、ソース展開後に行う処理を記述します。</para></listitem>
+	<listitem><para>%build には、ビルドスクリプトを記述します。</para></listitem>
+	<listitem><para>%install には、仮想インストール処理スクリプトを記述します。</para></listitem>
+	<listitem><para>%define devpkg には、開発パッケージ名（のプレフィクス）を指定します。</para></listitem>
+	<listitem><para>%files には、ipkg に含めるファイル一覧を列挙します。</para></listitem>
+	<listitem><para>%excludes には、ipkg に含めないファイルパターンを列挙します。</para></listitem>
+	<listitem><para>%strip には、ipkg 生成前に strip を行うファイルパターンを列挙します。</para></listitem>
+	<listitem><para>%control には、ipkg の control ファイルを記述します。</para></listitem>
       </itemizedlist>
 
-      <para>�ե�������� %{...} �Ȥ������Ҥ�����ޤ���������� %define ��������줿����ܥ���ִ�������䤬����ޤ������Ȥ��С�<command>%define foo bar</command> ��������Ƥ����ȡ��ʸ� %{foo} �� bar ���ִ�����ޤ���
+      <para>ファイル中に %{...} という記述がありますが、これは %define で定義されたシンボルを置換する役割があります。たとえば、<command>%define foo bar</command> と定義しておくと、以後 %{foo} は bar に置換されます。
 </para>
-      <para>%{config_opts} �� %{install_opts} ������ѤߤΥ���ܥ�ǡ������� <filename>script/config.def</filename>�����ꤵ��Ƥ��ޤ���</para>
+      <para>%{config_opts} や %{install_opts} は定義済みのシンボルで、これらは <filename>script/config.def</filename>で設定されています。</para>
 
-      <para>�嵭����ץ�ˤ����äƤ��ޤ��󤬡�%preinst, %postinst, %postrm, %conffiles ��Ȥ��� %control ��Ʊ�ͤ� ipkg ������ե����������Ǥ��ޤ���ipkg �ξܺ٤ϡ�<ulink url="http://zaurus-ja.sourceforge.jp/ipkg.html">ipkg ����ˤ�</ulink>�����ͤˤʤ�ޤ���</para>
+      <para>上記サンプルには入っていませんが、%preinst, %postinst, %postrm, %conffiles を使うと %control と同様に ipkg の制御ファイルを設定できます。ipkg の詳細は、<ulink url="http://zaurus-ja.sourceforge.jp/ipkg.html">ipkg を作るには</ulink>が参考になります。</para>
 
     </sect2>
 
     <sect2>
-      <title>Makefile �κ���</title>
-      <para>Makefile ��������ޤ���Glib �� Makefile ����򼨤��ޤ���</para>
+      <title>Makefile の作成</title>
+      <para>Makefile を作成します。Glib の Makefile の例を示します。</para>
       <programlisting>
 TOPDIR = ../..
 include $(TOPDIR)/script/common.mk
 </programlisting>
-      <para>TOPDIR ����ꤷ�ơ�common.mk �� include ��������ʤΤǡ�����ñ��Ǥ���</para>
+      <para>TOPDIR を指定して、common.mk を include するだけなので、非常に単純です。</para>
     </sect2>
 
     <sect2>
-      <title>�ӥ�ɤ�Ԥ�</title>
-      <para>�ӥ�ɼ��ϡ�<link linkend="build-each" endterm="build-each"/>��Ʊ���Ǥ���</para>
+      <title>ビルドを行う</title>
+      <para>ビルド手順は、<link linkend="build-each" endterm="build-each"/>と同じです。</para>
       <programlisting><command> $ make DevWorld</command></programlisting>
-      <para>�ե�ӥ�ɻ�������ư�ǥӥ�ɤ����褦�ˤ���ˤϡ�dirlist �ե�����˥ǥ��쥯�ȥ���ɲä��Ƥ����ޤ���</para>
+      <para>フルビルド時に全自動でビルドされるようにするには、dirlist ファイルにディレクトリを追加しておきます。</para>
     </sect2>
 
     <sect2>
-      <title>X/Qt-2 �ܲȤ˥ե����ɥХå�����ˤ�</title>
-      <para>���������ѥå������� X/Qt-2 �ܲȤ����줿�����ϡ�pkgdef �ե����������Ԥޤ� e-mail �����äƤ���������������¦��ư����ǧ�����ѥå�����������ߤޤ���</para>
+      <title>X/Qt-2 本家にフィードバックするには</title>
+      <para>作成したパッケージを X/Qt-2 本家に入れたい場合は、pkgdef ファイルを管理者まで e-mail で送ってください。管理者側で動作を確認し、パッケージを取り込みます。</para>
     </sect2>
   </sect1>
 
