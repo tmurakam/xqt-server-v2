@@ -29,6 +29,7 @@ $ipkg_build = File.expand_path(scriptdir + "/ipkg-build")
 
 $LOAD_PATH.push(scriptdir + "/lib")
 require "pkg"
+require "workstate"
 
 if (ARGV.size < 1)
     STDERR.puts "usage: #{$0} <command> <pkgdef file>..."
@@ -38,9 +39,9 @@ end
 cmd = ARGV.shift
 cmds = []
 if (cmd == "World")
-    cmds = ["cleanup", "source", "build", "install", "ipkg"]
+    cmds = ["source", "build", "install", "ipkg"]
 elsif (cmd == "DevWorld")
-    cmds = ["cleanup", "source", "build", "install", "devpkg", "install-devpkg", "ipkg"]
+    cmds = ["source", "build", "install", "devpkg", "install-devpkg", "ipkg"]
 else
     cmds = [cmd]
 end
@@ -81,10 +82,15 @@ deffiles.each do |file|
     end
 end
 
+workstate = WorkState.new
+
 cmds.each do |cmd|
+    next if (cmd != "cleanup" && workstate.done?(cmd))
+
     pkgs.each do |pkg|
 	case cmd
 	when "cleanup"
+	    workstate.clear()
 	    builddir = pkg.GetDefine("builddir")
 	    system("/bin/rm -rf #{destdir}")
 	    if (builddir != nil && builddir != "." && pkg.GetDefine("noclean") == nil)
@@ -114,5 +120,9 @@ cmds.each do |cmd|
 	    pkg.ExecSection(cmd)
 	end
     end
+
+    workstate.setdone(cmd) if (cmd != "cleanup")
 end
+
+workstate.save()
 
