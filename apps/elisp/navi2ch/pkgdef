@@ -1,0 +1,40 @@
+#
+# navi2ch
+# 
+
+%site
+http://easynews.dl.sourceforge.net/sourceforge/navi2ch
+
+%source
+navi2ch-1.7.5.tar.gz
+
+%define builddir navi2ch-1.7.5
+
+%build
+CONFIG_SITE= ./configure --prefix=%{prefix} \
+ --with-lispdir=%{prefix}/share/emacs/site-lisp/navi2ch \
+ --with-icondir=%{prefix}/share/emacs/21.3/etc/navi2ch/icons
+
+make
+
+%install
+make DESTDIR=%{destdir} install
+
+%files
+%{prefix}/share/emacs/
+
+%excludes
+*.el
+
+%control
+Package: navi2ch
+Priority: optional
+Section: elisp
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 1.7.5-1
+Depends: emacs21-withx
+Cardinst: enable
+License: GPL
+Description: navi2ch 2ch viewer
+ 2ch viewwer for emacsen
