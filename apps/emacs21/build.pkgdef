@@ -11,8 +11,7 @@ emacs-21.3.tar.gz
 %define builddir emacs-21.3
 
 # '-' が prefix に入っていると誤動作するため
-%define prefix	/opt/Embedix/tools/armlinux
-%define x_prefix %{prefix}
+%define prefix2	/opt/Embedix/tools/armlinux
 
 ####################################################
 # Stage 1
@@ -30,9 +29,9 @@ mkdir arm
 cd arm
 
 ### execute configure
-CONFIG_SITE= ../configure --prefix=%{prefix} --host=arm-linux \
+CONFIG_SITE= ../configure --prefix=%{prefix2} --host=arm-linux \
     --without-pop --with-x \
-    -x-includes="%{x_prefix}/include" -x-libraries="%{x_prefix}/lib"
+    -x-includes="%{prefix2}/include" -x-libraries="%{prefix2}/lib"
 
 ### copy some needed files
 mkdir lib-src
