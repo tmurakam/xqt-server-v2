@@ -11,7 +11,8 @@ uim-0.4.3.tar.gz
 %define builddir	uim-0.4.3
 
 %build
-./configure %{config_opts} %{x_opts} --without-gtk
+./configure %{config_opts} %{x_opts} --disable-applet --disable-xfce4-panel \
+ --without-gtk2 --without-gnome2
 make
 
 %install
