@@ -4,8 +4,8 @@ Priority: required
 Section: Qtopia
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 0.0.9
-Depends: xlibs,xbase-clients
+Version: 0.0.10
+Depends: xlibs,xbase-clients,freetype
 Description: X/Qt Server 
  XFree86 server port over Qtopia.
 License: GPL
