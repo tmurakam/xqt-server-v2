@@ -49,6 +49,11 @@
   &INPUTMETHOD;
 
   <sect1>
+    <title>Qtopia とのクリップボード共有 : xqtclip</title>
+    <para>執筆中</para>
+  </sect1>
+
+  <sect1>
     <title>ウィンドウマネージャ : blackbox</title>
     <para>執筆中</para>
   </sect1>
