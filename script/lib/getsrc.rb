@@ -32,7 +32,7 @@ module GetSource
 	basename = File.basename(filespec)
 
 	sitelist = nil
-	if (filespec =~ /^local:(\/\/)?(.*)/)
+	if (filespec =~ /^local:(?:\/\/)?(.*)/)
 	    # ローカルファイル
 	    path = $1
 	else
