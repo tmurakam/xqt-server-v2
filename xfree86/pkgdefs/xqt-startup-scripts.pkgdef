@@ -17,14 +17,13 @@ License: GPL
 #chown zaurus /home/zaurus/.xinitrc
 #chown zaurus /home/zaurus/.xserverrc
 
-%%% files
+%files
 !files/startx.desktop		opt/QtPalmtop/apps/Applications/
 !files/startx-wrapper		opt/QtPalmtop/bin/
 !files/dot.xinitrc		home/zaurus/.xinitrc
 !files/dot.xserverrc		home/zaurus/.xserverrc
 
-# TBD!!!
-#%%% exec
-#chmod 0755 .dist/opt/QtPalmtop/bin/startx-wrapper
-#chown 500:500 .dist/home/zaurus/.xinitrc
-#chown 500:500 .dist/home/zaurus/.xserverrc
+%preipkg
+chmod 0755    %{ipkgdir}/opt/QtPalmtop/bin/startx-wrapper
+chown 500:500 %{ipkgdir}/home/zaurus/.xinitrc
+chown 500:500 %{ipkgdir}/home/zaurus/.xserverrc

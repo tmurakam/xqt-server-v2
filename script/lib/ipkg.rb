@@ -33,7 +33,7 @@ module Ipkg
 	ExecSection("preipkg")
 
 	# パッケージ生成
-	system("ipkg-build .ipktmp")
+	system("#{$ipkg_build} .ipktmp")
     end
 
     # ファイルのコピー

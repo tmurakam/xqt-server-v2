@@ -8,6 +8,8 @@ distfiledir = topdir + "/distfile"
 destdir = File.expand_path("./dest")
 ipkgdir = File.expand_path("./.ipktmp")
 
+$ipkg_build = File.expand_path(scriptdir + "/ipkg-build")
+
 $LOAD_PATH.push(scriptdir + "/lib")
 require "pkg"
 
