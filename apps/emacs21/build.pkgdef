@@ -17,7 +17,7 @@ emacs-21.3.tar.gz
 ####################################################
 # Stage 1
 #
-%first-build
+%prebuild
 # i386 用のビルドを行う
 mkdir i386
 cd i386
