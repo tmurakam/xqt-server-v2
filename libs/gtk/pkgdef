@@ -1,0 +1,43 @@
+#
+# GTK+ 1.2
+# 
+
+%site
+ftp://ftp.gtk.org/pub/gtk/v1.2
+
+%source
+gtk+-1.2.10.tar.gz
+
+%define builddir	gtk+-1.2.10
+
+%build
+./configure %{config_opts} --disable-nls
+make
+
+%install
+make DESTDIR=%{destdir} install
+
+%define devpkg	glib
+
+%files
+%{prefix}/lib/libgtk*.so*
+%{prefix}/lib/libgdk*.so*
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: gtk+-1.2
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 1.2.10-2
+Depends:
+License: LGPL
+Description: GTK+ library
+ GTK+ 1.2 library
