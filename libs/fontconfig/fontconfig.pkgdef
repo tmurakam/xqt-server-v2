@@ -19,7 +19,8 @@ mv fc-lang/fc-lang fc-lang/fc-lang.native
 make distclean
 
 ./configure %{config_opts} --sysconfdir=/etc \
- --with-freetype-config=%{cross_prefix}/bin/freetype-config
+ --with-freetype-config=%{cross_prefix}/bin/freetype-config \
+ --with-add-fonts=%{prefix}/share/fonts,%{prefix}/lib/X11/fonts
 make -C fontconfig
 make -C src
 make -C fc-cache
