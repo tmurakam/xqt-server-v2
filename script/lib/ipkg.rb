@@ -3,16 +3,17 @@
 #
 module Ipkg
     # IPKG 作成
-    def BuildPkg
-	# パッケージディレクトリ作成
-	@pkgdir = Dir.pwd + "/.dist"
+    def BuildIpkg
+	@destdir = GetDefine("destdir")
+	@ipkdir = Dir.pwd + "/.ipktmp"
 
-	if (FileTest.exist?(@pkgdir))
-	    system("/bin/rm -rf #{@pkgdir}")
+	# パッケージ作成用ディレクトリ
+	if (FileTest.exist?(@ipkdir))
+	    system("/bin/rm -rf #{@ipkdir}")
 	end	
-	Dir.mkdir(@pkgdir)
+	Dir.mkdir(@ipkdir)
 
-	SetPkgDir(@pkgdir)
+	SetPkgDir(@ipkdir)
 
 	# ファイルコピー
 	CopyFiles()
@@ -34,26 +35,37 @@ module Ipkg
 	ExecSection("exec")
 
 	# パッケージ生成
-	system("ipkg-build .dist")
+	system("ipkg-build .ipktmp")
     end
 
     # ファイルのコピー
     def CopyFiles
 	return if (@sections["files"] == nil)
 
-	srcdir = ENV["BUILD_ROOT"]
+	builddir = GetDefine("builddir")
 
 	@sections["files"].each do |f|
-	    if (f =~ /^(.*)\s+(.*)$/)
-		srcfiles = $1
-		dest = @pkgdir + "/" + $2
-	    else 
-		srcfiles = f
-		dest = @pkgdir + "/" + File.dirname(f) + "/"
+	    # "!xxx" のように先頭に '!' がついている場合はカレントディレクトリからコピー。
+	    # ついていない場合は %{destdir} からコピー
+	    if (f =~ /^!(.*)/)
+		f = $1
+		srcdir = "."
+	    else
+		srcdir = @destdir
 	    end
-	    
-	    srcfiles = srcdir + "/" + srcfiles
 
+	    # "usr/etc/* etc/" のような場合は、第２引数の destination にコピー
+	    # 第２引数がない場合は、同一の構造を保つ
+	    if (f =~ /^(.*)\s+(.*)$/)
+		srcfiles = "#{srcdir}/#{$1}"
+		dest     = "#{@ipkdir}/#{$2}"
+	    else
+		srcfiles = "#{srcdir}/#{f}"
+		dest     = "#{@ipkdir}/#{File.dirname(f)}/"
+	    end
+
+	    # 第２引数が '/' で終わっている場合はディレクトリ名。
+	    # そうでない場合はファイル指定とみなす
 	    if (dest =~ /\/$/) 
 		system("mkdir -p #{dest}")
 	    else
@@ -77,9 +89,9 @@ module Ipkg
 	    end
 
 	    if (ex =~ /^!(.*)/)
-		cmdline = "cd #{@pkgdir}; #{cmd} #{$1}"
+		cmdline = "cd #{@ipkdir}; #{cmd} #{$1}"
 	    else
-		cmdline = "cd #{@pkgdir}; find . -name '#{ex}' -exec #{cmd} {} \\;";
+		cmdline = "cd #{@ipkdir}; find . -name '#{ex}' -exec #{cmd} {} \\;";
 	    end
 	    p cmdline
 	    system(cmdline) if (!$debug)
@@ -89,7 +101,7 @@ module Ipkg
     def PutControlFile(name, attr)
 	return if (@sections[name] == nil)
 
-	controldir = @pkgdir + "/CONTROL"
+	controldir = @ipkdir + "/CONTROL"
 	if (!FileTest.exist?(controldir))
 	    Dir.mkdir(controldir)
 	end
