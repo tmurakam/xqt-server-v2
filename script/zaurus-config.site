@@ -85,3 +85,6 @@ glib_cv_sizeof_gmutex=24
 
 # for AC_FUNC_REALLOC
 ac_cv_func_realloc_0_nonnull=yes
+
+# for glib-2.x
+ac_cv_func_posix_getpwuid_r=yes
