@@ -17,7 +17,7 @@ mv ../linuxthreads .
 mv ../linuxthreads_db .
 
 %build
-./configure --prefix=/usr --exec-prefix=/ --target=arm-linux --host=arm-linux \
+./configure --prefix=/usr --target=arm-linux --host=arm-linux \
 	--with-headers=/opt/Embedix/tools/arm-linux/include \
 	--enable-add-ons --disable-sanity-checks
 make
