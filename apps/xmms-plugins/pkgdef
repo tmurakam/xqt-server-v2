@@ -1,0 +1,42 @@
+#
+# xmms-mad
+# 
+
+%site
+http://umn.dl.sourceforge.net/sourceforge/xmms-mad
+
+%source
+xmms-mad-0.6.tar.gz
+
+%define builddir  xmms-mad-0.6
+
+%build
+./configure %{config_opts} --disable-static --enable-shared
+make
+
+%install
+make DESTDIR=%{destdir} install
+
+%devpkg xmms
+
+%files
+%{prefix}/lib
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: xmms-mad
+Priority: optional
+Section: multimedia
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 0.6-1
+Depends: xlibs, glib, gtk, xmms
+Cardinst: enable
+License: GPL
+Description: xmms plugin for MPEG layer 1/2/3 decoding using libmad
