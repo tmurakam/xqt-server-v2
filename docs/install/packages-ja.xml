@@ -1,8 +1,128 @@
 <?xml version="1.0" encoding="EUC-JP"?>
 
   <sect1 id="packages">
-    <title>インストールすべきパッケージ</title>
+    <title>インストールするパッケージの選択</title>
     <para>
       この節では、インストールするパッケージについて説明します。
     </para>
+  
+    <sect2>
+      <title>基本環境</title>
+      <para>
+	X/Qt サーバ群は必須です。'本体メモリのみ' と記述されたもの以外は
+	SD カードにもインストールできますが、できれば基本環境は本体メモリに
+	入れてください。
+
+	<itemizedlist>
+	  <listitem><para>xqt-server</para></listitem>
+	</itemizedlist>
+
+	次に、基本ライブラリ/クライアントが必要です。
+
+	<itemizedlist>
+	  <listitem><para>xbase-etc (本体メモリのみ)</para></listitem>
+	  <listitem><para>xlibs (本体メモリのみ)</para></listitem>
+	  <listitem><para>xqt-startup-scripts(本体メモリのみ)</para></listitem>
+	  <listitem><para>xbase-clients</para></listitem>
+	</itemizedlist>
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>フォント</title>
+      <para>
+	フォントを選択してインストールします。
+	<itemizedlist>
+	  <listitem><para>xqt-fonts-75dpi-iso8859-1 : 欧文フォント</para></listitem>
+	  <listitem><para>xqt-fonts-misc : XFree86 の misc フォント。k14が入っている。</para></listitem>
+	  <listitem><para>xqt-fonts-misc-big : 上記に加え naga10/shinonome12 を追加したもの。</para></listitem>
+	</itemizedlist>
+
+	xqt-fonts-75dpi-iso8859-1 は必須です。xqt-fonts-misc... はどちらか片方を入れてください。
+      </para>
+	
+	
+    </sect2>
+
+    <sect2>
+      <title>日本語環境</title>
+      <para>
+	日本語の処理/表示のために、以下の環境です。事実上、すべて必須と言えます。
+	以下のものはすべて本体メモリにしかインストールできません。
+
+	<itemizedlist>
+	  <listitem><para>glibc-locale-eucjp</para></listitem>
+	  <listitem><para>gconv-cp932</para></listitem>
+	  <listitem><para>gconv-euc-jp-ms</para></listitem>
+	  <listitem><para>gconv-iso-2022-jp</para></listitem>
+	  <listitem><para>gconv-libjis</para></listitem>
+	  <listitem><para>gconv-modules-force-cp932</para></listitem>
+	  <listitem><para>xqt-fonts-encodings</para></listitem>
+	</itemizedlist>
+      </para>
+
+      <para>
+	日本語の入力用に、インプットメソッドが必要になります。X/Qt では、UIM/Anthy を
+	推奨しています。
+
+	<itemizedlist>
+	  <listitem><para>uim-xim</para></listitem>
+	  <listitem><para>anthy</para></listitem>
+	</itemizedlist>
+
+	<note>
+	  <para>
+	    UIM/Anthy を使用する場合、<filename>/home/zaurus/.xinitrc</filename>に以下の
+	    行を追記する必要があります。
+
+	    <programlisting>
+export XMODIFIERS=@im=uim-anthy
+exec uim-xim &amp;
+	    </programlisting>
+	  </para>
+	</note>
+      </para>
+    </sect2>
+    
+    <sect2>
+      <title>GTK+</title>
+      <para>
+	GTK+ ライブラリは、Sylpheed や dillo などの動作に必須となります。
+
+	<itemizedlist>
+	  <listitem><para>glib-additional</para></listitem>
+	  <listitem><para>gtk</para></listitem>
+	  <listitem><para>gdk-pixbuf</para></listitem>
+	</itemizedlist>
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>その他のパッケージ</title>
+      <para>
+	以下のパッケージは利用頻度が高いので、インストールすることを推奨します。
+
+	<itemizedlist>
+	  <listitem><para>zlib</para></listitem>
+	  <listitem><para>openssl</para></listitem>
+	  <listitem><para>xqtclip</para></listitem>
+	</itemizedlist>
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>アプリケーション</title>
+      <para>
+	利用したいアプリケーションをインストールします。
+
+	<itemizedlist>
+	  <listitem><para>rxvt : ターミナル。これは必須です。</para></listitem>
+	  <listitem><para>blackbox : ウィンドウマネージャ。これも必須。(本体メモリのみ)</para></listitem>
+	  <listitem><para>Sylpheed : GUI メーラ</para></listitem>
+	  <listitem><para>Dillo : Web ブラウザ</para></listitem>
+	  <listitem><para>Emacs : エディタ</para></listitem>
+	  <listitem><para>Wanderlust : Emacs で動作するメーラ</para></listitem>
+	  <listitem><para>navi2ch : Emacs で動作する 2ch リーダ</para></listitem>
+      </para>
+    </sect2>
   </sect1>
