@@ -25,11 +25,10 @@ make
 %install
 make %{install_opts} install
 
-%define devpkg	gtk
+%define devpkg	gdk-pixbuf
 
 %files
-%{prefix}/lib/libgtk*.so*
-%{prefix}/lib/libgdk*.so*
+%{prefix}/lib
 
 %excludes
 *.la
@@ -39,13 +38,16 @@ make %{install_opts} install
 *.so*
 
 %control
-Package: gtk+-1.2
+Package: gdk-pixbuf
 Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 1.2.10-2
-Depends:
+Version: 0.22.0-2
+Depends: xlibs, gtk, libpng
 License: LGPL
-Description: GTK+ library
- GTK+ 1.2 library
+Description:  gdk-pixbuf image loading library
+ The gdk-pixbuf package contains an image loading library, which
+ provides image loading facilities, the rendering of a GdkPixBuf
+ into various formats (drawables or GdkRGB buffers), and a cache
+ interface.
