@@ -1,7 +1,7 @@
 /****************************************************************************
 ** XEventWatcher meta object code from reading C++ file 'xqtclip.h'
 **
-** Created: Sun Oct 3 19:43:29 2004
+** Created: Sun Oct 17 00:04:27 2004
 **      by: The Qt MOC ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!
