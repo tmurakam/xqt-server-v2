@@ -1,0 +1,21 @@
+%env CC		/opt/Embedix/tools/bin/arm-linux-gcc
+%env CXX	/opt/Embedix/tools/bin/arm-linux-g++
+%env LD		/opt/Embedix/tools/bin/arm-linux-ld
+%env AR		/opt/Embedix/tools/bin/arm-linux-ar
+%env AS		/opt/Embedix/tools/bin/arm-linux-as
+%env RANLIB	/opt/Embedix/tools/bin/arm-linux-ranlib
+%env STRIP	/opt/Embedix/tools/bin/arm-linux-strip
+%env AS		/opt/Embedix/tools/bin/arm-linux-as
+
+%env CC_FOR_BUILD	gcc
+%env HOST_CC		gcc
+
+%env PKG_CONFIG_PATH	/opt/Embedix/tools/arm-linux/lib/pkgconfig
+
+%env CONFIG_SITE	%{scriptdir}/zaurus-config.site
+
+
+%define	cross_prefix	/opt/Embedix/tools/arm-linux
+%define	x_prefix	/opt/Embedix/tools/arm-linux/X11R6
+
+%define config_opts	--host=arm-linux --prefix=/usr

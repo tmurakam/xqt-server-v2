@@ -1,0 +1,67 @@
+#!/usr/bin/ruby
+
+$debug = false
+
+scriptdir = File.expand_path(File.dirname($0))
+topdir    = File.expand_path(scriptdir + "/..")
+distfiledir = topdir + "/distfile"
+destdir = File.expand_path("./dest")
+
+$LOAD_PATH.push(scriptdir + "/lib")
+require "pkg"
+
+#SetupEnv()
+
+if (ARGV.size < 1)
+    STDERR.puts "usage: #{$0} <command> <pkgdef file>..."
+    exit 1
+end
+
+cmd = ARGV.shift
+cmds = []
+if (cmd == "all")
+    cmds = ["cleanup", "source", "build", "install", "ipkg"]
+else
+    cmds = [cmd]
+end
+
+deffiles = ARGV
+if (deffiles.size == 0)
+    deffiles = ["pkgdef"]
+end
+
+deffiles.each do |file|
+
+    # パッケージ定義を読み込む
+    pkg = Pkgdef.new
+    pkg.SetDefine("destdir", destdir)
+    pkg.SetDefine("scriptdir", scriptdir)
+
+    pkg.SetDistFileDir(distfiledir)
+
+    pkg.Load(scriptdir + "/config.def")
+    pkg.Load(file)
+
+    # sanity check...
+    builddir = pkg.GetDefine("builddir")
+    if (builddir == nil)
+	STDERR.puts("builddir is not defined.")
+	exit 1
+    end
+
+    cmds.each do |cmd|
+	case cmd
+	when "cleanup"
+	    if (pkg.GetDefine("noclean") == nil || builddir != ".")
+		system("/bin/rm -rf #{builddir} #{destdir}")
+	    end
+	when "source"
+	    pkg.getSource
+	when "ipkg"
+	    # not yet
+	else
+	    pkg.ExecSection(cmd)
+	end
+    end
+end
+
