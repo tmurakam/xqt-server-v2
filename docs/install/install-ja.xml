@@ -8,7 +8,7 @@
 <!ENTITY INSTPROC SYSTEM "instproc-ja.xml">
 <!ENTITY PACKAGES SYSTEM "packages-ja.xml">
 <!ENTITY STARTUP SYSTEM "startup-ja.xml">
-<!ENTITY APPENDIX SYSTEM "appendix-ja.xml">
+<!ENTITY COPYRIGHT SYSTEM "../common/copyright-ja.xml">
 ]>
 
 <article lang="ja">
@@ -46,7 +46,7 @@
   &INSTPROC;
   &PACKAGES;
   &STARTUP;
-  &APPENDIX;
+  &COPYRIGHT;
 
 </article>
 
