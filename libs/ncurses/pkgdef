@@ -1,5 +1,5 @@
 #
-# libjpeg
+# ncurses
 # 
 
 %site
@@ -15,20 +15,18 @@ local:ncurses-4.2.cross.patch;patch=1
 /bin/rm -rf Ada95
 
 %build
-./configure %{config_opts} --without-normal --with-shared --without-profile --without-debug \
+# --includedir を指定するとうまく行かない、、、
+./configure --host=%{arch} --prefix=%{prefix} --libdir=%{cross_prefix}/lib \
+ --with-install-prefix=%{destdir} \
+ --without-normal --with-shared --without-profile --without-debug \
  --without-ada --without-progs --without-cxx-binding
 
 make HOSTCC=$CC_FOR_BUILD
 
 %install
-mkdir -p %{destdir}%{prefix}/bin
-mkdir -p %{destdir}%{prefix}/include
-mkdir -p %{destdir}%{prefix}/lib
-mkdir -p %{destdir}%{prefix}/man/man1
-make install prefix=%{destdir}%{prefix} \
- libdir=%{destdir}%{prefix}/lib includedir=%{destdir}%{prefix}/include
+make DESTDIR=%{destdir} libdir=%{prefix}/lib install
 
-%define devpkg	libjpeg
+%define devpkg ncurses
 
 %files
 %{prefix}/lib/*.so*
@@ -39,17 +37,3 @@ make install prefix=%{destdir}%{prefix} \
 
 %strip
 *.so*
-
-%control
-Package: libjpeg
-Priority: optional
-Section: libs
-Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
-Architecture: arm
-Version: 6b-1
-Depends:
-License: Distributable
-Description: A library for manipulating JPEG image format files.
- The libjpeg package contains a library of functions for manipulating
- JPEG images, as well as simple client programs for accessing the
- libjpeg functions.
