@@ -1,0 +1,23 @@
+#
+# fontconfig-etc
+# 
+
+%define builddir	fontconfig-2.2.1
+
+%files
+etc
+
+%excludes
+
+%strip
+
+%control
+Package: fontconfig-etc
+Priority: fontconfig-etc
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 2.2.1-1
+Depends: fontconfig
+License:
+Description: fontconfig configration files
