@@ -1,0 +1,47 @@
+#
+# Glib 1.2
+# 
+
+%site
+ftp://ftp.gtk.org/pub/gtk/v1.2
+
+%source
+glib-1.2.10.tar.gz
+local:glib-1.2.10-cross.patch;patch=1
+
+%define builddir	glib-1.2.10
+
+%prep
+aclocal
+
+%build
+./configure %{config_opts} --enable-shared --disable-static
+make
+
+%install
+make DESTDIR=%{destdir} install
+
+%define devpkg	glib
+
+%files
+opt/QtPalmtop/lib/libgmodule*
+opt/QtPalmtop/lib/libgthread*
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: glib-additional
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 1.2.10-2
+Depends:
+License: LGPL
+Description: glib additional libraries
+  libgmodule.so and libgthread.so
