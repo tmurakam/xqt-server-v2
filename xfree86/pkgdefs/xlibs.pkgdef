@@ -11,12 +11,12 @@ Description: X11 libraries
 License: MIT
 
 %files
-opt/QtPalmtop/lib
+%{prefix}/lib
 
 %excludes
 *.la
 *.a
-!opt/QtPalmtop/lib/X11/config
+!%{prefix}/lib/X11/config
 
 %strip
 *.so*

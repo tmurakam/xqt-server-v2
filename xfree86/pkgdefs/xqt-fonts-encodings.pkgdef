@@ -11,4 +11,4 @@ Description: X11 base font encodings
 License: MIT
 
 %files
-opt/QtPalmtop/lib/X11/fonts/encodings
+%{prefix}/lib/X11/fonts/encodings

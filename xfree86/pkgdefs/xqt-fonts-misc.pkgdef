@@ -11,4 +11,4 @@ Description: X11 misc fonts
 License: MIT
 
 %files
-opt/QtPalmtop/lib/X11/fonts/misc
+%{prefix}/lib/X11/fonts/misc

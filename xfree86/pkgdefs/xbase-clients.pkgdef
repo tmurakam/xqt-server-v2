@@ -11,7 +11,7 @@ Description: X11 base clients
 License: MIT
 
 %files
-opt/QtPalmtop/bin
+%{prefix}/bin
 
 %excludes
 Xqt
