@@ -1,0 +1,108 @@
+--- tiff-v3.6.1.org/config.site	2002-10-12 21:52:46.000000000 +0900
++++ tiff-v3.6.1/config.site	2004-10-04 20:59:47.000000000 +0900
+@@ -1,4 +1,4 @@
+-# $Header: /cvsroot/osrs/libtiff/config.site,v 1.8 2002/10/11 14:33:49 dron Exp $
++# $Header: /cvsroot/xqt/libs/libtiff/config.site,v 1.3 2004/02/09 16:25:49 tmurakam Exp $
+ #
+ # TIFF Software
+ #
+@@ -40,23 +40,23 @@
+ #
+ # Package controls.
+ #
+-#DSO="auto"			# auto|IRIX|IRIX52 enable DSO support for system
++DSO="auto"			# auto|IRIX|IRIX52 enable DSO support for system
+ #JPEG="yes"			# yes|no configure JPEG support (see below)
+ #ZIP="yes"			# yes|no configure Deflate support (see below)
+ #LIBGL="auto"			# yes|no|auto configure IRIS GL-based tools
+ #LIBIMAGE="auto"		# yes|no|auto configure SGI RGB image tools
+ #HTML="yes"			# yes|no install HTML documentation
+ 
+-#NONINTERACTIVE=yes		# yes|no Don't ask for confirmation on console
++NONINTERACTIVE=yes		# yes|no Don't ask for confirmation on console
+ 
+ #
+ # Directory parameters.
+ #
+-#DIR_BIN="/usr/local/bin"		# directory for tools
+-#DIR_LIB="/usr/local/lib"		# directory for libraries
+-#DIR_INC="/usr/local/include"		# directory for include files
+-#DIR_MAN="/usr/local/man"		# directory for manual pages
+-#DIR_HTML="/var/httpd/htdocs/tiff"	# directory for HTML documentation
++DIR_BIN="/opt/QtPalmtop/bin"		# directory for tools
++DIR_LIB="/opt/QtPalmtop/lib"		# directory for libraries
++DIR_INC="/opt/QtPalmtop/include"	# directory for include files
++DIR_MAN="/opt/QtPalmtop/man"		# directory for manual pages
++DIR_HTML="/opt/QtPalmtop/htdocs/tiff"	# directory for HTML documentation
+ 
+ #
+ # Configuring supporting libraries.
+@@ -136,16 +136,18 @@
+ # Beware of changing the INSTALL definition; you *must* have an
+ # install script that emulates the Silicon Graphics install program!
+ #
+-#AR="/bin/ar"				# pathname of suitable ar program
++AR="/opt/Embedix/tools/bin/arm-linux-ar"			# pathname of suitable ar program
+ #AROPTS="rc"				# options to ar for creating archive
+-#CC="gcc"				# name/pathname of C compiler
++CC="/opt/Embedix/tools/bin/arm-linux-gcc"			# name/pathname of C compiler
+ #CCOMPILER=/opt/ansic/bin/$CC		# path to compiler if not in PATH.
+ #ENVOPTS="-Aa"				# options for getting ANSI C
+ #GCOPTS="-g"				# options to pass C compiler
+-#OPTIMIZER="-O"				# Optimization options for compiler
++GCOPTS="-O2"
++OPTIMIZER="-O"				# Optimization options for compiler
+ #LDFLAGS="-Wl,-O"                       # Special linker flags.
+ #LIBPORT='${PORT}/libport.a'		# library with emulation code
+-#MACHDEPLIBS="-lm"			# extra libraries for linking
++MACHDEPLIBS="-lm"			# extra libraries for linking
++MACHLIBDEPS="-lm"			# extra libraries for linking
+ #PORTFUNCS=""				# non-standard functions to emulate
+ #RANLIB=":"				# pathname of suitable ranlib program
+ #DSOSUF="so"				# DSO filename suffix
+@@ -166,9 +168,9 @@
+ #
+ #CHMOD="/etc/chmod"			# pathname of suitable chmod program
+ #INSTALL='${SHELL} ${PORT}/install.sh'	# SGI install program/emulator
+-#LN="/bin/ln"				# pathname of suitable ln program
+-#LN_S="-s"				# option to ${LN} to create symlink
+-#MV_F="-f"				# option to ${MV} to force operation
+-#SED="/bin/sed"				# pathname of suitable sed program
+-#SCRIPT_SH="/bin/sh"			# pathname of suitable shell
+-#STRIP="/bin/strip"			# strip program used by install.sh
++LN="/bin/ln"				# pathname of suitable ln program
++LN_S="-s"				# option to ${LN} to create symlink
++MV_F="-f"				# option to ${MV} to force operation
++SED="/bin/sed"				# pathname of suitable sed program
++SCRIPT_SH="/bin/sh"			# pathname of suitable shell
++STRIP="arm-linux-strip"			# strip program used by install.sh
+diff -ur tiff-v3.6.1.org/libtiff/Makefile.in tiff-v3.6.1/libtiff/Makefile.in
+--- tiff-v3.6.1.org/libtiff/Makefile.in	2003-11-17 18:24:41.000000000 +0900
++++ tiff-v3.6.1/libtiff/Makefile.in	2004-10-04 20:56:14.000000000 +0900
+@@ -237,7 +237,7 @@
+ LINUXdso:  ${OBJS}
+ 	${CC} -shared -Wl,-soname,libtiff.@DSOSUF@ \
+ 	    -o libtiff.@DSOSUF_VERSION@  ${OBJS} \
+-		@LIBJPEG@ @LIBGZ@ @MACHLIBDEPS@
++		@LIBJPEG@ @LIBGZ@ @MACHDEPLIBS@
+ 	rm -f libtiff.@DSOSUF@
+ 	@LN@ @LN_S@ libtiff.@DSOSUF_VERSION@ libtiff.@DSOSUF@
+ 	touch $@
+@@ -265,7 +265,7 @@
+ RELEASE_DATE = @RELEASE_DATE_FILE@
+ 
+ ${SRCDIR}/tiffvers.h: ${VERSION} ${SRCDIR}/mkversion.c
+-	${CC} -o mkversion ${CFLAGS} ${SRCDIR}/mkversion.c
++	${HOST_CC} -o mkversion ${CFLAGS} ${SRCDIR}/mkversion.c
+ 	rm -f ${SRCDIR}/tiffvers.h
+ 	./mkversion -v ${VERSION} -r ${RELEASE_DATE} ${SRCDIR}/tiffvers.h
+ 
+@@ -277,7 +277,7 @@
+ # make these rules have to be manually carried out.
+ #
+ tif_fax3sm.c: ${SRCDIR}/mkg3states.c ${SRCDIR}/tif_fax3.h
+-	${CC} -o mkg3states ${CFLAGS} ${SRCDIR}/mkg3states.c
++	${HOST_CC} -o mkg3states ${CFLAGS} ${SRCDIR}/mkg3states.c
+ 	rm -f tif_fax3sm.c; ./mkg3states -c const tif_fax3sm.c
+ 
+ tif_aux.o: ${SRCDIR}/tif_aux.c

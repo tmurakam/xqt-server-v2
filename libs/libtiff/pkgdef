@@ -1,0 +1,42 @@
+#
+# libtiff
+# 
+
+%site
+ftp://ftp.remotesensing.org/pub/libtiff
+
+%source
+tiff-v3.6.1.tar.gz
+local:cross.patch;patch=1
+
+%define builddir tiff-v3.6.1
+
+%build
+./configure --target=arm-linux
+make
+
+%install
+make %{install_opts} install
+
+%define devpkg	libtiff
+
+%files
+%{prefix}/lib/*.so*
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: libtiff
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 3.6.1-1
+Depends:
+License: distributable
+Description: A library for manipulating TIFF image format files.
