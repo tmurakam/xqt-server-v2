@@ -18,10 +18,17 @@ make
 make %{install_opts} install
 
 %files
-%{prefix}
+%{prefix}/bin
+%{prefix}/lib
+%{prefix}/share
 
 %strip
 !%{prefix}/bin/*
+*.so*
+
+%excludes
+*.a
+*.la
 
 %control
 Package: ochusha
