@@ -8,8 +8,8 @@ http://teki.jpn.ph/pc/software/dillo-0.8.0-i18n-misc-20040627.tar.gz
 %define builddir  dillo-0.8.0-i18n-misc-20040627
 
 %build
-ac_cv_path_KRB5_CONFIG=no ./configure %{config_opts} %{x_opts} --disable-anti-alias
-#make
+ac_cv_path_KRB5_CONFIG=no ./configure %{config_opts} %{x_opts} --enable-anti-alias
+make
 
 %install
 make %{install_opts} install
