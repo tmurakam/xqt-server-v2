@@ -1,0 +1,16 @@
+%control
+Package: xqt-fonts-75dpi-iso8859-1
+Priority: optional
+Section: fonts
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 4.3.0-2
+Depends: xlibs
+Description: X11 ISO-8859-1 75dpi fonts
+ XFree86 ISO-8859-1 75dpi fonts files
+License: MIT
+
+%files
+%{prefix}/lib/X11/fonts/75dpi/fonts.dir
+%{prefix}/lib/X11/fonts/75dpi/fonts.alias
+%{prefix}/lib/X11/fonts/75dpi/*ISO8859-1.pcf.gz
