@@ -1,0 +1,50 @@
+#
+# libjpeg
+# 
+
+%site
+http://www.ijg.org/files/
+
+%source
+jpegsrc.v6b.tar.gz
+local:jpeg-6b.cross.patch;patch=1
+
+%define builddir	jpeg-6b
+
+%build
+./configure %{config_opts} --enable-shared --disable-static
+make
+
+%install
+mkdir -p %{destdir}%{prefix}/bin
+mkdir -p %{destdir}%{prefix}/include
+mkdir -p %{destdir}%{prefix}/lib
+mkdir -p %{destdir}%{prefix}/man/man1
+make install prefix=%{destdir}%{prefix} \
+ libdir=%{destdir}%{prefix}/lib includedir=%{destdir}%{prefix}/include
+
+%define devpkg	libjpeg
+
+%files
+%{prefix}/lib/*.so*
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: libjpeg
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 6b-1
+Depends:
+License: Distributable
+Description: A library for manipulating JPEG image format files.
+ The libjpeg package contains a library of functions for manipulating
+ JPEG images, as well as simple client programs for accessing the
+ libjpeg functions.

@@ -1,0 +1,26 @@
+diff -urN jpeg-6b.org/configure jpeg-6b/configure
+--- jpeg-6b.org/configure	1998-03-22 04:08:57.000000000 +0900
++++ jpeg-6b/configure	2004-10-03 16:37:24.000000000 +0900
+@@ -1559,7 +1559,7 @@
+   if test "x$LTSTATIC" = xno; then
+     disable_static="--disable-static"
+   fi
+-  $srcdir/ltconfig $disable_shared $disable_static $srcdir/ltmain.sh
++  $srcdir/ltconfig $disable_shared $disable_static $srcdir/ltmain.sh ${host}
+ fi
+ 
+ # Select memory manager depending on user input.
+diff -urN jpeg-6b.org/makefile.cfg jpeg-6b/makefile.cfg
+--- jpeg-6b.org/makefile.cfg	1998-03-22 04:08:57.000000000 +0900
++++ jpeg-6b/makefile.cfg	2004-10-03 16:37:46.000000000 +0900
+@@ -12,8 +12,8 @@
+ prefix = @prefix@
+ exec_prefix = @exec_prefix@
+ bindir = $(exec_prefix)/bin
+-libdir = $(exec_prefix)/lib
+-includedir = $(prefix)/include
++libdir = @libdir@
++includedir = @includedir@
+ binprefix =
+ manprefix =
+ manext = 1
