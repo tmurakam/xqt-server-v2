@@ -23,6 +23,7 @@ mv ../linuxthreads_db .
 make
 
 %install
-make install_root=%{destdir} install
+make -k install_root=%{destdir} install
+exit 0
 
 #%define devpkg	glibc

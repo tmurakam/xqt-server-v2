@@ -1,3 +1,12 @@
+%define builddir	glibc-2.2.2
+
+%install
+mkdir -p %{destdir}/usr/lib/locale
+localedef -f localedata/charmaps/UTF-8  -i localedata/locales/ja_JP %{destdir}/usr/lib/locale/ja_JP.utf8
+
+%files
+usr/lib/locale/ja_JP.utf8
+
 %control
 Package: glibc-locale-ja-utf8
 Priority: optional
@@ -9,11 +18,3 @@ Depends:
 License: LGPL
 Description: GNU libc locale data (UTF8)
  GNU libc locale data for ja_JP.utf8
-
-%build
-mkdir -p %{destdir}/usr/lib/locale
-localedef -f localedata/charmaps/UTF-8  -i localedata/locales/ja_JP %{destdir}/usr/lib/locale/ja_JP.utf8
-
-%files
-usr/lib/locale/ja_JP.utf8
-

@@ -1,3 +1,12 @@
+%define builddir	glibc-2.2.2
+
+%install
+mkdir -p %{destdir}/usr/lib/locale
+localedef -f localedata/charmaps/EUC-JP -i localedata/locales/ja_JP %{destdir}/usr/lib/locale/ja_JP.eucjp
+
+%files
+usr/lib/locale/ja_JP.eucjp
+
 %control
 Package: glibc-locale-ja-eucjp
 Priority: optional
@@ -9,11 +18,3 @@ Depends:
 License: LGPL
 Description: GNU libc locale data (eucjp)
  GNU libc locale data for ja_JP.eucjp
-
-%build
-mkdir -p %{destdir}/usr/lib/locale
-localedef -f localedata/charmaps/EUC-JP -i localedata/locales/ja_JP %{destdir}/usr/lib/locale/ja_JP.eucjp
-
-%files
-usr/lib/locale/ja_JP.eucjp
-
