@@ -36,7 +36,7 @@
 #define XqtXServer              YES
 #define	XF86Server		NO
 #define BuildServersOnly	NO	/* YES にすると FreeType がリンクされないので注意 */
-#define BuildFonts 		NO	/* Font をビルドするときはこれを YES に */
+#define BuildFonts 		YES	/* Font をビルドするときはこれを YES に */
 
 #define TinyXServer             YES
 #define KDriveXServer 		YES
@@ -50,8 +50,16 @@
 
 /* FreeType を有効にする */
 #define	BuildFreeType		YES
-#define Freetype2Dir            $(TOP)/extras/freetype2
-#define Freetype2LibDir         $(TOP)/exports/lib
+#define HasFontconfig		YES
+#define UseFontconfig		YES
+#define	HasFreetype2		YES
+#define HasExpat		YES
+
+#define Freetype2Dir		/opt/Embedix/tools/arm-linux
+#define FontconfigDir		/opt/Embedix/tools/arm-linux
+#define ExpatDir		/opt/Embedix/tools/arm-linux
+/*#define Freetype2Dir            $(TOP)/extras/freetype2*/
+/*#define Freetype2LibDir         $(TOP)/exports/lib*/
 
 /* X-TT は無効にする */
 #define BuildXTrueType          NO
