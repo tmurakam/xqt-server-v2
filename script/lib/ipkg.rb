@@ -5,13 +5,14 @@ module Ipkg
     # IPKG 作成
     def BuildIpkg
 	@destdir = GetDefine("destdir")
-	@ipkgdir  = GetDefine("ipkgdir")
+	ipkgdir  = GetDefine("ipkgdir")
+	@tmpdir = ipkgdir + "/.ipktmp"
 
 	# パッケージ作成用ディレクトリ
-	if (FileTest.exist?(@ipkgdir))
-	    system("/bin/rm -rf #{@ipkgdir}")
+	if (FileTest.exist?(@tmpdir))
+	    system("/bin/rm -rf #{@tmpdir}")
 	end	
-	Dir.mkdir(@ipkgdir)
+	Dir.mkdir(@tmpdir)
 
 	# ファイルコピー
 	CopyFiles()
@@ -33,7 +34,7 @@ module Ipkg
 	ExecSection("preipkg")
 
 	# パッケージ生成
-	system("#{$ipkg_build} .ipktmp")
+	system("cd #{ipkgdir} && #{$ipkg_build} .ipktmp")
     end
 
     # ファイルのコピー
@@ -58,10 +59,10 @@ module Ipkg
 	    # 第２引数がない場合は、同一の構造を保つ
 	    if (f =~ /^(\S+)\s+(.*)$/)
 		srcfiles = "#{srcdir}/#{$1}"
-		dest     = "#{@ipkgdir}/#{$2}"
+		dest     = "#{@tmpdir}/#{$2}"
 	    else
 		srcfiles = "#{srcdir}/#{f}"
-		dest     = "#{@ipkgdir}/#{File.dirname(f)}/"
+		dest     = "#{@tmpdir}/#{File.dirname(f)}/"
 	    end
 
 	    # 第２引数が '/' で終わっている場合はディレクトリ名。
@@ -89,9 +90,9 @@ module Ipkg
 	    end
 
 	    if (ex =~ /^!(.*)/)
-		cmdline = "cd #{@ipkgdir}; #{cmd} #{$1}"
+		cmdline = "cd #{@tmpdir}; #{cmd} #{$1}"
 	    else
-		cmdline = "cd #{@ipkgdir}; find . -name '#{ex}' -exec #{cmd} {} \\;";
+		cmdline = "cd #{@tmpdir}; find . -name '#{ex}' -exec #{cmd} {} \\;";
 	    end
 	    p cmdline
 	    system(cmdline) if (!$debug)
@@ -101,7 +102,7 @@ module Ipkg
     def PutControlFile(name, attr)
 	return if (@sections[name] == nil)
 
-	controldir = @ipkgdir + "/CONTROL"
+	controldir = @tmpdir + "/CONTROL"
 	if (!FileTest.exist?(controldir))
 	    Dir.mkdir(controldir)
 	end
