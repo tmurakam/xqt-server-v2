@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+
+  <sect1 id="startup">
+    <title>X/Qt の起動</title>
+    <sect2>
+      <title>X/Qt の起動</title>
+      <para>
+	X/Qt を起動します。"Start X" アイコンをタップして X/Qt を起動します。
+
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/startx.png" format="PNG"/>
+      </imageobject>
+      </mediaobject>
+
+	正常に X/Qt が起動すると、以下のように X/Qt の画面が表示されます。
+
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/initialscreen.png" format="PNG"/>
+      </imageobject>
+      </mediaobject>
+
+	おめでとうございます！これで X/Qt のインストールは完了です。
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>X/Qt の利用</title>
+      <para>
+	X/Qt の利用方法については、X/Qt リファレンスマニュアルをご覧ください。
+      </para>
+    </sect2>
+  </sect1>
