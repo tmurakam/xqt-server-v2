@@ -86,7 +86,7 @@ cmds.each do |cmd|
 	case cmd
 	when "cleanup"
 	    builddir = pkg.GetDefine("builddir")
-	    if (pkg.GetDefine("noclean") == nil || builddir != ".")
+	    if (builddir != nil && builddir != "." && pkg.GetDefine("noclean") == nil)
 		system("/bin/rm -rf #{builddir} #{destdir}")
 	    end
 	when "source"
