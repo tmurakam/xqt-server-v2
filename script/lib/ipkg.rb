@@ -87,14 +87,12 @@ module Ipkg
 	return if (@sections[section] == nil)
 	
 	@sections[section].each do |ex|
-	    # does not allow full path
-	    if (ex =~ /^\/(.*)/)
-		ex = $1
-	    end
-
 	    if (ex =~ /^!(.*)/)
-		cmdline = "cd #{@tmpdir}; #{cmd} #{$1}"
+		ex = $1
+		ex.sub!(/^\//, "")
+		cmdline = "cd #{@tmpdir}; #{cmd} #{ex}"
 	    else
+		ex.sub!(/^\//, "")
 		cmdline = "cd #{@tmpdir}; find . -name '#{ex}' -exec #{cmd} {} \\;";
 	    end
 	    p cmdline
