@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+
+  <sect1 id="instproc">
+    <title>X/Qt のインストール</title>
+    <para>
+      この節では、X/Qt のインストール手順について、順を追って説明します。
+    </para>
+
+    <sect2>
+      <title>SD カードのフォーマット</title>
+      <para>
+	これは必須の手順ではありませんが、SD カードを ext2 でフォーマットしておくことを
+	強く推奨します。ext2 フォーマットになっていないと、X/Qt のパッケージを SD カードに
+	インストールしたときに誤動作する可能性があります。
+      </para>
+      <para>
+	SD カードのフォーマットは、コマンドラインから以下のように入力します。
+	<programlisting>
+ $ su
+ # umount /mnt/card
+ # mkfs.ext2 /dev/mmcda1
+ # mount /mnt/card
+	</programlisting>
+	<note>
+	  <para>
+	    コマンドラインを使用するには、ターミナルや embeddedkonsole などを使ってください。
+	    ターミナルは付属 CD-ROM からインストールできます。
+	    embeddedkonsole は、<ulink url="http://sourceforge.jp/projects/zaurus-ja/">zaurus-ja</ulink>
+	    から入手できます。
+	    なお、X/Qt のインストール後は、rxvt を使用できます。
+	  </para>
+	</note>
+	<important>
+	  <para>
+	    SD カードをフォーマットすると、カードの内容がすべて消去されますので注意してください。
+	    </para>
+	</important>
+      </para>
+    </sect2>
+    <sect2>
+      <title>インストールタイプ</title>
+      <para>
+	X/Qt のインストールには２通りのやり方があります。
+	マニュアルインストールとネットワークインストールです。
+      </para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    マニュアルインストールでは、X/Qt のパッケージを PC を使って１つ１つ手動でダウンロードし、
+	    これを Zaurus 本体に転送してインストールします。
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    ネットワークインストールでは、SL-Zaurus のネットワークインストール機能を使って、
+	    SL-Zaurus から直接パッケージをダウンロードしてインストールします。
+	  </para>
+	</listitem>
+      </itemizedlist>
+      <para>
+	作業が楽ですので、ネットワークインストールのほうを推奨します。ただし、ネットワーク
+	インストールを行うためにはネットワークカードが必要になります。
+      </para>
+      <tip>
+	<para>
+	  SL-Zaurus と PC を、付属ケーブルを使って 'USB接続(ネットワーク)' で繋いでいる場合、
+	  これを使ってネットワークインストールすることも可能です。ただし、この場合は PC 側で
+	  Proxy サーバを立てておく必要があります。
+	</para>
+      </tip>
+    </sect2>
+  </sect1>
