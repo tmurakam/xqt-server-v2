@@ -32,7 +32,7 @@ make %{install_opts} install
 !%{prefix}/bin/*
 *.so*
 
-%%% control
+%control
 Package: uim-xim
 Priority: optional
 Section: X11
