@@ -7,6 +7,7 @@ http://sylpheed.good-day.net/sylpheed
 
 %source
 sylpheed-0.9.12.tar.bz2
+local:wchar.patch;patch=1
 
 %define builddir sylpheed-0.9.12
 
@@ -15,6 +16,7 @@ export GDK_PIXBUF_CONFIG=/opt/Embedix/tools/arm-linux/bin/gdk-pixbuf-config
 
 ./configure %{config_opts} %{x_opts} %{gtk_opts} \
     --enable-gdk-pixbuf --disable-imlib
+make
 
 %install
 make %{install_opts} install
@@ -24,7 +26,7 @@ make %{install_opts} install
 %{prefix}/share/locale/ja
 
 %strip
-%{prefix}/bin/*
+!%{prefix}/bin/*
 *.so*
 
 %control

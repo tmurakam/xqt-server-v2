@@ -1,0 +1,10 @@
+--- sylpheed-0.9.12.org/src/summary_search.c	2003-10-28 13:31:24.000000000 +0900
++++ sylpheed-0.9.12/src/summary_search.c	2004-10-04 16:53:41.000000000 +0900
+@@ -39,6 +39,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <wchar.h>
+ 
+ #include "intl.h"
+ #include "main.h"
