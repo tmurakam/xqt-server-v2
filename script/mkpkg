@@ -83,19 +83,29 @@ deffiles.each do |file|
 end
 
 workstate = WorkState.new
+CmdDeps = {"build"=>"source", "install"=>"build", "ipkg"=>"install",
+    "devpkg"=>"install", "install-devpkg"=>"devpkg", "post-cleanup"=>"ipkg"}
 
 cmds.each do |cmd|
+    # 二重処理の防止
     next if (cmd != "cleanup" && workstate.done?(cmd))
 
+    # 先行処理が終わってなければ中止
+    d = CmdDeps[cmd]
+    if (d != nil && !workstate.done?(d))
+	STDERR.puts "mkpkg '#{d}' has not been executed."
+	break
+    end
+
     pkgs.each do |pkg|
+	puts "---> #{pkg.deffilename()} : #{cmd}"
+
 	case cmd
 	when "cleanup"
 	    workstate.clear()
-	    builddir = pkg.GetDefine("builddir")
-	    system("/bin/rm -rf #{destdir}")
-	    if (builddir != nil && builddir != "." && pkg.GetDefine("noclean") == nil)
-		system("/bin/rm -rf #{builddir}")
-	    end
+	    pkg.cleanup
+	when "post-cleanup"
+	    pkg.cleanup
 	when "source"
 	    pkg.getSource
 	    pkg.ExecSection("prep")
@@ -112,9 +122,9 @@ cmds.each do |cmd|
 	    devpkg = pkg.GetDefine("devpkg")
 	    cross_prefix = pkg.GetDefine("cross_prefix")
 	    if (devpkg != nil)
-		cmd = "sudo tar xvzf #{devpkgdir}/#{devpkg}.tar.gz -C #{cross_prefix}"
-		puts cmd
-		system(cmd)
+		cmdline = "sudo tar xvzf #{devpkgdir}/#{devpkg}.tar.gz -C #{cross_prefix}"
+		puts cmdline
+		system(cmdline)
 	    end
 	else
 	    pkg.ExecSection(cmd)
@@ -122,7 +132,6 @@ cmds.each do |cmd|
     end
 
     workstate.setdone(cmd) if (cmd != "cleanup")
+    workstate.save()
 end
-
-workstate.save()
 
