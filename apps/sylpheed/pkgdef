@@ -3,13 +3,15 @@
 # 
 
 %site
-http://sylpheed.good-day.net/sylpheed
+#http://sylpheed.good-day.net/sylpheed
+http://sylpheed.good-day.net/sylpheed/v1.0
 
 %source
-sylpheed-0.9.99.tar.bz2
-local:wchar.patch;patch=1
+#sylpheed-0.9.99.tar.bz2
+sylpheed-1.0.4.tar.bz2
+#local:wchar.patch;patch=1
 
-%define builddir sylpheed-0.9.99
+%define builddir sylpheed-1.0.4
 
 %build
 export GDK_PIXBUF_CONFIG=/opt/Embedix/tools/arm-linux/bin/gdk-pixbuf-config
@@ -35,7 +37,7 @@ Priority: optional
 Section: mail
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 0.9.99-1
+Version: 1.0.4-1
 Depends: glib, gtk, gdk-pixbuf, openssl
 License: GPL
 Cardinst: enable
