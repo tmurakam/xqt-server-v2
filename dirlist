@@ -17,8 +17,8 @@ libs/glib
 libs/gtk
 libs/gdk-pixbuf
 
-libs/libmad
-libs/libid3tag
+#libs/libmad
+#libs/libid3tag
 
 net/openssl
 
