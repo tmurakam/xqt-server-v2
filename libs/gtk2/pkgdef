@@ -16,19 +16,27 @@ gtk+-2.4.13.tar.bz2
 # なぜか -O2 ではビルドエラーになる。このディレクトリだけ -O1 でビルド。
 make -C gdk/x11 CFLAGS='-O1 -fno-exceptions -Wall'
 
-make
+# demos ディレクトリは除外
+make SRC_SUBDIRS='gdk-pixbuf gdk gtk modules tests contrib'
 
 %install
-make %{install_opts} install
+make SRC_SUBDIRS='gdk-pixbuf gdk gtk modules tests contrib' DESTDIR=%{destdir} install
+
+# ad hoc...
+mv %{destdir}%{cross_prefix}/* %{destdir}%{prefix}/
 
 %define devpkg	gtk+-2
 
 %files
+%{prefix}/bin
 %{prefix}/lib
+%{prefix}/share/themes
+%{prefix}/share/locale/ja
 
 %excludes
 *.la
 *.a
+pkgconfig
 
 %strip
 *.so*
