@@ -56,13 +56,13 @@ qtLayerCreate (ScreenPtr pScreen)
 	if (g_randr == RR_Rotate_0 || g_randr == RR_Rotate_180) {
 		pScreen->width    = pScreenInfo->dwWidth;
 		pScreen->height   = pScreenInfo->dwHeight;
-		pScreen->mmWidth  = pScreenInfo->dwWidth / QT_DEFAULT_DPI;
-		pScreen->mmHeight = pScreenInfo->dwHeight / QT_DEFAULT_DPI;
+		pScreen->mmWidth  = pScreenInfo->dwWidth * 25.4 / QT_DEFAULT_DPI;
+		pScreen->mmHeight = pScreenInfo->dwHeight * 25.4 / QT_DEFAULT_DPI;
 	} else {
 		pScreen->width    = pScreenInfo->dwHeight;
 		pScreen->height   = pScreenInfo->dwWidth;
-		pScreen->mmWidth  = pScreenInfo->dwHeight / QT_DEFAULT_DPI;
-		pScreen->mmHeight = pScreenInfo->dwWidth / QT_DEFAULT_DPI;
+		pScreen->mmWidth  = pScreenInfo->dwHeight * 25.4 / QT_DEFAULT_DPI;
+		pScreen->mmHeight = pScreenInfo->dwWidth * 25.4 / QT_DEFAULT_DPI;
 	}
 
 	/* create layer */
@@ -142,8 +142,8 @@ qtRandRGetInfo (ScreenPtr pScreen, Rotation *pRotations)
 	pSize = RRRegisterSize (pScreen,
 				pScreenInfo->dwWidth,
 				pScreenInfo->dwHeight,
-				pScreenInfo->dwWidth / QT_DEFAULT_DPI,
-				pScreenInfo->dwHeight / QT_DEFAULT_DPI);
+				pScreenInfo->dwWidth * 25.4 / QT_DEFAULT_DPI,
+				pScreenInfo->dwHeight * 25.4 / QT_DEFAULT_DPI);
   
 	/* Tell RandR what the current config is */
 	RRSetCurrentConfig (pScreen, g_randr, 0, pSize);
