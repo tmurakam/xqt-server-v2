@@ -3,9 +3,13 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
   "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
 
+<!ENTITY % XQT-ENTITIES-JA SYSTEM "../common/xqt-entities-ja.xml">
+%XQT-ENTITIES-JA;
+
 <!ENTITY INTRO SYSTEM "intro-ja.xml">
 <!ENTITY XSERVER SYSTEM "xserver-ja.xml">
 <!ENTITY INPUTMETHOD SYSTEM "inputmethod-ja.xml">
+<!ENTITY ACKNOWLEDGEMENT SYSTEM "acknowledgement-ja.xml">
 <!ENTITY COPYRIGHT SYSTEM "../common/copyright-ja.xml">
 ]>
 
@@ -42,6 +46,7 @@
   &INTRO;
   &XSERVER;
   &INPUTMETHOD;
+  &ACKNOWLEDGEMENT;
   &COPYRIGHT;
 </article>
 
