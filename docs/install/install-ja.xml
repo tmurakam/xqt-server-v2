@@ -3,12 +3,17 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
   "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
 
+<!ENTITY % XQT-ENTITIES-JA SYSTEM "../common/xqt-entities-ja.xml">
+%XQT-ENTITIES-JA;
+
 <!ENTITY INTRO SYSTEM "intro-ja.xml">
 <!ENTITY PREREQUISITE SYSTEM "prerequisite-ja.xml">
 <!ENTITY INSTPROC SYSTEM "instproc-ja.xml">
 <!ENTITY PACKAGES SYSTEM "packages-ja.xml">
 <!ENTITY STARTUP SYSTEM "startup-ja.xml">
+<!ENTITY ACKNOWLEDGEMENT SYSTEM "acknowledgement-ja.xml">
 <!ENTITY COPYRIGHT SYSTEM "../common/copyright-ja.xml">
+<!ENTITY GFDL SYSTEM "../common/fdl.xml">
 ]>
 
 <article lang="ja">
@@ -46,7 +51,9 @@
   &INSTPROC;
   &PACKAGES;
   &STARTUP;
-  &COPYRIGHT;
+  &ACKNOWLEDGEMENT;
 
+  &COPYRIGHT;
+  &GFDL;
 </article>
 
