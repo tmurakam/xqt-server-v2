@@ -38,17 +38,10 @@
 # configure オプション
 %define config_opts \
 	--host=arm-linux \
-	--prefix=%{prefix} \
-	--bindir=%{cross_prefix}/bin \
-	--includedir=%{cross_prefix}/include \
-	--libdir=%{cross_prefix}/lib
+	--prefix=%{prefix}
 
 %define x_opts \
 	--x-includes=%{x_prefix}/includes \
 	--x-libraries=%{x_prefix}/lib
 
-%define install_opts \
-	DESTDIR=%{destdir} \
-	bindir=%{prefix}/bin \
-	includedir=%{prefix}/include \
-	libdir=%{prefix}/lib
+%define install_opts DESTDIR=%{destdir}
