@@ -11,15 +11,14 @@ glib-2.4.7.tar.bz2
 %define builddir	glib-2.4.7
 
 %build
-glib_cv_stack_grows=no ./configure %{config_opts}
-# --prefix=%{prefix} --host=arm-linux --enable-shared --disable-static
+glib_cv_stack_grows=no ./configure --prefix=%{prefix} --host=arm-linux --enable-shared --disable-static
 make
 
 %install
 make DESTDIR=%{destdir} install
 
 # ad hoc...
-mv %{destdir}%{cross_prefix}/* %{destdir}%{prefix}/
+#mv %{destdir}%{cross_prefix}/* %{destdir}%{prefix}/
 
 %define devpkg	glib-2
 
