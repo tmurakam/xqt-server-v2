@@ -1,0 +1,37 @@
+#
+# blackbox
+# 
+
+%site
+http://umn.dl.sourceforge.net/sourceforge/blackboxwm
+
+%source
+blackbox-0.65.0.tar.gz
+
+%define builddir blackbox-0.65.0
+
+%build
+./configure %{config_opts} %{x_opts} %{gtk_opts}
+make -k
+make
+
+%install
+make %{install_opts} install
+
+%files
+%{prefix}/bin
+%{prefix}/share
+
+%strip
+%{prefix}/bin/*
+
+%control
+Package: blackbox
+Priority: optional
+Section: X11
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 0.65.0-2
+Depends: xlibs
+Description: Blackbox Window Manager
+License: BSD
