@@ -23,8 +23,21 @@
 %env CONFIG_SITE	%{scriptdir}/zaurus-config.site
 
 # configure オプション
-%define config_opts	--host=arm-linux --prefix=%{prefix}
-%define x_opts		--x-includes=%{x_prefix}/includes --x-libraries=%{x_prefix}/lib
-%define gtk_opts	--with-glib-prefix=%{cross_prefix} --with-gtk-prefix=%{cross_prefix}
+%define config_opts \
+	--host=arm-linux \
+	--prefix=%{prefix} \
+	--includedir=%{cross_prefix}/include \
+	--libdir=%{cross_prefix}/lib
 
-%define install_opts	DESTDIR=%{destdir}
+%define x_opts \
+	--x-includes=%{x_prefix}/includes \
+	--x-libraries=%{x_prefix}/lib
+
+%define gtk_opts \
+	--with-glib-prefix=%{cross_prefix} \
+	--with-gtk-prefix=%{cross_prefix}
+
+%define install_opts \
+	DESTDIR=%{destdir} \
+	includedir=%{prefix}/include \
+	libdir=%{prefix}/lib
