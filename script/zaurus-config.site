@@ -18,7 +18,7 @@ HOSTCC=gcc
 
 # Names of the cross-compilers
 CC=/opt/Embedix/tools/bin/arm-linux-gcc
-CXX=/opt/Embedix/tools/bin/arm-linux-gcc
+CXX=/opt/Embedix/tools/bin/arm-linux-g++
 
 # The cross compiler specific options
 CFLAGS="-O2 -fno-exceptions"
@@ -82,3 +82,6 @@ glib_cv_rtldglobal_broken=no
 glib_cv_uscore=no
 ac_cv_func_getpwuid_r=yes
 glib_cv_sizeof_gmutex=24
+
+# for AC_FUNC_REALLOC
+ac_cv_func_realloc_0_nonnull=yes
