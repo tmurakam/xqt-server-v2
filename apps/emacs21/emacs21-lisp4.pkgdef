@@ -1,0 +1,19 @@
+#
+# emacs21-lisp4
+# 
+
+%files
+%{prefix}/share/emacs/21.3/lisp/[T-Zt-z]*
+
+%control
+Package: emacs21-withx-lisp4
+Priority: optional
+Section: editors
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 21.3-1
+Depends: xlibs
+Cardinst: enable
+License: GPL
+Description: emacs 21.3 lisp files (Part 4/4)
+ Lisp files for Emacs 21.3 with X support

@@ -1,0 +1,20 @@
+#
+# emacs21-lisp2
+# 
+
+%files
+%{prefix}/share/emacs/21.3/lisp/[G-Og-o]*
+
+%control
+Package: emacs21-withx-lisp2
+Priority: optional
+Section: editors
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 21.3-1
+Depends: xlibs
+Cardinst: enable
+License: GPL
+Description: emacs 21.3 lisp files (Part 2/4)
+ Lisp files for Emacs 21.3 with X support
+

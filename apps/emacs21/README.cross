@@ -1,0 +1,21 @@
+○ クロスビルド手順
+
+1) 以下のようにしてシンボリックリンクを作っておく
+
+ $ sudo ln -s arm-linux /opt/Embedix/tools/armlinux
+
+2) ホスト上でクロスコンパイル（１回目）を行う。
+
+ $ make World1
+
+ ./temacs: cannot execute binary file というエラーで止まるのを確認すること。
+
+3) ソースツリーを NFS などで Zaurus 側で見えるようにし、Zaurus 側で dump をする
+
+  $ cd [マウント先のディレクトリ]/emacs21.3/arm/src
+  $ strip temacs
+  $ LC_ALL=C ./temacs -batch -l loadup dump
+
+4) ホスト上でクロスコンパイル（２回目）を行う。
+
+  $ make World2

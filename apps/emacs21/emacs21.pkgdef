@@ -1,0 +1,32 @@
+#
+# emacs21
+# 
+
+%files
+%{prefix}/bin/etags
+%{prefix}/bin/ctags
+%{prefix}/bin/emacs
+%{prefix}/bin/emacsclient
+%{prefix}/libexec/emacs/21.3/arm-linux
+%{prefix}/share/emacs/21.3/etc/DOC-21.3.1
+%{prefix}/share/emacs/21.3/site-lisp
+%{prefix}/share/emacs/21.3/leim
+#%{prefix}/share/emacs/21.3/lisp
+%{prefix}/share/emacs/site-lisp
+
+%strip
+!%{prefix}/bin/*
+!%{prefix}/libexec/emacs/21.3/arm-linux/*
+
+%control
+Package: emacs21-withx
+Priority: optional
+Section: editors
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 21.3-1
+Depends: xlibs
+Cardinst: enable
+License: GPL
+Description: emacs 21.3
+ Emacs 21.3 with X support
