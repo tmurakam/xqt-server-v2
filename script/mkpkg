@@ -6,6 +6,7 @@ scriptdir = File.expand_path(File.dirname($0))
 topdir    = File.expand_path(scriptdir + "/..")
 distfiledir = topdir + "/distfile"
 destdir = File.expand_path("./dest")
+ipkgdir = File.expand_path("./.ipktmp")
 
 $LOAD_PATH.push(scriptdir + "/lib")
 require "pkg"
@@ -44,8 +45,8 @@ deffiles.each do |file|
     pkg = Pkgdef.new
     pkg.SetDefine("destdir", destdir)
     pkg.SetDefine("scriptdir", scriptdir)
-
-    pkg.SetDistFileDir(distfiledir)
+    pkg.SetDefine("ipkgdir", ipkgdir)
+    pkg.SetDefine("distfiledir", distfiledir)
 
     pkg.Load(scriptdir + "/config.def")
     pkg.Load(file)

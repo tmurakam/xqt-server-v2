@@ -3,13 +3,6 @@
 #
 
 module GetSource
-    def SetDistFileDir(distfiledir)
-	@distfiledir = distfiledir
-	if (!FileTest.exist?(@distfiledir))
-	    Dir.mkdir(@distfiledir)
-	end
-    end
-
     def GetSource(sources)
 	sources.each do |source|
 	    path, patchlevel = download(source)
@@ -38,11 +31,16 @@ module GetSource
 	filename = $1
 
 	if (filespec =~ /^(?:ht|f)tp(s?):/)
+	    distfiledir = GetDefine("distfiledir")
+	    if (!FileTest.exist?(distfiledir))
+		Dir.mkdir(distfiledir)
+	    end
+
 	    # ダウンロード済みかチェック
-	    path = @distfiledir + "/" + filename
+	    path = distfiledir + "/" + filename
 	    if (!FileTest.exist?(path))
 		# ダウンロードする
-		cmdline = "(cd #{@distfiledir}; wget #{filespec})"
+		cmdline = "(cd #{distfiledir}; wget #{filespec})"
 		system(cmdline)
 	    end
 	else
