@@ -10,7 +10,9 @@ emacs-21.3.tar.gz
 
 %define builddir emacs-21.3
 
-%define x_prefix	/opt/Embedix/tools/armlinux
+# '-' が prefix に入っていると誤動作するため
+%define prefix	/opt/Embedix/tools/armlinux
+%define x_prefix %{prefix}
 
 %build
 # Step 1: i386 用のビルドを行う
@@ -27,7 +29,7 @@ mkdir arm
 cd arm
 
 ### execute configure
-../configure --prefix=%{prefix} --host=arm-linux \
+CONFIG_SITE= ../configure --prefix=%{prefix} --host=arm-linux \
     --without-pop --with-x \
     -x-includes="%{x_prefix}/include" -x-libraries="%{x_prefix}/lib"
 
@@ -41,7 +43,7 @@ cp ../i386/src/prefix-args src
 ### rewrite Makefile
 pushd src
 mv Makefile Makefile.org
-sed 's#/usr/lib#/opt/Embedix/tools/arm-linux/lib#g' < Makefile.org > Makefile
+sed 's#/usr/lib#/opt/Embedix/tools/armlinux/lib#g' < Makefile.org > Makefile
 popd
 
 ### make
