@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Start X, Start X environment
+Exec=startx-wrapper
+Icon=Xqt.png
+Name=Start X
+Type=Application
+Display=640x480/144dpi,480x640/144dpi
