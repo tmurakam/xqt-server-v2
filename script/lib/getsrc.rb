@@ -10,10 +10,6 @@ module GetSource
 	end
     end
 
-    def SetBuildDir(builddir)
-	@builddir = builddir
-    end
-
     def GetSource(sources)
 	sources.each do |source|
 	    path, patchlevel = download(source)
@@ -80,7 +76,7 @@ module GetSource
 	    cat = "bzcat"
 	end
 
-	cmdline = "(cd builddir && #{cat} #{path} | patch -p#{patchlevel})"
+	cmdline = "(cd #{@defines["builddir"]} && #{cat} #{path} | patch -p#{patchlevel})"
 	system(cmdline)
     end
 end

@@ -19,7 +19,7 @@ end
 
 cmd = ARGV.shift
 cmds = []
-if (cmd == "all")
+if (cmd == "World")
     cmds = ["cleanup", "source", "build", "install", "ipkg"]
 else
     cmds = [cmd]
@@ -57,6 +57,7 @@ deffiles.each do |file|
 	    end
 	when "source"
 	    pkg.getSource
+	    pkg.ExecSection("prep")
 	when "ipkg"
 	    # not yet
 	else
