@@ -28,10 +28,18 @@
 
     <abstract>
       <para>
-このドキュメントは、X/Qt-2 向けの開発者向け手引きです。
+このドキュメントは、X/Qt-2 の開発者向け手引きです。
 </para>
     </abstract>
   </articleinfo>
+
+  <sect1 id="intro">
+    <title>はじめに</title>
+    <para>この文書は、X/Qt-2 の開発者向けの手引きです。この文書では、クロス開発環境のセットアップ、
+X/Qt のソースの取得とビルド手順、そして新たなパッケージの追加手順について述べています。</para>
+    <para>Zaurus 上でのセルフコンパイル環境についてはこの文書では触れていません。
+筆者はセルフコンパイル環境を持っておらず、またZaurus のセルフコンパイルはとても遅いからです。</para>
+  </sect1>
 
   <sect1 id="presetup">
     <title>必要環境</title>
@@ -102,10 +110,10 @@ make や gcc は当然として、autoconf / automake / libtool などが必要です。
       <programlisting>
 <command># chown -R <replaceable>username</replaceable> /opt/Embedix/tools/arm-linux</command>
 </programlisting>
-      <note>
-	<para>もし書き込み可能にしたくない場合は、sudo を使ってインストールすることも可能。
+      <tip>
+	<para>もし書き込み可能にしたくない場合は、sudo を使ってインストールすることも可能です。
 この場合は、<filename>script/config.def</filename> ファイルの先頭あたりを修正し、sudo を使えるように
-しておいてください。</para></note>
+しておいてください。</para></tip>
     </sect2>
   </sect1>
 
@@ -204,5 +212,19 @@ Proxy を使う場合は、wgetrc ファイルに設定を行っておくか、http_proxy や ftp_proxy
       </itemizedlist>
     </sect2>
   </sect1>
+
+  <appendix>
+    <title>Copyrights</title>
+    <para>Copyright (c) 2004 Takuya Murakami</para>
+    <para>
+      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.1
+      or any later version published by the Free Software Foundation;
+      with no Invariant Sections, with no Front-Cover Texts, and with no Back-Cover Texts.
+     A copy of the license is available at
+     <ulink url="http://www.gnu.org/copyleft/fdl.html">
+     http://www.gnu.org/copyleft/fdl.html</ulink>.
+</para>
+  </appendix>
 </article>
 
