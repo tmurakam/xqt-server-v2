@@ -36,6 +36,15 @@
 	    </para>
 	</important>
       </para>
+
+      <para>
+	なお、ext2 でフォーマットすると、ザウルスドライブでファイルの書きこみができなくなりますので、
+	以下のコマンドを打って書き込み可能にしてください。
+	<programlisting>
+ # cd /mnt/card
+ # chmod -R 0777 *
+	</programlisting>
+      </para>
     </sect2>
     <sect2>
       <title>インストールタイプ</title>
@@ -69,5 +78,67 @@
 	  Proxy サーバを立てておく必要があります。
 	</para>
       </tip>
+    </sect2>
+
+    <sect2>
+      <title>ネットワークインストール</title>
+      <sect3>
+	<title>ネットワークへの接続</title>
+	<para>
+	  ネットワークインストールを行う場合は、ネットワークへの接続が必要になります。
+	  あらかじめ、ネットワークカードを接続し、TCP/IP の設定をすませておいてください。
+	</para>
+      </sect3>
+
+      <sect3>
+	<title>ソフトウェアマネージャの設定</title>
+	<para>X/Qt のネットワークインストールは、Zaurus のソフトウェアマネージャを使用します。</para>
+	<para>「設定」から「ソフトウェアの追加と削除」を起動し、「ネットワーク経由でソフトウェアをインストール」をタップします。</para>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/softman.png" format="PNG"/>
+	  </imageobject>
+	</mediaobject>
+
+	<para>
+	  右下にあるスイッチのボタンを押し、設定を行います。「新規サーバー」をクリックし、サーバを追加します。
+	</para>
+
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/feed-setup.png" format="PNG"/>
+	  </imageobject>
+	</mediaobject>
+
+	<itemizedlist>
+	  <listitem>
+	    <para>'名前' の欄には、ダウンロードサーバの名称を指定します。適当な名前を入力してください。</para>
+	    <caution>
+	      <para>名前欄には '/' が使えないようです。'X/Qt' ではなく、'XQt' のようにしてください。</para>
+	    </caution>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      URL: にはダウンロードを行う 'feed' の URL を記述します。
+	    </para>
+	  </listitem>
+	</itemizedlist>
+
+	<para>
+	  X/Qt のネットワークインストール用パッケージは、'feed' を使って提供されています。
+	  X/Qt の feed の URL は、
+	  <ulink url="http://xqt.sourceforge.jp/feed/">http://xqt.sourceforge.jp/feed/</ulink>
+	  となっていますので、この URL を指定してください。
+
+	  <note>
+	    <para>
+	      この他、<ulink url="http://xqt.sourceforge.jp/feed-testing/">X/Qt-2 テスト用 feed</ulink>
+	      などもあります。
+	    </para>
+	  </note>
+	</para>
+      </sect3>
+
+
     </sect2>
   </sect1>
