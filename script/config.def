@@ -22,6 +22,14 @@
 %env PKG_CONFIG_PATH	%{cross_prefix}/lib/pkgconfig
 %env CONFIG_SITE	%{scriptdir}/zaurus-config.site
 
+# *-config コマンドパス
+%env FT2_CONFIG		%{cross_prefix}/bin/freetype-config
+%env GLIB_CONFIG        %{cross_prefix}/bin/glib-config
+%env GTK_CONFIG         %{cross_prefix}/bin/gtk-config
+%env IMLIB_CONFIG       %{cross_prefix}/bin/imlib-config
+%env XML2_CONFIG        %{cross_prefix}/bin/xml2-config
+%env XFT_CONFIG         %{x_prefix}/bin/xft-config
+
 # configure オプション
 %define config_opts \
 	--host=arm-linux \
@@ -33,10 +41,6 @@
 %define x_opts \
 	--x-includes=%{x_prefix}/includes \
 	--x-libraries=%{x_prefix}/lib
-
-%define gtk_opts \
-	--with-glib-prefix=%{cross_prefix} \
-	--with-gtk-prefix=%{cross_prefix}
 
 %define install_opts \
 	DESTDIR=%{destdir} \
