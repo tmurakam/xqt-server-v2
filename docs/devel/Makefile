@@ -1,2 +1,2 @@
-DOCNAME		= devel
+DOCNAME		= devel-ja
 include ../common/Makefile.common

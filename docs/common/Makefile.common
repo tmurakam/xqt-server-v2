@@ -9,6 +9,7 @@ html: $(XMLFILE)
 #	xsltproc -o test.html $(XSLFILE) $(XMLFILE)
 	mkdir -p $(DOCNAME)/images
 	cp ../images/*.png $(DOCNAME)/images
+	-cp images/*.png $(DOCNAME)/images
 	cp ../css/xqt.css $(DOCNAME)
 
 pdf: $(XMLFILE_UTF8)
@@ -16,3 +17,7 @@ pdf: $(XMLFILE_UTF8)
 
 clean:
 	-/bin/rm -rf *.html *.pdf $(DOCNAME)
+
+upload: html
+	rsync -auvz --delete -e ssh ./$(DOCNAME)/ \
+	shell.sourceforge.jp:/home/groups/x/xq/xqt/htdocs/docs/$(DOCNAME)/
