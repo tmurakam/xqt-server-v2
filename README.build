@@ -55,15 +55,16 @@ Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものが必要。
  # ln -s arm-linux /opt/Embedix/tools/armlinux
 
 
-○ sudo の設定
+○ ターゲットディレクトリを書き込み可能にする。
 
-X/Qt のビルド中に、ヘッダやライブラリを /opt/Embedix/tools/arm-linux にインストール
-するため、sudo を使用するようになっている。このため、sudo を使えるようにしておく必要
-がある。とりあえず、/etc/sudoers に
+ビルド中にライブラリやヘッダをインストールするので、ターゲットディレクトリのオーナを
+変更して、書き込み可能にしておく。
 
- %wheel  ALL=(ALL)       ALL
+ # chown -R あなたのユーザ名 /opt/Embedix/tools/arm-linux
 
-という記述をいれ、/etc/group で自分を wheel グループに入れておけばよい。
+もし書き込み可能にしたくない場合は、sudo を使ってインストールすることも可能。
+この場合は、script/config.def ファイルの先頭あたりを修正し、sudo を使えるように
+しておくこと。
 
 
 ○ X/Qt-2 のソースを取り出す。
