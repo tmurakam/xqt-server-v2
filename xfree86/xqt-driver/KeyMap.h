@@ -1,6 +1,41 @@
+/*
+ *Copyright (C) 2004 The X/Qt Server Project. All Rights Reserved.
+ *
+ *Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ *"Software"), to deal in the Software without restriction, including
+ *without limitation the rights to use, copy, modify, merge, publish,
+ *distribute, sublicense, and/or sell copies of the Software, and to
+ *permit persons to whom the Software is furnished to do so, subject to
+ *the following conditions:
+ *
+ *The above copyright notice and this permission notice shall be
+ *included in all copies or substantial portions of the Software.
+ *
+ *THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ *EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *NONINFRINGEMENT. IN NO EVENT SHALL THE XFREE86 PROJECT BE LIABLE FOR
+ *ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+ *CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ *WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *Except as contained in this notice, the name of the X/Qt Server Project
+ *shall not be used in advertising or otherwise to promote the sale, use
+ *or other dealings in this Software without prior written authorization
+ *from the XFree86 Project.
+ *
+ * Authors:	Takuya Murakami
+ */
+/*
+ * Define virtual Qt keyboard map
+ */
+
+#define	MIN_KEYCODE	8	// ad hoc...
+
 /* keyname              Qt::Key_	KeySym		KeySym(Shift) */
 /* Escape     */	K(Escape,	XK_Escape,	NoSymbol)
-/* 1          */	K(1,		XK_1,		XK_exclaim)
+/* 1          */	K(1,		XK_1,		XK_exclam)
 /* 2          */	K(2,		XK_2,		XK_quotedbl)
 /* 3          */	K(3,		XK_3,		XK_numbersign)
 /* 4          */	K(4,		XK_4,		XK_dollar)
@@ -10,7 +45,7 @@
 /* 8          */	K(8,		XK_8,		XK_parenleft)
 /* 9          */	K(9,		XK_9,		XK_parenright)
 /* 0          */	K(0,		XK_0,		XK_asciitilde)
-/* !          */	K(Exclam,	XK_exclaim,	XK_exclaim)
+/* !          */	K(Exclam,	XK_exclam,	XK_exclam)
 /* "          */	K(QuoteDbl,	XK_quotedbl,	XK_quotedbl)
 /* #          */	K(NumberSign,	XK_numbersign,	XK_numbersign)
 /* $          */	K(Dollar,	XK_dollar,	XK_dollar)
@@ -23,7 +58,7 @@
 /* -          */	K(Minus,	XK_minus,	XK_equal)
 /* =          */	K(Equal,	XK_equal,	XK_equal)		// Fn+E
 /* ^          */	K(AsciiCircum,	XK_asciicircum,	XK_asciicircum)		// Fn+W	
-/* BackSpace  */	K(BackSpace,	XK_BaskSpace,	NoSymbol)
+/* BackSpace  */	K(BackSpace,	XK_BackSpace,	NoSymbol)
 /* Tab        */	K(Tab,		XK_Tab,		XK_ISO_Left_Tab)
 /* Q          */	K(Q,		XK_Q,		NoSymbol)
 /* W          */	K(W,		XK_W,		NoSymbol)
@@ -39,6 +74,7 @@
 /* `          */	K(QuoteLeft,	XK_quoteleft,	NoSymbol)
 /* [          */	K(BracketLeft,	XK_bracketleft, XK_braceleft)		// Fn+T
 /* {          */	K(BraceLeft,	XK_braceleft,	NoSymbol)		// ???
+/* cent       */	K(cent,		XK_cent,	NoSymbol)		// Fn+U
 /* Return     */	K(Return,	XK_Return,	NoSymbol)
 /* OK         */	K(F33,		XK_Return,	NoSymbol)
 /* Control    */	K(Control,	XK_Control_L,	NoSymbol)
@@ -59,6 +95,7 @@
 /* Shift      */	K(Shift,	XK_Shift_L,	NoSymbol)
 /* ]          */	K(BracketRight,	XK_bracketright,XK_braceright)		// Fn+Y
 /* }          */	K(BraceRight,	XK_braceright,	NoSymbol)
+/* stering    */	K(sterling,	XK_sterling,	NoSymbol)		// Fn+I
 /* Z          */	K(Z,		XK_Z,		NoSymbol)
 /* X          */	K(X,		XK_X,		NoSymbol)
 /* C          */	K(C,		XK_C,		NoSymbol)
@@ -87,7 +124,7 @@
 /* F9         */	K(F9,		XK_F9,		NoSymbol)
 /* F10(Addr.) */	K(F10,		XK_Control_L,	NoSymbol)		// Use Addr As CTRL
 /* F11        */	K(F11,		XK_F11,		NoSymbol)
-/* F12(Home)  */	K(F12,		XK_XK_Alt_L,	XK_Meta_L)		// Use Home as ALT
+/* F12(Home)  */	K(F12,		XK_Alt_L,	XK_Meta_L)		// Use Home as ALT
 /* F13(Mail)  */	K(F13,		XK_F13,		NoSymbol)
 /* F14        */	K(F14,		XK_F14,		NoSymbol)
 /* HiraKata   */	K(F15,		XK_F15,		NoSymbol)
@@ -132,5 +169,3 @@
 /* Fn+D       */	KD(0x00a5,	XK_D,		NoSymbol)	
 /* Fn+N       */	KD(0x2019,	XK_N,		NoSymbol)	
 /* Fn+M       */	KD(0x201a,	XK_M,		NoSymbol)
-
-
