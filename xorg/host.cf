@@ -1,0 +1,81 @@
+/*
+ * X/Qt server
+ */
+
+/* Specify this to debug Xserver */
+/*efine	DefaultCDebugFlags	-g*/
+/*efine ServerCDebugFlags	-g*/
+
+/* To cross compile, enable this */
+#define CrossCompiling             YES
+#define	UseInstalledOnCrossCompile YES	
+
+#define ProjectRoot             /opt/QtPalmtop
+/*efine	ProjectRoot		/usr/local/X11R6*/
+
+#define	QtCmnDefs		 -fno-exceptions -fno-rtti 
+
+#if CrossCompiling == YES
+#define	QtDir			/opt/Qtopia/sharp
+#define	QtLibs			-lqpe -lqte -lm
+#define	QtDefs			-DQWS QtCmnDefs 
+				/* add followings for sharp SL series */
+				/*-DQT_QWS_SL5XXX -DQT_QWS_CUSTOM */
+#else
+#if 1	/* use Qt/X11 */
+#define	QtDir			/usr/lib/qt-3.1
+#define	QtLibs			-lqt -lm
+#define	QtDefs			QtCmnDefs
+#else	/* use Qtopia */
+#define	QtDir			/opt/Qtopia
+#define	QtLibs			-lqpe -lqte -lm
+#define	QtDefs			-DQWS QtCmnDefs
+#endif
+#endif
+
+#define XqtXServer              YES
+#define	XF86Server		NO
+#define BuildServersOnly	NO	/* YES にすると FreeType がリンクされないので注意 */
+#define BuildFonts 		NO	/* Font をビルドするときはこれを YES に */
+
+#define TinyXServer             YES
+#define KDriveXServer 		YES
+#define	KdriveServerExtraDefines	-DDDXOSFATALERROR -DDDXOSVERRORF
+
+/*efine TouchScreen		YES*/
+/*efine ItsyCompilerBug		YES*/
+
+#undef BuildRandR
+#define BuildRandR          	YES
+
+/* FreeType を有効にする */
+#define	BuildFreeType		YES
+#define Freetype2Dir            $(TOP)/extras/freetype2
+#define Freetype2LibDir         $(TOP)/exports/lib
+
+/* X-TT は無効にする */
+#define BuildXTrueType          NO
+#define	XTTInLibFont		NO
+
+#define BuildScreenSaverExt     NO
+#define BuildScreenSaverLibrary NO
+#define SharedLibXss            YES
+#define ServerXdmcpDefines
+#define XfbdevServer            NO
+#define MakeLocalFontDir        YES
+#define StandardDefines         -Dlinux -D__arm__ -D_POSIX_SOURCE \
+				-D_BSD_SOURCE -D_GNU_SOURCE
+/*#define XawI18nDefines                -DHAS_WCHAR_H -DHAS_WCTYPE_H - DNO_WIDEC_H*/
+#define BuildTrueTypeFonts      YES
+#define BuildJapaneseFonts      YES
+#define MakeLocalFontDir        YES
+#define InstallXinitConfig      YES
+
+#define	BuildGlxExt		NO
+#define BuildXInputLib          NO
+#define BuildXInputExt          NO
+
+#define BuildDPMS		NO
+#define BuildDPMSExt		NO
+#define DPMSDefines		/**/
+
