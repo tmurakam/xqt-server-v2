@@ -1,0 +1,32 @@
+#
+# libjpeg
+# 
+
+%define builddir	src
+%define noclean		yes
+
+%build
+make
+
+%install
+mkdir -p %{destdir}%{prefix}/bin
+cp xqtclip %{destdir}%{prefix}/bin
+
+%files
+%{prefix}/bin
+
+%strip
+xqtclip
+
+%control
+Package: xqtclip
+Priority: optional
+Section: x11
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 0.0.2
+Depends: xlibs
+Cardinst: enable
+Description: X/Qt clipboard manager
+ X/Qt clipboard manager integrates Qt and X clipboard.
+License: BSD
