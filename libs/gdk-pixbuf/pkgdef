@@ -12,15 +12,13 @@ local:cross.patch;patch=1
 %define builddir	gdk-pixbuf-0.22.0
 
 %prep
-aclocal
-libtoolize --force
-automake --add-missing
-autoconf
+#aclocal -I %{cross_prefix}/share/aclocal
+#libtoolize --force
+#automake --add-missing
+autoconf-2.13
 
 %build
 export ac_cv_path_GNOME_CONFIG=no
-#export PATH=%{cross_prefix}/bin:$PATH
-
 ./configure %{config_opts} %{x_opts} %{gtk_opts}
 make
 

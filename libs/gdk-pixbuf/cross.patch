@@ -9,14 +9,3 @@
      LIBS="$oLIBS"
      CFLAGS="$oCFLAGS"
  fi
-@@ -116,8 +116,8 @@
- 
- if $dynworks; then
-    AC_DEFINE(USE_GMODULE)
--   GMODULE_LIBS="`glib-config --libs gmodule`"
--   GMODULE_FLAGS="`glib-config --cflags gmodule`"
-+   GMODULE_LIBS="`$bindir/glib-config --libs gmodule`"
-+   GMODULE_FLAGS="`$bindir/glib-config --cflags gmodule`"
-    AC_SUBST(GMODULE_LIBS)
-    AC_SUBST(GMODULE_FLAGS)
-    AC_MSG_RESULT(yes)
