@@ -33,12 +33,14 @@ make %{install_opts} install
 *.so*
 
 %control
-Package: uim-xim
+Package: uim
 Priority: optional
-Section: X11
+Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
 Version: 0.4.3-1
 Depends: xlibs, ncurses
-Description: uim-xim package
-License: GPL
+License: BSD
+Description: A multilingual input method library
+ Uim is a multilingual input method library. Uim's project goal
+ is to provide secure and useful input method for all languages.
