@@ -18,6 +18,14 @@ make
 %install
 make DESTDIR=%{destdir} install
 
+cd %{destdir}%{prefix}/lib/pkgconfig
+for f in *.pc; do
+	mv $f $f.org
+	sed -e 's|libdir=.*|libdir=%{cross_prefix}/lib|' \
+	-e 's|includedir=.*|includedir=%{cross_prefix}/include|' < $f.org > $f
+	rm $f.org
+done
+
 %define devpkg	glib-2
 
 %files
