@@ -33,48 +33,63 @@
     </abstract>
   </articleinfo>
 
-  <sect1>
+  <sect1 id="presetup">
+    <title>必要環境</title>
+    <para>Linux をインストールした PC が必要です。ディストリビューションは基本的には何でもよいはずですが、
+Fedora だとたぶん glibc-locale がうまくビルドできないと思います。</para>
+    <para>ちなみに筆者が使用しているのは White Box Enterprise Linux です。</para>
+    <para>また、開発系のツール/ライブラリを入れておく必要があります。
+make や gcc は当然として、autoconf / automake / libtool などが必要です。
+あとビルドスクリプトが ruby で記述されている関係で、ruby も必要です。
+開発ライブラリは、X や GTK+ 関連のものは一通りいれておくようにしてください。</para>
+    <para>なお、X/Qt-2 のフルビルドには、かなりディスク容量が必要です。
+('04/10月時点では、2GB 程度のディスク容量が必要)</para>
+  </sect1>
+
+  <sect1 id="setup">
     <title>開発環境のセットアップ</title>
 
     <sect2>
       <title>クロス開発ツールの入手とインストール</title>
 
-      <para>基本的に、SHARP のサイトで公開されている「Qtopia開発チュートリアル」と同じ環境が必要。</para>
+      <para>基本的に、SHARP のサイトで公開されている「Qtopia開発チュートリアル」と同じ環境が必要になります。
+クロスコンパイラや基本ライブラリ/ヘッダなどを<ulink url="http://developer.ezaurus.com">Zaurus 宝箱 Pro</ulink>
+から入手してください。(→国内向け SLシリーズザウルス→Linux関連開発ツールにあります)</para>
 
-      <para>クロスコンパイラや基本ライブラリ/ヘッダなどを
-<ulink url="http://developer.ezaurus.com">Zaurus 宝箱 Pro</ulink>
-から入手する。
-(→国内向け SLシリーズザウルス→Linux関連開発ツールにある)</para>
-
-      <para>以下の４つのファイルが必要。</para>
+      <para>以下の４つのファイルが必要です。</para>
       <itemizedlist>
 	  <listitem><para>クロスコンパイラ (gcc)</para></listitem>
 	  <listitem><para>ライブラリ (glibc)</para></listitem>
 	  <listitem><para>ヘッダファイル</para></listitem>
 	  <listitem><para>ユーティリティ</para></listitem>
 	</itemizedlist>
-      <para>tmake はとりあえず X/Qt の開発では不要。</para>
-      <para>全部 RPM ファイルになっているので、rpm -Uvh *.rpm でインストールする。</para>
+      <para>tmake はとりあえず X/Qt の開発では不要です。</para>
+      <para>全部 RPM ファイルになっているので、<command>rpm -Uvh <replaceable>ファイル名</replaceable></command> でインストールしてください。</para>
+      <note>
+	<para>Debian の場合は alien を使う必要があるでしょう。</para>
+      </note>
     </sect2>
 
     <sect2>
       <title>Qtopia のインストール</title>
-      <para>X/Qt サーバをビルドするために、Qtopia SDK が必要。</para>
-      <para>Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものが必要。
-ただ、1.5.0 のフリー版はもう Trolltech のサイトに置いてないので以下より入手されたし。</para>
+      <para>X/Qt サーバをビルドするために、Qtopia SDK が必要になります。
+      Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものを入手、インストールしてください。</para>
 
-      <para><ulink url="http://xqt.sourceforge.jp/bin/">http://xqt.sourceforge.jp/bin/</ulink></para>
+      <note>
+	<para>1.5.0 のフリー版はもう Trolltech のサイトに置いてないので以下より入手してください。</para>
+	<para><ulink url="http://xqt.sourceforge.jp/bin/">http://xqt.sourceforge.jp/bin/</ulink></para>
+      </note>
     </sect2>
 
     <sect2>
       <title>シンボリックリンクを張る</title>
-      <para>以下のようにして /opt/QtPalmtop のシンボリックリンクを張っておく。
-こうすると、Zaurus と prefix を一致させることができる。</para>
+      <para>以下のようにして /opt/QtPalmtop のシンボリックリンクを張っておきます。
+こうすると、Zaurus と prefix を一致させることができ、何かと都合がよいです。</para>
       <programlisting>
 <command># ln -s /opt/Embedix/tools/arm-linux /opt/QtPalmtop</command>
 </programlisting>
 
-      <para>ついでに、以下のシンボリックリンクも張っておく。これは Emacs をビルドするときに必要。</para>
+      <para>ついでに、以下のシンボリックリンクも張っておきます。これは Emacs をビルドするときに必要です。</para>
       <programlisting>
 <command># ln -s arm-linux /opt/Embedix/tools/armlinux</command>
 </programlisting>
@@ -83,24 +98,35 @@
     <sect2>
       <title>ターゲットディレクトリを書き込み可能にする</title>
       <para>ビルド中にライブラリやヘッダをインストールするので、ターゲットディレクトリのオーナを
-変更して、書き込み可能にしておく。</para>
+変更して、書き込み可能にしておきます。</para>
       <programlisting>
 <command># chown -R <replaceable>username</replaceable> /opt/Embedix/tools/arm-linux</command>
 </programlisting>
-      <para>もし書き込み可能にしたくない場合は、sudo を使ってインストールすることも可能。
+      <note>
+	<para>もし書き込み可能にしたくない場合は、sudo を使ってインストールすることも可能。
 この場合は、<filename>script/config.def</filename> ファイルの先頭あたりを修正し、sudo を使えるように
-しておくこと。</para>
+しておいてください。</para></note>
     </sect2>
   </sect1>
 
-<!--
-  <sect1>
-    <title>X/Qt ソースの取得</title>
-  </sect1>
-
-  <sect1>
+  <sect1 id="buildxqt">
     <title>X/Qt のビルド</title>
+
+    <sect2>
+      <title>ソースの取り出し</title>
+      <para>X/Qt2 のソースコードを CVS を使って取り出します。以下のようにしてください。</para>
+      <programlisting>
+ $ export CVSROOT=:pserver:anonymous@cvs.sourceforge.jp:/cvsroot/xqt
+ $ cvs login
+   パスワードは空でよい
+ $ cvs checkout xqt2
+</programlisting>
+    </sect2>
+
+    <sect2>
+      <title>wget の設定</title>
+      <para></para>
+    </sect2>
   </sect1>
--->
 </article>
 
