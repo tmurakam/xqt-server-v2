@@ -11,11 +11,11 @@ gtk+-1.2.10.tar.gz
 %define builddir	gtk+-1.2.10
 
 %build
-./configure %{config_opts} --disable-nls
+./configure %{config_opts} %{x_opts} %{gtk_opts} --disable-nls
 make
 
 %install
-make DESTDIR=%{destdir} install
+make %{install_opts} install
 
 %define devpkg	glib
 
