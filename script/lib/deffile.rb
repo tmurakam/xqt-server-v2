@@ -28,8 +28,13 @@ module DefFile
 	return str
     end
 
+    def deffilename
+	@deffilename
+    end
+
     # pkgdef ファイルのロード
     def Load(file)
+	@deffilename = file
 	section = nil
 
 	prev_line = nil
