@@ -55,9 +55,12 @@ module Ipkg
 		srcdir = @destdir
 	    end
 
+	    # 先頭の '/' を抜く
+	    f.sub!(/^\//, "")
+
 	    # "usr/etc/* etc/" のような場合は、第２引数の destination にコピー
 	    # 第２引数がない場合は、同一の構造を保つ
-	    if (f =~ /^(\S+)\s+(.*)$/)
+	    if (f =~ /^(\S+)\s+\/?(\S+)$/)
 		srcfiles = "#{srcdir}/#{$1}"
 		dest     = "#{@tmpdir}/#{$2}"
 	    else
