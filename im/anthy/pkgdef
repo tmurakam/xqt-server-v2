@@ -16,7 +16,7 @@ CONFIG_SITE= CC= ./configure --disable-shared
 make -C src-diclib
 make -C mkanthydic
 mv mkanthydic/mkanthydic mkanthydic/mkanthydic.host
-make clean
+make distclean
 
 # stage 2 : cross build
 ./configure %{config_opts} --enable-shared
