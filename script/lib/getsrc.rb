@@ -43,6 +43,11 @@ module GetSource
 	    else
 		sitelist = sites.dup
 	    end
+
+	    fallback = GetDefine("fallback_url")
+	    if (fallback != nil) 
+		    sitelist.push(fallback)
+	    end
 	    path = downfile(basename, sitelist)
 	end
 

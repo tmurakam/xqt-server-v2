@@ -1,3 +1,6 @@
+# ソースをダウンロードする fallback URL
+%define	fallback_url	http://xqt.sourceforge.jp/distfiles/
+
 # コンパイラ類の指定
 %define tool_path	/opt/Embedix/tools
 
