@@ -26,11 +26,13 @@
 %env CONFIG_SITE	%{scriptdir}/zaurus-config.site
 
 # *-config コマンドパス
+%env FREETYPE_CONFIG	%{cross_prefix}/bin/freetype-config
 %env FT2_CONFIG		%{cross_prefix}/bin/freetype-config
 %env GLIB_CONFIG        %{cross_prefix}/bin/glib-config
 %env GTK_CONFIG         %{cross_prefix}/bin/gtk-config
 %env IMLIB_CONFIG       %{cross_prefix}/bin/imlib-config
 %env XML2_CONFIG        %{cross_prefix}/bin/xml2-config
+%env XML_CONFIG         %{cross_prefix}/bin/xml2-config
 %env XFT_CONFIG         %{x_prefix}/bin/xft-config
 
 # configure オプション
