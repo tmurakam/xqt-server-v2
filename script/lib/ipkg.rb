@@ -13,8 +13,6 @@ module Ipkg
 	end	
 	Dir.mkdir(@ipkgdir)
 
-	SetPkgDir(@ipkgdir)
-
 	# ファイルコピー
 	CopyFiles()
 
@@ -45,6 +43,8 @@ module Ipkg
 	builddir = GetDefine("builddir")
 
 	@sections["files"].each do |f|
+	    f.strip
+
 	    # "!xxx" のように先頭に '!' がついている場合はカレントディレクトリからコピー。
 	    # ついていない場合は %{destdir} からコピー
 	    if (f =~ /^!(.*)/)
@@ -56,7 +56,7 @@ module Ipkg
 
 	    # "usr/etc/* etc/" のような場合は、第２引数の destination にコピー
 	    # 第２引数がない場合は、同一の構造を保つ
-	    if (f =~ /^(.*)\s+(.*)$/)
+	    if (f =~ /^(\S+)\s+(.*)$/)
 		srcfiles = "#{srcdir}/#{$1}"
 		dest     = "#{@ipkgdir}/#{$2}"
 	    else
