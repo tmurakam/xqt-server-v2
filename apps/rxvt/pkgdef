@@ -1,0 +1,42 @@
+#
+# rxvt
+# 
+
+%site
+http://umn.dl.sourceforge.net/sourceforge/rxvt/
+
+%source
+rxvt-2.6.4.tar.gz
+
+%define builddir rxvt-2.6.4
+
+%prep
+
+%build
+INSTALL_PROGRAM="/usr/bin/install -c -m 755" ./configure %{basic_opts} %{x_opts} --disable-utmp --disable-wtmp --enable-xim --enable-kanji
+
+#echo '#define NO_XLOCALE' >> config.h
+#echo '#define PTYS_ARE_GETPT 1' >> config.h
+#echo '#define PTYS_ARE_SEARCHED 1' >> config.h
+
+make
+
+%install
+make %{install_opts} INSTALL_PROGRAM="/usr/bin/install -m 755" install
+
+%files
+%{prefix}/bin
+
+%strip
+%{prefix}/bin/*
+
+%control
+Package: rxvt
+Priority: optional
+Section: apps
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 2.6.4-1
+Depends:
+License: 
+Description: rxvt terminal emulator.
