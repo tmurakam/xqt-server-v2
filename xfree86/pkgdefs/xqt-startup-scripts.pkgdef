@@ -24,6 +24,6 @@ License: GPL
 !files/dot.xserverrc		/home/zaurus/.xserverrc
 
 %preipkg
-chmod 0755    %{ipkgdir}%{prefix}/bin/startx-wrapper
-chown 500:500 %{ipkgdir}/home/zaurus/.xinitrc
-chown 500:500 %{ipkgdir}/home/zaurus/.xserverrc
+chmod 0755    %{ipkgtmp}%{prefix}/bin/startx-wrapper
+#chown 500:500 %{ipkgtmp}/home/zaurus/.xinitrc
+#chown 500:500 %{ipkgtmp}/home/zaurus/.xserverrc
