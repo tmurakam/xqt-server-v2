@@ -13,7 +13,7 @@ rxvt-2.6.4.tar.gz
 %prep
 
 %build
-INSTALL_PROGRAM="/usr/bin/install -c -m 755" ./configure %{basic_opts} %{x_opts} --disable-utmp --disable-wtmp --enable-xim --enable-kanji
+INSTALL_PROGRAM="/usr/bin/install -c -m 755" ./configure %{config_opts} %{x_opts} --disable-utmp --disable-wtmp --enable-xim --enable-kanji
 
 #echo '#define NO_XLOCALE' >> config.h
 #echo '#define PTYS_ARE_GETPT 1' >> config.h
