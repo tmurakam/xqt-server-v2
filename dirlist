@@ -17,10 +17,16 @@ libs/glib
 libs/gtk
 libs/gdk-pixbuf
 
-libs/libid3tag
-libs/libmad
+libs/glib2
+libs/atk
+libs/pango
+libs/gtk2
 
 net/openssl
+libs/libxml2
+
+libs/libid3tag
+libs/libmad
 
 wm/blackbox
 
@@ -33,7 +39,7 @@ apps/rdesktop
 apps/sylpheed
 apps/dillo
 
-apps/libmad
+apps/mad
 apps/xmms
 apps/xmms-plugins
 
