@@ -11,6 +11,7 @@
 <!ENTITY INPUTMETHOD SYSTEM "inputmethod-ja.xml">
 <!ENTITY ACKNOWLEDGEMENT SYSTEM "acknowledgement-ja.xml">
 <!ENTITY COPYRIGHT SYSTEM "../common/copyright-ja.xml">
+<!ENTITY GFDL SYSTEM "../common/fdl.xml">
 ]>
 
 <article lang="ja">
@@ -48,5 +49,6 @@
   &INPUTMETHOD;
   &ACKNOWLEDGEMENT;
   &COPYRIGHT;
+  &GFDL;
 </article>
 
