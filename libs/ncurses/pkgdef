@@ -16,12 +16,15 @@ local:ncurses-4.2.cross.patch;patch=1
 
 %build
 # --includedir を指定するとうまく行かない、、、
-./configure --host=%{arch} --prefix=%{prefix} --libdir=%{cross_prefix}/lib \
+./configure %{config_opts} \
  --with-install-prefix=%{destdir} \
  --without-normal --with-shared --without-profile --without-debug \
  --without-ada --without-progs --without-cxx-binding
 
-make HOSTCC=$CC_FOR_BUILD
+# build host tools first
+make HOSTCC=$CC_FOR_BUILD includedir=/usr/include -C ncurses make_hash make_keys
+
+make
 
 %install
 make DESTDIR=%{destdir} libdir=%{prefix}/lib install
