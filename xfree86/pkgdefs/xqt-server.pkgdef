@@ -12,20 +12,13 @@ License: GPL
 Cardinst: enable
 
 %install
-mkdir -p %{destdir}%{prefix}/apps/Applications
-mkdir -p %{destdir}%{prefix}/pic
 mkdir -p %{destdir}%{prefix}/help/html
-
-cp files/Xqt.desktop %{destdir}%{prefix}/apps/Applications/
-cp files/Xqt.png     %{destdir}%{prefix}/pic/
 cp files/Xqt.html    %{destdir}%{prefix}/help/html/
 
 iconv --to-code=utf8 files/Xqt.ja.html > %{destdir}%{prefix}/help/html/Xqt.ja.html
 
 %files
 %{prefix}/bin/Xqt
-%{prefix}/apps/Application/Xqt.desktop
-%{prefix}/pics/Xqt.png
 %{prefix}/help/html/Xqt*.html
 
 %strip

@@ -12,3 +12,8 @@ License: MIT
 
 %files
 %{prefix}/lib/X11/fonts/misc
+
+%excludes
+hangl*.pcf.gz
+gb*.pcf.gz
+18x18ko.pcf.gz
