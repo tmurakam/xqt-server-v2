@@ -1,0 +1,60 @@
+#
+# expat
+# 
+
+%site
+http://nexp.cs.pdx.edu/fontconfig/release
+
+%source
+fontconfig-2.2.1.tar.gz
+
+%define builddir	fontconfig-2.2.1
+
+%prep
+
+%build
+./configure CC=
+make -C fc-lang fc-lang
+mv fc-lang/fc-lang fc-lang/fc-lang.native
+make distclean
+
+./configure %{config_opts} --sysconfdir=/etc \
+ --with-freetype-config=%{cross_prefix}/bin/freetype-config
+make -C fontconfig
+make -C src
+make -C fc-cache
+make -C fc-list
+
+%install
+make %{install_opts} install -C fontconfig
+make %{install_opts} install -C src
+make %{install_opts} install -C fc-cache
+make %{install_opts} install -C fc-list
+make %{install_opts} install-configDATA
+make %{install_opts} install-pkgconfigDATA
+make %{install_opts} install-data-local
+
+%define devpkg	fontconfig
+
+%files
+%{prefix}/bin/*
+%{prefix}/lib/*
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+!%{prefix}/bin/*
+
+%control
+Package: fontconfig
+Priority: fontconfig
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 2.2.1-1
+Depends: freetype, expat
+License:
+Description: fontconfig
