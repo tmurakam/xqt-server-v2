@@ -15,6 +15,9 @@
 
 <xsl:include href="html-common.xsl"/>
 
+<!-- ENCODING -->
+<xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
+
 <!-- TOC -->
 <xsl:param name="toc.section.depth">3</xsl:param>
 <xsl:param name="section.autolabel" select="1"/>
