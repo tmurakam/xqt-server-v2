@@ -6,6 +6,7 @@
 <!ENTITY INTRO SYSTEM "intro-ja.xml">
 <!ENTITY PREREQUISITE SYSTEM "prerequisite-ja.xml">
 <!ENTITY INSTPROC SYSTEM "instproc-ja.xml">
+<!ENTITY PACKAGES SYSTEM "packages-ja.xml">
 <!ENTITY APPENDIX SYSTEM "appendix-ja.xml">
 ]>
 
@@ -42,6 +43,7 @@
   &INTRO;
   &PREREQUISITE; 
   &INSTPROC;
+  &PACKAGES;
 <!--  
   &
 -->

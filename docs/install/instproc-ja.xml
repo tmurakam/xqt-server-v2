@@ -15,34 +15,38 @@
       </para>
       <para>
 	SD カードのフォーマットは、コマンドラインから以下のように入力します。
-	<programlisting>
+      </para>
+      <programlisting>
+	<userinput>
  $ su
  # umount /mnt/card
  # mkfs.ext2 /dev/mmcda1
  # mount /mnt/card
-	</programlisting>
-	<note>
-	  <para>
-	    コマンドラインを使用するには、ターミナルや embeddedkonsole などを使ってください。
-	    ターミナルは付属 CD-ROM からインストールできます。
-	    embeddedkonsole は、<ulink url="http://sourceforge.jp/projects/zaurus-ja/">zaurus-ja</ulink>
-	    から入手できます。
-	    なお、X/Qt のインストール後は、rxvt を使用できます。
-	  </para>
-	</note>
-	<important>
-	  <para>
-	    SD カードをフォーマットすると、カードの内容がすべて消去されますので注意してください。
-	    </para>
-	</important>
-      </para>
+	</userinput>
+      </programlisting>
+      <note>
+	<para>
+	  コマンドラインを使用するには、ターミナルや embeddedkonsole などを使ってください。
+	  ターミナルは付属 CD-ROM からインストールできます。
+	  embeddedkonsole は、<ulink url="http://sourceforge.jp/projects/zaurus-ja/">zaurus-ja</ulink>
+	  から入手できます。
+	  なお、X/Qt のインストール後は、rxvt を使用できます。
+	</para>
+      </note>
+      <important>
+	<para>
+	  SD カードをフォーマットすると、カードの内容がすべて消去されますので注意してください。
+	</para>
+      </important>
 
       <para>
 	なお、ext2 でフォーマットすると、ザウルスドライブでファイルの書きこみができなくなりますので、
 	以下のコマンドを打って書き込み可能にしてください。
 	<programlisting>
+	  <userinput>
  # cd /mnt/card
  # chmod -R 0777 *
+	  </userinput>
 	</programlisting>
       </para>
     </sect2>
@@ -136,9 +140,40 @@
 	      などもあります。
 	    </para>
 	  </note>
+
+	  設定が終了したら、OK を押して設定画面を抜けてください。
 	</para>
       </sect3>
 
+      <sect3>
+	<title>アップデートを行う</title>
+	<para>
+	  ソフトウェアマネージャの左下にある「アップデート」ボタンを押し、ソフトウェア一覧を
+	  ダウンロードしてください。正しくダウンロード行われると、画面にソフトウェア一覧が表示
+	  されます。
+	</para>
+      </sect3>
 
+      <sect3>
+	<title>パッケージのインストールを行う</title>
+	<para>
+	  インストールするパッケージのアイコン（赤い箱状のアイコン）をクリックして、
+	  箱が開いた状態のアイコンにしてください。
+	 「OK」を押すと、パッケージのインストール先を聞かれますので、本体メモリか SD カードに
+	  インストールするかを決定します。その後、パッケージのダウンロードとインストールが
+	  自動的に行われます。
+	</para>
+	<para>
+	  インストールするべきパッケージや、本体メモリ/SDカードのどちらにインストールするべきかは、
+	  <link linkend="pkg-detail">インストールすべきパッケージ</link>を参照してください。
+	</para>
+      </sect3>
+    </sect2>
+
+    <sect2>
+      <title>マニュアルインストール</title>
+      <para>
+	TBD
+      </para>
     </sect2>
   </sect1>
