@@ -5,7 +5,7 @@
 
 <article>
   <articleinfo>
-    <title>X/Qt ビルド環境の構築 HOWTO</title>
+    <title>X/Qt-2 開発者向け HOWTO</title>
     <author lang="ja">
       <surname>村上</surname>
       <firstname>卓弥</firstname>
@@ -22,13 +22,13 @@
       <revision>
 	<revnumber>1.0</revnumber>
 	<date>2004-10-23</date>
-	<revremark>Initial</revremark>
+	<revremark>Initial release</revremark>
       </revision>
     </revhistory>
 
     <abstract>
       <para>
-このドキュメントは、X/Qt-2 向けの開発環境を整備するための手引きです。
+このドキュメントは、X/Qt-2 向けの開発者向け手引きです。
 </para>
     </abstract>
   </articleinfo>
@@ -117,7 +117,7 @@ make や gcc は当然として、autoconf / automake / libtool などが必要です。
       <title>X/Qt のビルドの必要性</title>
       <para>X/Qt のビルドには、２つの意味があります。一つは、X/Qt の配布物、すわなち ipkg ファイルの生成です。
 ここで生成した ipkg ファイルは、そのままZaurus にインストールして使用することが出来ます。</para>
-      <para>もう一つは、開発ライブラリ/ヘッダのインストールです。X/Qt で動作する X や GTK+ のアプリケーションをビルドする場合、X や GTK+ のヘッダが必要になります。これらは、SHARP が提供する開発ライブラリには含まれていませんので、自分でビルドしなければなりません。</para>
+      <para>もう一つは、開発ライブラリ/ヘッダのインストールです。X/Qt で動作するアプリケーションをビルドする場合、X や GTK+ のヘッダファイルやライブラリが必要になります。これらは、SHARP が提供する開発ライブラリには含まれていませんので、自分でビルドしなければなりません。</para>
 
       <para>X/Qt のビルドにおいてインストールされるライブラリには、主に以下のものがあります。
 これらのライブラリは、さまざまなアプリケーションのビルド時によく必要になるものばかりです。</para>
@@ -138,11 +138,15 @@ make や gcc は当然として、autoconf / automake / libtool などが必要です。
 	<listitem><para>GTK+</para></listitem>
 	<listitem><para>OpenSSL</para></listitem>
       </itemizedlist>
+
+      <note>
+	<para>GTK+-2 系のパッケージ(Glib-2, ATK, Pango, GTK+-2)は、現在準備中です。</para>
+      </note>
     </sect2>
 
     <sect2>
       <title>ソースの取り出し</title>
-      <para>X/Qt2 のソースコードを CVS を使って取り出します。以下のようにしてください。</para>
+      <para>X/Qt-2 のソースコードを CVS を使って取り出します。以下のようにしてください。</para>
       <programlisting>
  $ export CVSROOT=:pserver:anonymous@cvs.sourceforge.jp:/cvsroot/xqt
  $ cvs login
@@ -153,14 +157,14 @@ make や gcc は当然として、autoconf / automake / libtool などが必要です。
 
     <sect2>
       <title>wget の設定</title>
-      <para>X/Qt2 のビルドスクリプトは、ビルド中にソースを wget を使ってダウンロードするようになっています。
+      <para>X/Qt-2 のビルドスクリプトは、ビルド中にソースを wget を使ってダウンロードするようになっています。
 Proxy を使う場合は、wgetrc ファイルに設定を行っておくか、http_proxy や ftp_proxy 環境変数を設定しておいてください。
 </para>
     </sect2>
 
     <sect2>
       <title>フルビルド</title>
-      <para>X/Qt のフルビルドを行います。フルビルドを行うことにより、ipkg の生成と、開発ライブラリ/ヘッダのインストールが行われます。</para>
+      <para>X/Qt-2 のフルビルドを行います。フルビルドを行うことにより、ipkg の生成と、開発ライブラリ/ヘッダのインストールが行われます。</para>
       <programlisting>
  $ cd xqt2
  $ ./build DevWorld
