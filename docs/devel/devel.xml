@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+  "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" >
+
+<book>
+  <title>X/Qt ビルド環境の構築 HOWTO</title>
+  <chapter>
+    <title>はじめに</title>
+  </chapter>
+
+  <chapter>
+    <title>開発環境のセットアップ</title>
+
+    <section>
+      <title>クロス開発ツールの入手とインストール</title>
+
+      <para>基本的に、SHARP のサイトで公開されている「Qtopia開発チュートリアル」と同じ環境が必要。</para>
+
+      <para>クロスコンパイラや基本ライブラリ/ヘッダなどを
+<ulink url="http://developer.ezaurus.com">Zaurus 宝箱 Pro</ulink>
+から入手する。
+(→国内向け SLシリーズザウルス→Linux関連開発ツールにある)</para>
+
+      <para>以下の４つのファイルが必要。</para>
+      <itemizedlist>
+	  <listitem>クロスコンパイラ (gcc)</listitem>
+	  <listitem>ライブラリ (glibc)</listitem>
+	  <listitem>ヘッダファイル</listitem>
+	  <listitem>ユーティリティ</listitem>
+	</itemizedlist>
+
+      <para>tmake はとりあえず X/Qt の開発では不要。</para>
+      <para>全部 RPM ファイルになっているので、rpm -Uvh *.rpm でインストールする。</para>
+    </section>
+
+    <section>
+      <title>Qtopia のインストール</title>
+      <para>X/Qt サーバをビルドするために、Qtopia SDK が必要。</para>
+      <para>Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものが必要。
+ただ、1.5.0 のフリー版はもう Trolltech のサイトに置いてないので以下より入手されたし。</para>
+
+      <para><ulink url="http://xqt.sourceforge.jp/bin/">http://xqt.sourceforge.jp/bin/</ulink></para>
+    </section>
+
+    <section>
+      <title>シンボリックリンクを張る</title>
+      <para>以下のようにして /opt/QtPalmtop のシンボリックリンクを張っておく。
+こうすると、Zaurus と prefix を一致させることができる。</para>
+      <programlisting>
+<command># ln -s /opt/Embedix/tools/arm-linux /opt/QtPalmtop</command>
+</programlisting>
+
+      <para>ついでに、以下のシンボリックリンクも張っておく。これは Emacs をビルドするときに必要。</para>
+      <programlisting>
+<command># ln -s arm-linux /opt/Embedix/tools/armlinux</command>
+</programlisting>
+    </section>
+
+    <section>
+      <title>ターゲットディレクトリを書き込み可能にする</title>
+      <para>ビルド中にライブラリやヘッダをインストールするので、ターゲットディレクトリのオーナを
+変更して、書き込み可能にしておく。</para>
+      <programlisting>
+<command># chown -R <replaceable>username</replaceable> /opt/Embedix/tools/arm-linux</command>
+</programlisting>
+      <para>もし書き込み可能にしたくない場合は、sudo を使ってインストールすることも可能。
+この場合は、<filename>script/config.def</filename> ファイルの先頭あたりを修正し、sudo を使えるように
+しておくこと。</para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>X/Qt ソースの取得</title>
+  </chapter>
+
+  <chapter>
+    <title>X/Qt のビルド</title>
+  </chapter>
+</book>
