@@ -1,0 +1,31 @@
+%control
+Package: glibc-gconv-ja
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 2.2.2-1
+Depends:
+License: LGPL
+Description: GNU libc gconv library (ja)
+ GNU libc gconv library for Japanese environment
+
+%files
+lib/gconv/gconv-modules		usr/lib/gconv/
+lib/gconv/ISO8859-1.so		usr/lib/gconv/
+lib/gconv/UNICODE.so		usr/lib/gconv/
+lib/gconv/UTF-7.so		usr/lib/gconv/
+lib/gconv/UTF-16.so		usr/lib/gconv/
+lib/gconv/UTF-32.so		usr/lib/gconv/
+lib/gconv/CP932.so		usr/lib/gconv/
+lib/gconv/EUC-JP.so		usr/lib/gconv/
+lib/gconv/EUC-JP-MS.so		usr/lib/gconv/
+lib/gconv/SJIS.so		usr/lib/gconv/
+lib/gconv/ISO-2022-JP.so	usr/lib/gconv/
+lib/gconv/libJIS.so		usr/lib/gconv/
+lib/gconv/libCNS.so		usr/lib/gconv/
+lib/gconv/libGB.so		usr/lib/gconv/
+lib/gconv/libKSC.so		usr/lib/gconv/
+
+%strip
+*.so

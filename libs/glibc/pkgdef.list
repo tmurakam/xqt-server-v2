@@ -1,1 +1,4 @@
 build.pkgdef
+glibc-local-gconv-ja.pkgdef
+glibc-local-ja-eucjp.pkgdef
+glibc-local-ja-utf8.pkgdef
