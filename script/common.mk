@@ -1,5 +1,5 @@
 all: build
 
-World cleanup source build install ipkg devpkg:
+World DevWorld cleanup source build install ipkg devpkg install-devpkg:
 	$(TOPDIR)/script/mkpkg $@
 
