@@ -7,6 +7,7 @@
 <!ENTITY PREREQUISITE SYSTEM "prerequisite-ja.xml">
 <!ENTITY INSTPROC SYSTEM "instproc-ja.xml">
 <!ENTITY PACKAGES SYSTEM "packages-ja.xml">
+<!ENTITY STARTUP SYSTEM "startup-ja.xml">
 <!ENTITY APPENDIX SYSTEM "appendix-ja.xml">
 ]>
 
@@ -44,9 +45,7 @@
   &PREREQUISITE; 
   &INSTPROC;
   &PACKAGES;
-<!--  
-  &
--->
+  &STARTUP;
   &APPENDIX;
 
 </article>

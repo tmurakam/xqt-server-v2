@@ -173,7 +173,46 @@
     <sect2>
       <title>マニュアルインストール</title>
       <para>
-	TBD
+	マニュアルインストールを行う場合は、以下のようにします。
+      </para>
+      <orderedlist>
+	<listitem>
+	  <para>
+	    まず、PC を使ってパッケージをダウンロードします。
+	    ダウンロードには、X/Qt feed
+	    (<ulink url="http://xqt.sourceforge.jp/feed/">http://xqt.sourceforge.jp/feed/</ulink>)
+	    を使うことを推奨します。
+	    もしくは、<ulink url="http://www.sourceforge.jp/projects/xqt">X/Qt プロジェクトページ</ulink>
+	    からダウンロードすることもできます。ただし、この場合は X/Qt プロジェクトがビルドした
+	    パッケージしかダウンロードできません。これ以外のパッケージは、主に、
+	    <ulink url="http://sourceforge.jp/projects/zaurus-ja/">zaurus-ja プロジェクト</ulink>
+	    にあります。
+	  </para>
+	</listitem>
+
+	<listitem>
+	  <para>
+	    ダウンロードしたパッケージファイル (*.ipk ファイル)を、ザウルスドライブ等を使って
+	    Zaurus に転送します。Documents/Install_Files フォルダに入れてください。
+	  </para>
+	</listitem>
+
+	<listitem>
+	  <para>
+	    「設定」から「ソフトウェアの追加と削除」を起動し、「ソフトウェアをインストール」をタップします。
+	  </para>
+	</listitem>
+
+	<listitem>
+	  <para>
+	    ソフトウェア一覧が表示されますので、インストールするパッケージを選択してインストールを行ってください。
+	  </para>
+	</listitem>
+      </orderedlist>
+
+      <para>
+	インストールするべきパッケージや、本体メモリ/SDカードのどちらにインストールするべきかは、
+	<link linkend="packages">インストールするパッケージの選択</link>を参照してください。
       </para>
     </sect2>
   </sect1>

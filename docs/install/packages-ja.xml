@@ -123,6 +123,7 @@ exec uim-xim &amp;
 	  <listitem><para>Emacs : エディタ</para></listitem>
 	  <listitem><para>Wanderlust : Emacs で動作するメーラ</para></listitem>
 	  <listitem><para>navi2ch : Emacs で動作する 2ch リーダ</para></listitem>
+	</itemizedlist>
       </para>
     </sect2>
   </sect1>
