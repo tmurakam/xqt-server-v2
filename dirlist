@@ -40,3 +40,4 @@ apps/xmms-plugins
 #apps/emacs21	# emacs21 は手動でビルドすること
 
 apps/elisp/wanderlust
+apps/elisp/navi2ch
