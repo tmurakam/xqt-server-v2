@@ -37,7 +37,7 @@
     <title>必要環境</title>
     <para>Linux をインストールした PC が必要です。ディストリビューションは基本的には何でもよいはずですが、
 Fedora だとたぶん glibc-locale がうまくビルドできないと思います。</para>
-    <para>ちなみに筆者が使用しているのは White Box Enterprise Linux です。</para>
+    <para>ちなみに筆者が使用しているのは <ulink url="http://www.whiteboxlinux.org/">White Box Enterprise Linux 3.0</ulink> です。</para>
     <para>また、開発系のツール/ライブラリを入れておく必要があります。
 make や gcc は当然として、autoconf / automake / libtool などが必要です。
 あとビルドスクリプトが ruby で記述されている関係で、ruby も必要です。
@@ -63,7 +63,7 @@ make や gcc は当然として、autoconf / automake / libtool などが必要です。
 	  <listitem><para>ヘッダファイル</para></listitem>
 	  <listitem><para>ユーティリティ</para></listitem>
 	</itemizedlist>
-      <para>tmake はとりあえず X/Qt の開発では不要です。</para>
+      <para>tmake はとりあえず X/Qt-2 の開発では不要です。</para>
       <para>全部 RPM ファイルになっているので、<command>rpm -Uvh <replaceable>ファイル名</replaceable></command> でインストールしてください。</para>
       <note>
 	<para>Debian の場合は alien を使う必要があるでしょう。</para>
@@ -72,7 +72,7 @@ make や gcc は当然として、autoconf / automake / libtool などが必要です。
 
     <sect2>
       <title>Qtopia のインストール</title>
-      <para>X/Qt サーバをビルドするために、Qtopia SDK が必要になります。
+      <para>X/Qt-2 サーバをビルドするために、Qtopia SDK が必要になります。
       Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものを入手、インストールしてください。</para>
 
       <note>
@@ -110,16 +110,16 @@ make や gcc は当然として、autoconf / automake / libtool などが必要です。
   </sect1>
 
   <sect1 id="buildxqt">
-    <title>X/Qt のビルド</title>
-    <para>ここでは、X/Qt のビルドを行います。</para>
+    <title>X/Qt-2 のビルド</title>
+    <para>ここでは、X/Qt-2 のビルドを行います。</para>
 
     <sect2>
-      <title>X/Qt のビルドの必要性</title>
-      <para>X/Qt のビルドには、２つの意味があります。一つは、X/Qt の配布物、すわなち ipkg ファイルの生成です。
+      <title>X/Qt-2 のビルドの必要性</title>
+      <para>X/Qt-2 のビルドには、２つの意味があります。一つは、X/Qt-2 の配布物、すわなち ipkg ファイルの生成です。
 ここで生成した ipkg ファイルは、そのままZaurus にインストールして使用することが出来ます。</para>
-      <para>もう一つは、開発ライブラリ/ヘッダのインストールです。X/Qt で動作するアプリケーションをビルドする場合、X や GTK+ のヘッダファイルやライブラリが必要になります。これらは、SHARP が提供する開発ライブラリには含まれていませんので、自分でビルドしなければなりません。</para>
+      <para>もう一つは、開発ライブラリ/ヘッダのインストールです。X/Qt-2 で動作するアプリケーションをビルドする場合、X や GTK+ のヘッダファイルやライブラリが必要になります。これらは、SHARP が提供する開発ライブラリには含まれていませんので、自分でビルドしなければなりません。</para>
 
-      <para>X/Qt のビルドにおいてインストールされるライブラリには、主に以下のものがあります。
+      <para>X/Qt-2 のビルドにおいてインストールされるライブラリには、主に以下のものがあります。
 これらのライブラリは、さまざまなアプリケーションのビルド時によく必要になるものばかりです。</para>
 
       <itemizedlist>
