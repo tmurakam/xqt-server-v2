@@ -17,8 +17,8 @@ libs/glib
 libs/gtk
 libs/gdk-pixbuf
 
-#libs/libmad
-#libs/libid3tag
+libs/libid3tag
+libs/libmad
 
 net/openssl
 
@@ -29,5 +29,14 @@ im/uim
 
 apps/xqtclip
 apps/rxvt
+apps/rdesktop
 apps/sylpheed
-#apps/emacs21
+apps/dillo
+
+apps/libmad
+apps/xmms
+apps/xmms-plugins
+
+#apps/emacs21	# emacs21 は手動でビルドすること
+
+apps/elisp/wanderlust
