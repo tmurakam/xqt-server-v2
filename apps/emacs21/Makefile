@@ -9,11 +9,8 @@ build2 install:
 	$(TOPDIR)/script/mkpkg $@ stage2.pkgdef
 
 ipkg:
-	$(TOPDIR)/script/mkpkg $@ emacs21.pkgdef
-	$(TOPDIR)/script/mkpkg $@ emacs21-lisp1.pkgdef
-	$(TOPDIR)/script/mkpkg $@ emacs21-lisp2.pkgdef
-	$(TOPDIR)/script/mkpkg $@ emacs21-lisp3.pkgdef
-	$(TOPDIR)/script/mkpkg $@ emacs21-lisp4.pkgdef
+	$(TOPDIR)/script/mkpkg $@ emacs21.pkgdef \
+		emacs21-lisp1.pkgdef emacs21-lisp2.pkgdef emacs21-lisp3.pkgdef emacs21-lisp4.pkgdef
 
 World1: cleanup source build notice
 
