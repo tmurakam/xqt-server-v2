@@ -1,0 +1,24 @@
+%%% source
+root
+
+%%% control
+Package: xbase-clients
+Priority: optional
+Section: X11
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 4.3.0-2
+Depends:
+Description: X11 base clients
+ XFree86 base clients.
+License: MIT
+
+%%% files
+opt/QtPalmtop/bin
+
+%%% excludes
+Xqt
+
+%%% strip
+*
+

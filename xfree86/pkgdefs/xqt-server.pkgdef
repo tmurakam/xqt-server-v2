@@ -1,0 +1,31 @@
+#
+# mkpkg package definition file
+# 
+
+%%% control
+Package: xqt-server
+Priority: required
+Section: Qtopia
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 0.0.9
+Depends: xlibs,xbase-clients
+Description: X/Qt Server 
+ XFree86 server port over Qtopia.
+License: GPL
+Cardinst: enable
+
+%%% source
+root
+
+%%% files
+opt/QtPalmtop/bin/Xqt
+../Xqt.desktop		opt/QtPalmtop/apps/Applications/
+../Xqt.png		opt/QtPalmtop/pics/
+../Xqt.html		opt/QtPalmtop/help/html/
+
+%%% strip
+Xqt
+
+%%% exec
+iconv --to-code=utf8 Xqt.ja.html > .dist/opt/QtPalmtop/help/html/Xqt.ja.html

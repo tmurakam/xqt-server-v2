@@ -1,0 +1,22 @@
+%%% source
+root
+
+%%% control
+Package: xqt-fonts-100dpi
+Priority: optional
+Section: fonts
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 4.3.0-2
+Depends: xlibs
+Description: X11 base 100dpi fonts
+ XFree86 base 100dpi fonts
+License: MIT
+
+%%% files
+opt/QtPalmtop/lib/X11/fonts/100dpi
+
+%%% excludes
+
+%%% strip
+

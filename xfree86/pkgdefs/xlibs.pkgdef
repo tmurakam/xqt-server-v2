@@ -1,0 +1,27 @@
+%%% source
+root
+
+%%% control
+Package: xlibs
+Priority: optional
+Section: X11
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 4.3.0-2
+Depends:
+Description: X11 libraries
+ XFree86 libraries.
+License: MIT
+
+%%% files
+opt/QtPalmtop/lib
+
+%%% excludes
+*.la
+*.a
+!opt/QtPalmtop/lib/X11/config
+
+%%% strip
+*.so
+*.so.*
+

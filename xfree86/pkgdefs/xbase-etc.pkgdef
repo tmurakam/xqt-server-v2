@@ -1,0 +1,17 @@
+%%% source
+root
+
+%%% control
+Package: xbase-etc
+Priority: optional
+Section: X11
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 4.3.0-2
+Depends:
+Description: X11 base etc files
+ XFree86 etc files
+License: MIT
+
+%%% files
+etc

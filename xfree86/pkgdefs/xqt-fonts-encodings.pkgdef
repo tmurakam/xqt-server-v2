@@ -1,0 +1,22 @@
+%%% source
+root
+
+%%% control
+Package: xqt-fonts-encodings
+Priority: optional
+Section: fonts
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 4.3.0-2
+Depends: xlibs
+Description: X11 base font encodings
+ XFree86 base font encodings files
+License: MIT
+
+%%% files
+opt/QtPalmtop/lib/X11/fonts/encodings
+
+%%% excludes
+
+%%% strip
+

@@ -1,0 +1,32 @@
+%%% control
+Package: xqt-startup-scripts
+Priority: optional
+Section: X11
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 0.0.2
+Depends: xqt-server,xlibs,xbase-clients,rxvt,blackbox
+Description: X/Qt server startup scripts
+License: GPL
+
+#%%% conffiles
+#/home/zaurus/.xinitrc
+#/home/zaurus/.xserverrc
+
+#%%% postinst
+#chown zaurus /home/zaurus/.xinitrc
+#chown zaurus /home/zaurus/.xserverrc
+
+%%% source
+.
+
+%%% files
+startx.desktop			opt/QtPalmtop/apps/Applications/
+startx-wrapper			opt/QtPalmtop/bin/
+dot.xinitrc			home/zaurus/.xinitrc
+dot.xserverrc			home/zaurus/.xserverrc
+
+%%% exec
+chmod 0755 .dist/opt/QtPalmtop/bin/startx-wrapper
+chown 500:500 .dist/home/zaurus/.xinitrc
+chown 500:500 .dist/home/zaurus/.xserverrc

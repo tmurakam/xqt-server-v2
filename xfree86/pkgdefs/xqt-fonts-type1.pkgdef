@@ -1,0 +1,22 @@
+%%% source
+root
+
+%%% control
+Package: xqt-fonts-type1
+Priority: optional
+Section: fonts
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 4.3.0-2
+Depends: xlibs
+Description: X11 Type1 fonts
+ XFree86 Type1 fonts files
+License: MIT
+
+%%% files
+opt/QtPalmtop/lib/X11/fonts/Type1
+
+%%% excludes
+
+%%% strip
+
