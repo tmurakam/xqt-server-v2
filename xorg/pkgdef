@@ -1,0 +1,21 @@
+#
+# X.org
+# 
+
+%source
+http://ring.asahi-net.or.jp/archives/X/opengroup/X11R6.8.0/tars/X11R6.8.0-src1.tar.gz
+http://ring.asahi-net.or.jp/archives/X/opengroup/X11R6.8.0/tars/X11R6.8.0-src2.tar.gz
+http://ring.asahi-net.or.jp/archives/X/opengroup/X11R6.8.0/tars/X11R6.8.0-src3.tar.gz
+http://ring.asahi-net.or.jp/archives/X/opengroup/X11R6.8.0/tars/X11R6.8.0-src4.tar.gz
+http://ring.asahi-net.or.jp/archives/X/opengroup/X11R6.8.0/tars/X11R6.8.0-src5.tar.gz
+http://ring.asahi-net.or.jp/archives/X/opengroup/X11R6.8.0/tars/X11R6.8.0-src6.tar.gz
+http://ring.asahi-net.or.jp/archives/X/opengroup/X11R6.8.0/tars/X11R6.8.0-src7.tar.gz
+
+
+%define builddir	xc
+
+%build
+
+%install
+
+%files
