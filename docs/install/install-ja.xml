@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+  "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+<!ENTITY INTRO SYSTEM "intro-ja.xml">
+<!ENTITY PREREQUISITE SYSTEM "prerequisite-ja.xml">
+<!ENTITY APPENDIX SYSTEM "appendix-ja.xml">
+]>
+
+<article lang="ja">
+  <articleinfo>
+    <title>X/Qt インストールガイド</title>
+    <author lang="ja">
+      <surname>村上</surname>
+      <firstname>卓弥</firstname>
+      <affiliation>
+	<address>
+      <email>tmurakam at users.sourceforge.jp</email>
+     </address>
+      </affiliation>
+    </author>
+
+    <pubdate>24 October 2004</pubdate>
+    
+    <revhistory>
+      <revision>
+	<revnumber>1.0</revnumber>
+	<date>2004-10-24</date>
+	<revremark>Initial release</revremark>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>
+	このドキュメントは、X/Qt のインストールの手引きです。
+      </para>
+    </abstract>
+  </articleinfo>
+
+  &INTRO;
+  &PREREQUISITE; 
+<!--  
+  &
+-->
+  &APPENDIX;
+
+</article>
+
