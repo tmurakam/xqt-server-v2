@@ -17,12 +17,12 @@ zlib-1.2.1.tar.gz
 make
 
 %install
-make install prefix=%{destdir}/usr
+make prefix=%{destdir}%{prefix} install
 
 %define devpkg	zlib
 
 %files
-usr/lib/*
+%{prefix}/lib/*
 
 %excludes
 *.la
