@@ -23,3 +23,4 @@ ln -s emacs-21.3.1 src/emacs
 
 %install
 make install prefix=%{destdir}%{prefix}
+../../remove-el.rb %{destdir}%{prefix}
