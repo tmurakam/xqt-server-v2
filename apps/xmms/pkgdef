@@ -17,6 +17,8 @@ make
 %install
 make DESTDIR=%{destdir} install
 
+%define devpkg xmms
+
 %files
 %{prefix}/bin
 %{prefix}/lib
