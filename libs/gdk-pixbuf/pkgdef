@@ -12,10 +12,15 @@ local:cross.patch;patch=1
 %define builddir	gdk-pixbuf-0.22.0
 
 %prep
+# dirty hack...
+mv aclocal.m4 aclocal.m4.org
+sed 's/sys_lib_search_path_spec=\(.*\)/sys_lib_search_path_spec=""/' aclocal.m4.org > aclocal.m4
+
 #aclocal -I %{cross_prefix}/share/aclocal
 #libtoolize --force
 #automake --add-missing
 autoconf-2.13
+
 
 %build
 export ac_cv_path_GNOME_CONFIG=no
