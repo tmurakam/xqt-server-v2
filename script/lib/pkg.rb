@@ -30,7 +30,7 @@ class Pkgdef
 
     # ソース取得と展開処理
     def getSource
-	GetSource(@sections["source"])
+	GetSource(@sections["source"], @sections["site"])
     end
 
     def Dump

@@ -3,9 +3,10 @@
 #
 
 module GetSource
-    def GetSource(sources)
+    def GetSource(sources, sites)
+	return if (sources == nil)
 	sources.each do |source|
-	    path, patchlevel = download(source)
+	    path, patchlevel = download(source, sites)
 
 	    if (patchlevel == nil)
 		extract(path)
@@ -17,7 +18,7 @@ module GetSource
 
     private
 
-    def download(filespec)
+    def download(filespec, sites)
 	patchlevel = nil
 
 	# patchlevel のチェック
@@ -26,30 +27,51 @@ module GetSource
 	    patchlevel = $2
 	end
 
-	# file名部分を取り出しておく
-	filespec =~ /([^\/]+)$/
-	filename = $1
+	# ディレクトリ名とファイル名を分離しておく
+	dirname  = File.dirname(filespec)
+	basename = File.basename(filespec)
 
-	if (filespec =~ /^(?:ht|f)tp(s?):/)
-	    distfiledir = GetDefine("distfiledir")
-	    if (!FileTest.exist?(distfiledir))
-		Dir.mkdir(distfiledir)
-	    end
-
-	    # ダウンロード済みかチェック
-	    path = distfiledir + "/" + filename
-	    if (!FileTest.exist?(path))
-		# ダウンロードする
-		cmdline = "(cd #{distfiledir}; wget #{filespec})"
-		system(cmdline)
-	    end
-	else
+	sitelist = nil
+	if (filespec =~ /^local:(\/\/)?(.*)/)
 	    # ローカルファイル
-	    path = filespec
+	    path = $1
+	else
+	    # サイトリストを決める
+	    sitelist = nil
+	    if (dirname =~ /^(?:ht|f)tps?:\/\//)
+		sitelist = [dirname]
+	    else
+		sitelist = sites.dup
+	    end
+	    path = downfile(basename, sitelist)
 	end
 
 	path = File.expand_path(path)
 	return path ,patchlevel
+    end
+
+    # ネットワーク経由でダウンロード
+    def downfile(filename, sitelist)
+	# ダウンロードディレクトリのチェック
+	distfiledir = GetDefine("distfiledir")
+	if (!FileTest.exist?(distfiledir))
+	    Dir.mkdir(distfiledir)
+	end
+
+	path = distfiledir + "/" + filename
+
+	# ファイルチェック
+	return path if (FileTest.exist?(path))
+
+	# ダウンロードする
+	sitelist.each do |site|
+	    cmdline = "(cd #{distfiledir}; wget #{site}/#{filename})"
+	    system(cmdline)
+	    
+	    return path if (FileTest.exist?(path))
+	end
+
+	return nil
     end
 
     def extract(path)
