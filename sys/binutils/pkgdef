@@ -1,0 +1,54 @@
+#
+# binutils
+#
+
+%site
+http://ring.asahi-net.or.jp/archives/GNU/binutils/
+
+%source
+binutils-2.15.tar.gz
+
+%define builddir binutils-2.15
+
+%build
+./configure %{config_opts} --build=i686-pc-linux-gnu --with-sysroot=/usr \
+ --disable-nls --enable-shared --enable-install-libiberty 
+
+make tooldir=/usr CC_FOR_BUILD=$CC_FOR_BUILD
+
+%install
+make %{install_opts} install
+
+%files
+%{prefix}/bin/nm
+%{prefix}/bin/objdump
+%{prefix}/bin/readelf
+%{prefix}/bin/size
+%{prefix}/bin/strings
+%{prefix}/bin/strip
+%{prefix}/lib/libbfd*
+%{prefix}/bin/gprof
+
+%strip
+%{prefix}/bin/*
+%{prefix}/lib/*
+
+%excludes
+*.la
+*.a
+
+%control
+Summary: A GNU collection of binary utilities.
+Package: binutils
+Priority: optional
+Architecture: arm
+Version: 2.15-1
+Release:
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp
+Section: system
+Depends: 
+License: GPL
+Description: A GNU collection of binary utilities.
+ Binutils is a collection of binary utilities. This package includes
+ gprof, nm, readelf, size, strings, and strip only.
+ (Not includes ar, as, ld, objcopy, objdump, ranlib, addr2line.)
