@@ -31,7 +31,7 @@
  * Define virtual Qt keyboard map
  */
 
-#define	MIN_KEYCODE	8	// ad hoc...
+#define	MIN_KEYCODE	1	// ad hoc...
 
 /* keyname              Qt::Key_	KeySym		KeySym(Shift) */
 /* Escape     */	K(Escape,	XK_Escape,	NoSymbol)
