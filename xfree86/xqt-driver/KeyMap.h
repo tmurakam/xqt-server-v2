@@ -105,8 +105,8 @@
 /* comma      */	K(Comma,	XK_comma,	XK_comma)	// !!!
 /* .          */	K(Period,	XK_period,	XK_period)	// !!!
 /* /          */	K(Slash,	XK_slash,	XK_slash)	// Shift+,
-/* <          */	K(Less,		XK_less,	XK_less)	// Fn+,
-/* >          */	K(Greater,	XK_greater,	XK_greater)	// Fn+?
+/* <          */	K(Less,		XK_less,	XK_braceleft)	// Fn+,
+/* >          */	K(Greater,	XK_greater,	XK_braceright)	// Fn+?
 /* ?          */	K(Question,	XK_question,	XK_question)	// Shift+.
 /* Alt        */	K(Alt,		XK_Alt_L,	XK_Meta_L)
 /* Meta       */	K(Meta,		XK_Meta_L,	NoSymbol)
