@@ -1,0 +1,36 @@
+#
+# ¤ª¤Á¤å¡Á¤·¤ã
+# 
+
+%site
+http://keihanna.dl.sourceforge.jp/ochusha/10122
+
+%source
+ochusha-0.5.5.tar.bz2
+
+%define builddir  ochusha-0.5.5
+
+%build
+./configure %{config_opts} %{x_opts}
+make
+
+%install
+make %{install_opts} install
+
+%files
+%{prefix}
+
+%strip
+!%{prefix}/bin/*
+
+%control
+Package: ochusha
+Priority: optional
+Section: apps
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 0.5.5-1
+Depends: xlibs, gtk, openssl, freetype, fontconfig, libjpeg, libpng, zlib, glib2, gtk2, libxml2
+Cardinst: enable
+License: BSD
+Description: 2ch browser
