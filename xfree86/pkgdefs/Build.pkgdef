@@ -10,10 +10,10 @@ http://ring.asahi-net.or.jp/archives/XFree86/4.3.0/source/X430src-4.tgz
 http://ring.asahi-net.or.jp/archives/XFree86/4.3.0/source/X430src-5.tgz
 #http://ring.asahi-net.or.jp/archives/XFree86/4.3.0/source/X430src-6.tgz
 #http://ring.asahi-net.or.jp/archives/XFree86/4.3.0/source/X430src-7.tgz
-patch/cross.patch;patch=1
-patch/xqt-make.patch;patch=1
-patch/xchar2b.patch;patch=1
-patch/fephack.patch;patch=1
+local:patch/cross.patch;patch=1
+local:patch/xqt-make.patch;patch=1
+local:patch/xchar2b.patch;patch=1
+local:patch/fephack.patch;patch=1
 
 %define builddir	xc
 
