@@ -21,7 +21,6 @@ License: GPL
 !files/startx-wrapper		%{prefix}/bin/
 !files/dot.xinitrc		/home/zaurus/.xinitrc
 !files/dot.xserverrc		/home/zaurus/.xserverrc
-!files/Xqt.png			%{prefix}/pics/Xqt.png
 !files/startx.desktop		%{prefix}/apps/Applications/
 #!files/Xqt.desktop		%{prefix}/apps/Applications/Xqt.desktop
 
