@@ -1,0 +1,41 @@
+#
+# libxml2
+# 
+
+%site
+http://xmlsoft.org/sources/
+
+%source
+libxml2-2.6.14.tar.gz
+
+%define builddir	libxml2-2.6.14
+
+%build
+./configure %{config_opts} --without-python --without-docbook --without-debug --without-mem-debug
+make
+
+%install
+make %{install_opts} install
+
+%define devpkg	libxml2
+
+%files
+%{prefix}/lib/*
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: libxml2
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 2.6.14-1
+Depends:
+License: MIT
+Description: libxml2 library
