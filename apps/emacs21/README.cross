@@ -6,16 +6,23 @@
 
 2) ホスト上でクロスコンパイル（１回目）を行う。
 
- $ make World1
+     $ make World1
 
- ./temacs: cannot execute binary file というエラーで止まるのを確認すること。
+ "./temacs: cannot execute binary file" というエラーで止まるのを確認すること。
 
-3) ソースツリーを NFS などで Zaurus 側で見えるようにし、Zaurus 側で dump をする
+3) ソースツリーを Zaurus 側に NFS マウントする。
+   NFS マウントするときは、ホストマシンと同じ位置のディレクトリになるようにすること。
 
-  $ cd [マウント先のディレクトリ]/emacs21.3/arm/src
-  $ strip temacs
-  $ LC_ALL=C ./temacs -batch -l loadup dump
+   たとえば、host:/home/foo 以下にソースツリーをおいている場合、以下のようにする。
+
+     $ mount -t nfs host:/home /mnt/nfs
+     $ ln -s /mnt/nfs/foo /home/foo
+  
+4) Zaurus 上で dump を行う
+
+     $ cd /home/foo/xqt2/emacs21.3/arm/src
+     $ LC_ALL=C ./temacs -batch -l loadup dump
 
 4) ホスト上でクロスコンパイル（２回目）を行う。
 
-  $ make World2
+     $ make World2
