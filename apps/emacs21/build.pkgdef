@@ -58,7 +58,7 @@ make
 cd arm
 
 ### replace emacs
-rm src/emacs
+rm -f src/emacs
 cp ../i386/src/emacs src/
 
 ### execute make
@@ -69,5 +69,6 @@ rm src/emacs
 ln -s emacs-21.3.1 src/emacs
 
 %install
+cd arm
 make install prefix=%{destdir}%{prefix}
 ../../remove-el.rb %{destdir}%{prefix}
