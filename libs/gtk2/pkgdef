@@ -17,13 +17,14 @@ gtk+-2.4.13.tar.bz2
 make -C gdk/x11 CFLAGS='-O1 -fno-exceptions -Wall'
 
 # demos ディレクトリは除外
-make SRC_SUBDIRS='gdk-pixbuf gdk gtk modules tests contrib'
+#make SRC_SUBDIRS='gdk-pixbuf gdk gtk modules tests contrib'
+make
 
 %install
 make SRC_SUBDIRS='gdk-pixbuf gdk gtk modules tests contrib' DESTDIR=%{destdir} install
 
 # ad hoc...
-mv %{destdir}%{cross_prefix}/* %{destdir}%{prefix}/
+#mv %{destdir}%{cross_prefix}/* %{destdir}%{prefix}/
 
 %define devpkg	gtk+-2
 
