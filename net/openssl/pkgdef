@@ -1,0 +1,46 @@
+#
+# OpenSSL
+# 
+
+%site
+http://www.openssl.org/source/
+
+%source
+openssl-0.9.7d.tar.gz
+local:arm-linux.patch;patch=1
+
+%define builddir openssl-0.9.7d
+
+%prep
+
+%build
+./Configure threads zlib shared --prefix=%{prefix} --openssldir=%{prefix}/openssl linux-elf-arm
+make
+
+%install
+make INSTALL_PREFIX=%{destdir} install
+
+%define devpkg	openssl
+
+%files
+%{prefix}/bin/openssl
+%{prefix}/lib/*.so*
+
+%excludes
+*.la
+*.a
+
+%strip
+openssl
+*.so*
+
+%control
+Package: openssl
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 0.9.7d-1
+Depends:
+License:
+Description: OpenSSL library
