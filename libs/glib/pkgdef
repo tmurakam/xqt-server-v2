@@ -12,7 +12,11 @@ local:glib-1.2.10-cross.patch;patch=1
 %define builddir	glib-1.2.10
 
 %prep
+rm acinclude.m4
 aclocal
+libtoolize --force
+automake
+autoconf
 
 %build
 ./configure %{config_opts} --enable-shared --disable-static
@@ -24,8 +28,8 @@ make DESTDIR=%{destdir} install
 %define devpkg	glib
 
 %files
-opt/QtPalmtop/lib/libgmodule*
-opt/QtPalmtop/lib/libgthread*
+%{prefix}/lib/libgmodule*
+%{prefix}/lib/libgthread*
 
 %excludes
 *.la
