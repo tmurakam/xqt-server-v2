@@ -20,20 +20,21 @@ make %{install_opts} install
 %define devpkg	gtk
 
 %files
-%{prefix}/share/themes
-%{prefix}/share/locale
+%{prefix}/share
 %{prefix}/lib
 %{prefix}/etc
 
 %excludes
 *.la
 *.a
+pkgconfig
+aclocal
 
 %strip
 *.so*
 
 %control
-Package: gtk+-1.2
+Package: gtk+
 Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
