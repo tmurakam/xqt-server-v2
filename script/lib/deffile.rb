@@ -32,9 +32,23 @@ module DefFile
     def Load(file)
 	section = nil
 
+	prev_line = nil
+
 	File.open(file).each do |line|
 	    line.chop!
+
+	    # Skip comments
 	    next if (line =~ /^#/)
+
+	    # ·ÑÂ³¹Ô
+	    if (prev_line != nil)
+		line = prev_line + " " + line.strip
+		prev_line = nil
+	    end
+	    if (line =~ /^(.*)\\\s*$/)
+		prev_line = $1
+		next
+	    end
 
 	    line = expand_define(line)
 
