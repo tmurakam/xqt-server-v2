@@ -65,8 +65,13 @@ static int qtkey2scan(int qtkey)
 
 void qtTranslateKey(QKeyEvent *ev, int fPress)
 {
+	static const int scan_shift   = qtkey2scan(Qt::Key_Shift);
 	static const int scan_control = qtkey2scan(Qt::Key_Control);
 	static const int scan_alt     = qtkey2scan(Qt::Key_Alt);
+	
+	static bool shift_state   = false;
+	static bool control_state = false;
+	static bool alt_state     = false;
 
 	int qtkey = ev->key();
 	int bs = ev->state();
@@ -77,20 +82,28 @@ void qtTranslateKey(QKeyEvent *ev, int fPress)
 	if (scancode < 0) return;
 
 	//
-	// KeyHelper 対応
+	// Save Shift / Control / Alt state
 	//
-	// Control / Alt modifier を処理する
-	//
+	if (qtkey == Qt::Key_Shift)   shift_state = fPress;
+	if (qtkey == Qt::Key_Control) control_state = fPress;
+	if (qtkey == Qt::Key_Alt)     alt_state = fPress;
+
 	if (fPress) {
-		if (bs & Qt::ControlButton) qtSendKeyEvent(scan_control, true);
-		if (bs & Qt::AltButton) qtSendKeyEvent(scan_alt, true);
+		//
+		// KeyHelper support : emulate shift/control/alt button
+		//
+		if (!shift_state   && (bs & Qt::ShiftButton))   qtSendKeyEvent(scan_shift, true);
+		if (!control_state && (bs & Qt::ControlButton)) qtSendKeyEvent(scan_control, true);
+		if (!alt_state     && (bs & Qt::AltButton))     qtSendKeyEvent(scan_alt, true);
+
+		qtSendKeyEvent(scancode, true);
+
+		if (!shift_state   && (bs & Qt::ShiftButton))   qtSendKeyEvent(scan_shift, false);
+		if (!control_state && (bs & Qt::ControlButton)) qtSendKeyEvent(scan_control, false);
+		if (!alt_state     && (bs & Qt::AltButton))     qtSendKeyEvent(scan_alt, false);
 	}
-
-	qtSendKeyEvent(scancode, fPress);
-
-	if (!fPress) {
-		if (bs & Qt::AltButton) qtSendKeyEvent(scan_alt, false);
-		if (bs & Qt::ControlButton) qtSendKeyEvent(scan_control, false);
+	else {
+		qtSendKeyEvent(scancode, false);
 	}
 
 	qtPushMouseKeyEvent();
