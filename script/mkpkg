@@ -54,8 +54,7 @@ deffiles.each do |file|
     # sanity check...
     builddir = pkg.GetDefine("builddir")
     if (builddir == nil)
-	STDERR.puts("builddir is not defined.")
-	exit 1
+	pkg.SetDefine("builddir", ".")
     end
 
     cmds.each do |cmd|
