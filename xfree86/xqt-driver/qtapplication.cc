@@ -56,6 +56,11 @@ bool XqtApplication::qwsEventFilter(QWSEvent *e)
 	// dirty hack...
 	if ( e->type == QWSEvent::Key) {
 		QWSKeyEvent *ke = (QWSKeyEvent *)e;
+#if 0
+		fprintf(stderr, "KEY: win=%x unicode=%x keycode=%x modifier=%x press=%x\n",
+		       ke->simpleData.window, ke->simpleData.unicode, ke->simpleData.keycode,
+		       ke->simpleData.modifiers, ke->simpleData.is_press);
+#endif
 		if (ke->simpleData.keycode == Qt::Key_Escape) {
 			// avoid QPEApplication::qwsEventFilter
 			return QApplication::qwsEventFilter(e);
