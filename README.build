@@ -19,7 +19,7 @@ make や gcc は当然として、autoconf / automake / libtool などが必要。
 
 クロスコンパイラや基本ライブラリ/ヘッダなどを Zaurus 宝箱 Pro
 (http://developer.ezaurus.com/) から入手する。
-(→国内向け SLシリーズザウルス→Linux関連　開発ツールにある)
+(→国内向け SLシリーズザウルス→Linux関連開発ツールにある)
 
 以下の４つのファイルが必要。
 
@@ -69,8 +69,8 @@ Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものが必要。
 
 ○ X/Qt-2 のソースを取り出す。
 
-以下のようにしてソースを取り出す (このファイルが読めているなら、もう取り出せて
-いるはず）。
+以下のようにしてソースを取り出す (このファイルが読めているなら、もう取り出しは
+終わっているはずだ）。
 
  $ export CVSROOT=:pserver:anonymous@cvs.sourceforge.jp:/cvsroot/xqt
  $ cvs login
@@ -80,7 +80,7 @@ Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものが必要。
 ○ wget の設定
 
 ビルド中に、ファイルを wget を使ってダウンロードするようになっているので、Proxy を
-使う場合は http_proxy や ftp_proxy 環境変数を設定しておくこと。
+使う場合は http_proxy や ftp_proxy 環境変数を設定するなりなんなりしておくこと。
 
 
 ○ ビルド
