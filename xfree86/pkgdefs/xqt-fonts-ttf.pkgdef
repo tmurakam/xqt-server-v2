@@ -3,8 +3,8 @@ Package: xqt-fonts-ttf
 Priority: optional
 Section: fonts
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
-Architecture: arm
-Version: 4.3.0-2
+Architecture: all
+Version: 4.3.0-3
 Depends: xlibs
 Description: X11 base TrueType fonts
  XFree86 base TrueType fonts

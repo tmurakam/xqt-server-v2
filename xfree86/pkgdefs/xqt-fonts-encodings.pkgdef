@@ -3,8 +3,8 @@ Package: xqt-fonts-encodings
 Priority: optional
 Section: fonts
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
-Architecture: arm
-Version: 4.3.0-2
+Architecture: all
+Version: 4.3.0-3
 Depends: xlibs
 Description: X11 base font encodings
  XFree86 base font encodings files

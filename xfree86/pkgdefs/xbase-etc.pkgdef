@@ -4,7 +4,7 @@ Priority: optional
 Section: X11
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 4.3.0-2
+Version: 4.3.0-3
 Depends:
 Description: X11 base etc files
  XFree86 etc files

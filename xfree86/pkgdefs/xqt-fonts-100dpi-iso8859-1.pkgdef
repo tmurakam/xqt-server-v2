@@ -4,7 +4,7 @@ Priority: optional
 Section: fonts
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: all
-Version: 4.3.0-2
+Version: 4.3.0-3
 Depends: xlibs
 Description: X11 ISO-8859-1 100dpi fonts
  XFree86 ISO-8859-1 100dpi fonts

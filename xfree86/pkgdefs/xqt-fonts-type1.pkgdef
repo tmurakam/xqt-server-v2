@@ -4,7 +4,7 @@ Priority: optional
 Section: fonts
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 4.3.0-2
+Version: 4.3.0-3
 Depends: xlibs
 Description: X11 Type1 fonts
  XFree86 Type1 fonts files
