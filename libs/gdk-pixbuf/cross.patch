@@ -9,3 +9,20 @@
      LIBS="$oLIBS"
      CFLAGS="$oCFLAGS"
  fi
+
+--- gdk-pixbuf-0.22.0.org/gdk-pixbuf-config.in	2001-10-10 05:49:55.000000000 +0900
++++ gdk-pixbuf-0.22.0/gdk-pixbuf-config.in	2005-04-01 20:33:14.000000000 +0900
+@@ -40,11 +40,11 @@
+       ;;
+     --cflags)
+       includes=-I@includedir@/gdk-pixbuf-1.0
+-      echo $includes `gtk-config --cflags`
++      echo $includes `@bindir@/gtk-config --cflags`
+       ;;
+     --libs)
+       libdirs=-L@libdir@
+-      echo $libdirs -lgdk_pixbuf `gtk-config --libs`
++      echo $libdirs -lgdk_pixbuf `@bindir@/gtk-config --libs`
+       ;;
+     *)
+       echo "${usage}" 1>&2
