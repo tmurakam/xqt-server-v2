@@ -27,7 +27,14 @@ end
 
 deffiles = ARGV
 if (deffiles.size == 0)
-    deffiles = ["pkgdef"]
+    if (FileTest.exist?("pkgdef.list"))
+	readlines("pkgdef.list").each do |line|
+	    next if (line =~ /^#/ || line =~ /^\s*$/)
+	    deffiles.push(line)
+	end
+    else
+	deffiles = ["pkgdef"]
+    end
 end
 
 deffiles.each do |file|
