@@ -268,7 +268,7 @@
 
 (define %admon-graphics-path%
   ;; use graphics in admonitions, set their
-  "../images")
+  "../images/")
 
 (define %admon-graphics%
   #t)
