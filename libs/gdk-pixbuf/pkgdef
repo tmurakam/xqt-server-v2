@@ -28,7 +28,7 @@ make %{install_opts} install
 %define devpkg	gdk-pixbuf
 
 %files
-%{prefix}/lib
+%{prefix}/lib/*.so*
 
 %excludes
 *.la
