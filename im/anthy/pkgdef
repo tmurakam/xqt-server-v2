@@ -1,0 +1,57 @@
+#
+# anthy
+# 
+
+%site
+http://osdn.dl.sourceforge.jp/anthy/10139
+
+%source
+anthy-5500.tar.gz
+
+%define builddir	anthy-5500
+
+%build
+# stage 1 : build host tools
+CONFIG_SITE= CC= ./configure --disable-shared
+make -C src-diclib
+make -C mkanthydic
+mv mkanthydic/mkanthydic mkanthydic/mkanthydic.host
+make clean
+
+# stage 2 : cross build
+./configure %{config_opts} --enable-shared
+make -C src-diclib
+make -C mkanthydic
+rm mkanthydic/mkanthydic
+cp mkanthydic/mkanthydic.host mkanthydic/mkanthydic
+make
+
+%install
+make %{install_opts} install
+
+#%define devpkg	uim
+
+%files
+%{prefix}/bin
+%{prefix}/etc
+%{prefix}/lib
+%{prefix}/share
+
+%excludes
+*.la
+*.a
+
+%strip
+!%{prefix}/bin/*
+*.so*
+
+%control
+Package: anthy
+Priority: optional
+Section: im
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 5500-1
+Depends: 
+License:
+Description: Anthy
