@@ -18,10 +18,13 @@ License: GPL
 #chown zaurus /home/zaurus/.xserverrc
 
 %files
-!files/startx.desktop		%{prefix}/apps/Applications/
 !files/startx-wrapper		%{prefix}/bin/
 !files/dot.xinitrc		/home/zaurus/.xinitrc
 !files/dot.xserverrc		/home/zaurus/.xserverrc
+!files/Xqt.png			%{prefix}/pics/Xqt.png
+!files/startx.desktop		%{prefix}/apps/Applications/
+#!files/Xqt.desktop		%{prefix}/apps/Applications/Xqt.desktop
+
 
 %preipkg
 chmod 0755    %{ipkgtmp}%{prefix}/bin/startx-wrapper
