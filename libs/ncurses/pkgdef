@@ -1,0 +1,55 @@
+#
+# libjpeg
+# 
+
+%site
+http://ring.asahi-net.or.jp/archives/GNU/ncurses/
+
+%source
+ncurses-4.2.tar.gz
+local:ncurses-4.2.cross.patch;patch=1
+
+%define builddir	ncurses-4.2
+
+%prep
+/bin/rm -rf Ada95
+
+%build
+./configure %{config_opts} --without-normal --with-shared --without-profile --without-debug \
+ --without-ada --without-progs --without-cxx-binding
+
+make HOSTCC=$CC_FOR_BUILD
+
+%install
+mkdir -p %{destdir}%{prefix}/bin
+mkdir -p %{destdir}%{prefix}/include
+mkdir -p %{destdir}%{prefix}/lib
+mkdir -p %{destdir}%{prefix}/man/man1
+make install prefix=%{destdir}%{prefix} \
+ libdir=%{destdir}%{prefix}/lib includedir=%{destdir}%{prefix}/include
+
+%define devpkg	libjpeg
+
+%files
+%{prefix}/lib/*.so*
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: libjpeg
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 6b-1
+Depends:
+License: Distributable
+Description: A library for manipulating JPEG image format files.
+ The libjpeg package contains a library of functions for manipulating
+ JPEG images, as well as simple client programs for accessing the
+ libjpeg functions.
