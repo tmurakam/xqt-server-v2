@@ -1,0 +1,47 @@
+#
+# pango
+# 
+
+%site
+ftp://ftp.gtk.org/pub/gtk/v2.4
+
+%source
+pango-1.4.1.tar.gz
+
+%define builddir	pango-1.4.1
+
+%build
+./configure %{config_opts} --enable-shared --disable-static --disable-gtk-doc
+make
+
+%install
+make DESTDIR=%{destdir} install
+
+# ad hoc...
+mv %{destdir}%{cross_prefix}/* %{destdir}%{prefix}/
+
+%define devpkg	pango
+
+%files
+%{prefix}/bin
+%{prefix}/etc
+%{prefix}/lib
+
+%excludes
+*.la
+*.a
+pkgconfig
+
+%strip
+*.so*
+
+%control
+Package: pango
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 1.4.1
+Depends: glib-2, xlibs
+License: LGPL
+Description: System for layout and rendering of internationalized text
