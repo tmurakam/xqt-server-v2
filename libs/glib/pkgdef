@@ -23,7 +23,7 @@ autoconf
 make
 
 %install
-make DESTDIR=%{destdir} install
+make %{install_opts} install
 
 %define devpkg	glib
 
