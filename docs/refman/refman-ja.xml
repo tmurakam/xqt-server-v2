@@ -5,6 +5,7 @@
 
 <!ENTITY INTRO SYSTEM "intro-ja.xml">
 <!ENTITY XSERVER SYSTEM "xserver-ja.xml">
+<!ENTITY INPUTMETHOD SYSTEM "inputmethod-ja.xml">
 <!ENTITY COPYRIGHT SYSTEM "../common/copyright-ja.xml">
 ]>
 
@@ -40,6 +41,7 @@
 
   &INTRO;
   &XSERVER;
+  &INPUTMETHOD;
   &COPYRIGHT;
 </article>
 

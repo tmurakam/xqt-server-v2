@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+
+  <sect1 id="inputmethod">
+    <title>日本語入力</title>
+    <para>
+      この節では、日本語の入力方法について述べます。
+    </para>
+
+    <sect2>
+      <title>手書き文字入力を使う</title>
+      <para>
+	一番手っ取り早いのは、手書き文字入力を使う方法です。
+	Zaurus の手書き文字入力を使って、そのまま日本語をアプリケーションに入力することができます。
+	ただし、かなり無茶な実装になっているので、アプリケーションによっては正しく入力できないことがあります。
+      </para>
+    </sect2>
+    
+    <sect2>
+      <title>uim + Anthy</title>
+      <para>
+	X/Qt では、uim + Anthy を使う方法を推奨します。
+	XIM(X Input Method)サーバの uim-xim と、日本語入力システムの anthy を組み合わせるものです。
+      </para>
+      <para>
+	この方法を使う場合は、uim-xim と Anthy パッケージをインストールしておく必要があります。
+	その後、~/.xinitr ファイルに以下の記述を追加します。
+	<programlisting>
+ export XMODIFIERS=@im=uim-anthy
+ exec uim-xim &amp;
+	</programlisting>
+      </para>
+      <para>
+	日本語入力を行うときは、Shift + Space キーを押してください。
+	これでかな漢字変換が使えます。
+      </para>
+    </sect2>
+  </sect1>
