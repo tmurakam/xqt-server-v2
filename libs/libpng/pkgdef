@@ -1,0 +1,50 @@
+#
+# libpng
+# 
+
+%site
+http://umn.dl.sourceforge.net/sourceforge/png-mng/
+
+%source
+libpng-1.2.7.tar.bz2
+
+%define builddir	libpng-1.2.7
+
+%prep
+cp scripts/makefile.linux Makefile
+
+%build
+make CC=$CC AR=$AR RANLIB=$RANLIB prefix=%{cross_prefix} \
+ ZLIBINC=%{cross_prefix}/include ZLIBLIB=%{cross_prefix}/lib
+
+%install
+mkdir -p %{destdir}%{prefix}
+make CC=$CC DESTDIR=%{destdir} prefix=%{prefix} install
+
+%define devpkg	libpng
+
+%files
+%{prefix}/lib/*
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: libpng
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 1.2.7-1
+Depends:
+License: OSI Certified
+Description: A library of functions for manipulating PNG image format files.
+ The libpng package contains a library of functions for creating and
+ manipulating PNG (Portable Network Graphics) image format files.  PNG
+ is a bit-mapped graphics format similar to the GIF format.  PNG was
+ created to replace the GIF format, since GIF uses a patented data
+ compression algorithm.
