@@ -1,0 +1,17 @@
+#
+# semi
+# 
+
+%site
+ftp://ftp.m17n.org/pub/mule/semi/semi-1.14-for-flim-1.14
+
+%source
+semi-1.14.6.tar.gz
+
+%define builddir semi-1.14.6
+
+%build
+make EMACS=emacs
+
+%install
+make install EMACS=emacs PREFIX=%{destdir}%{prefix}
