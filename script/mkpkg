@@ -22,7 +22,7 @@ scriptdir = File.expand_path(File.dirname($0))
 topdir    = File.expand_path(scriptdir + "/..")
 distfiledir = topdir + "/distfile"
 devpkgdir   = topdir + "/devpkg"
-ipkgdir     = topdir = "/ipkg"
+ipkgdir     = topdir + "/ipkg"
 destdir = File.expand_path("./dest")
 
 $ipkg_build = File.expand_path(scriptdir + "/ipkg-build")
