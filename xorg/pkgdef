@@ -10,12 +10,21 @@ http://ring.asahi-net.or.jp/archives/X/opengroup/X11R6.8.0/tars/X11R6.8.0-src4.t
 http://ring.asahi-net.or.jp/archives/X/opengroup/X11R6.8.0/tars/X11R6.8.0-src5.tar.gz
 http://ring.asahi-net.or.jp/archives/X/opengroup/X11R6.8.0/tars/X11R6.8.0-src6.tar.gz
 http://ring.asahi-net.or.jp/archives/X/opengroup/X11R6.8.0/tars/X11R6.8.0-src7.tar.gz
-
+patch/cross.patch;patch=1
+patch/xqt-make.patch;patch=1
+patch/xchar2b.patch;patch=1
+patch/fephack.patch;patch=1
 
 %define builddir	xc
 
+%prep
+(cd programs/Xserver/hw/; ln -s ../../../../xqt-driver xqt)
+cp ../host.def config/cf
+
 %build
+make World
 
 %install
+make -k DESTDIR=%{destdir} install
 
 %files
