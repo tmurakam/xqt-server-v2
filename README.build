@@ -1,0 +1,90 @@
+■■ ビルド手順
+
+○ 必要なもの
+
+開発用の母艦 PC。Linux がインストールされていること。ディストリは基本的には何でもよいはず
+だが、Fedora だとたぶん glibc-locale がうまくできない。
+
+ちなみに作者が使用しているのは White Box Enterprise Linux である。
+
+
+○ クロス開発ツールをインストールする
+
+基本的に、SHARP のサイトで公開されている「Qtopia開発チュートリアル」と同じ環境が必要。
+
+クロスコンパイラや基本ライブラリ/ヘッダなどを Zaurus 宝箱 Pro
+(http://developer.ezaurus.com/) から入手する。
+(→国内向け SLシリーズザウルス→Linux関連　開発ツールにある)
+
+以下の４つのファイルが必要。
+
+ - クロスコンパイラ (gcc) 
+ - ライブラリ (glibc) 
+ - ヘッダファイル 
+ - ユーティリティ 
+
+tmake はとりあえず X/Qt の開発では不要。
+
+全部 RPM ファイルになっているので、rpm -Uvh *.rpm でインストールする。
+
+
+○ Qtopia のインストール
+
+X/Qt サーバをビルドするために、Qtopia SDK が必要。
+
+Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものが必要。
+ただ、1.5.0 のフリー版はもう Trolltech のサイトに置いてないので以下より入手されたし。
+
+  http://xqt.sourceforge.jp/bin/
+
+
+○ シンボリックリンクを張る
+
+以下のようにして /opt/QtPalmtop のシンボリックリンクを張っておく。
+こうすると、Zaurus と prefix を一致させることができる。
+
+ # ln -s /opt/Embedix/tools/arm-linux /opt/QtPalmtop
+
+ついでに、以下のシンボリックリンクも張っておく。これは Emacs をビルドするときに必要。
+
+ # ln -s arm-linux /opt/Embedix/tools/armlinux
+
+
+○ sudo の設定
+
+X/Qt のビルド中に、ヘッダやライブラリを /opt/Embedix/tools/arm-linux にインストール
+するため、sudo を使用するようになっている。このため、sudo を使えるようにしておく必要
+がある。とりあえず、/etc/sudoers に
+
+ %wheel  ALL=(ALL)       ALL
+
+という記述をいれ、/etc/group で自分を wheel グループに入れておけばよい。
+
+
+○ X/Qt-2 のソースを取り出す。
+
+以下のようにしてソースを取り出す (このファイルが読めているなら、もう取り出せて
+いるはず）。
+
+ $ export CVSROOT=:pserver:anonymous@cvs.sourceforge.jp:/cvsroot/xqt
+ $ cvs login
+ $ cvs checkout xqt2
+
+
+○ wget の設定
+
+ビルド中に、ファイルを wget を使ってダウンロードするようになっているので、Proxy を
+使う場合は http_proxy や ftp_proxy 環境変数を設定しておくこと。
+
+
+○ ビルド
+
+ビルドを行う。
+
+ $ cd xqt2
+ $ ./build DevWorld
+
+ビルドされたパッケージは ipkg ディレクトリに入る。また、開発用ライブラリ/ヘッダは
+/opt/Embedix/tools/arm-linux 以下にインストールされる。
+
+以上
