@@ -15,7 +15,7 @@ local:glib-1.2.10-cross.patch;patch=1
 rm acinclude.m4
 aclocal
 libtoolize --force
-automake
+automake --copy --add-missing
 autoconf
 
 %build
