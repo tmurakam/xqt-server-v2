@@ -35,7 +35,7 @@ make %{install_opts} install
 %control
 Package: uim
 Priority: optional
-Section: libs
+Section: im
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
 Version: 0.4.3-1
