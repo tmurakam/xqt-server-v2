@@ -1,0 +1,73 @@
+#
+# Emacs 21
+# 
+
+%site
+http://ring.asahi-net.or.jp/archives/GNU/emacs
+
+%source
+emacs-21.3.tar.gz
+
+%define builddir emacs-21.3
+
+# '-' が prefix に入っていると誤動作するため
+%define prefix	/opt/Embedix/tools/armlinux
+%define x_prefix %{prefix}
+
+####################################################
+# Stage 1
+#
+%first-build
+# i386 用のビルドを行う
+mkdir i386
+cd i386
+CC=gcc LD=ld AR=ar AS=as RANLIB=ranlib STRIP=strip CONFIG_SITE= ../configure --without-x
+make
+cd ..
+
+# クロスコンパイル１段目
+mkdir arm
+cd arm
+
+### execute configure
+CONFIG_SITE= ../configure --prefix=%{prefix} --host=arm-linux \
+    --without-pop --with-x \
+    -x-includes="%{x_prefix}/include" -x-libraries="%{x_prefix}/lib"
+
+### copy some needed files
+mkdir lib-src
+cp ../i386/lib-src/test-distrib lib-src
+cp ../i386/lib-src/make-docfile lib-src
+mkdir src
+cp ../i386/src/prefix-args src
+
+### rewrite Makefile
+pushd src
+mv Makefile Makefile.org
+sed 's#/usr/lib#/opt/Embedix/tools/armlinux/lib#g' < Makefile.org > Makefile
+popd
+
+### make
+make
+
+####################################################
+# Stage 2
+
+# クロスコンパイル２段目
+%build
+cd arm
+
+### replace emacs
+rm src/emacs
+cp ../i386/src/emacs src/
+
+### execute make
+make
+
+### restore emacs
+rm src/emacs
+ln -s emacs-21.3.1 src/emacs
+
+%install
+make install prefix=%{destdir}%{prefix}
+../../remove-el.rb %{destdir}%{prefix}
