@@ -49,11 +49,10 @@ static const int qtKeyScanMap[] = {
 #include "KeyMap.h"
 };
 
-void qtTranslateKey(QKeyEvent *ev, int fPress)
+static int qtkey2scan(int qtkey)
 {
-	int qtkey = ev->key();
 	int scancode = -1;
-	int modifier;
+	int i;
 
 	for (int i = 0; i < sizeof(qtKeyScanMap)/sizeof(int); i++) {
 		if (qtKeyScanMap[i] == qtkey) {
@@ -61,11 +60,38 @@ void qtTranslateKey(QKeyEvent *ev, int fPress)
 			break;
 		}
 	}
-	qDebug("key:%x, mod:%x -> key:%x, mod:%x\n", ev->key(), ev->state(),
-	       scancode, modifier);
+	return scancode;
+}
+
+void qtTranslateKey(QKeyEvent *ev, int fPress)
+{
+	static const int scan_control = qtkey2scan(Qt::Key_Control);
+	static const int scan_alt     = qtkey2scan(Qt::Key_Alt);
+
+	int qtkey = ev->key();
+	int bs = ev->state();
+
+	int scancode = qtkey2scan(qtkey);
+	qDebug("key:%x, mod:%x -> key:%x\n", qtkey, bs, scancode);
 
 	if (scancode < 0) return;
 
+	//
+	// KeyHelper 対応
+	//
+	// Control / Alt modifier を処理する
+	//
+	if (fPress) {
+		if (bs & Qt::ControlButton) qtSendKeyEvent(scan_control, true);
+		if (bs & Qt::AltButton) qtSendKeyEvent(scan_alt, true);
+	}
+
 	qtSendKeyEvent(scancode, fPress);
+
+	if (!fPress) {
+		if (bs & Qt::AltButton) qtSendKeyEvent(scan_alt, false);
+		if (bs & Qt::ControlButton) qtSendKeyEvent(scan_control, false);
+	}
+
 	qtPushMouseKeyEvent();
 }
