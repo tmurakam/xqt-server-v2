@@ -17,7 +17,7 @@ make
 %install
 make %{install_opts} install
 
-%define devpkg	glib
+%define devpkg	gtk
 
 %files
 %{prefix}/lib/libgtk*.so*
