@@ -1,0 +1,45 @@
+#
+# expat
+# 
+
+%site
+ftp://ring.asahi-net.or.jp/pub/graphics/freetype/freetype2
+
+%source
+freetype-2.1.5.tar.bz2
+
+%define builddir	freetype-2.1.5
+
+%prep
+
+%build
+./configure %{config_opts}
+make
+
+%install
+make %{install_opts} install
+
+%define devpkg	freetype
+
+%files
+%{prefix}/lib/*
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: freetype
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 2.1.5-1
+Depends:
+License: GPL
+Description: Freetype2 library
+
+
