@@ -48,32 +48,3 @@ popd
 
 ### make
 make
-
-%install
-make %{install_opts} install
-
-%define devpkg	uim
-
-%files
-%{prefix}/bin/*
-%{prefix}/lib/lib*.so*
-%{prefix}/share
-
-%excludes
-*.la
-*.a
-
-%strip
-!%{prefix}/bin/*
-*.so*
-
-%%% control
-Package: uim-xim
-Priority: optional
-Section: X11
-Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
-Architecture: arm
-Version: 0.4.3-1
-Depends: xlibs, ncurses
-Description: uim-xim package
-License: GPL
