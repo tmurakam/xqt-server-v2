@@ -131,16 +131,45 @@ Proxy を使う場合は、wgetrc ファイルに設定を行っておくか、http_proxy や ftp_proxy
     </sect2>
 
     <sect2>
-      <title>ビルド</title>
+      <title>フルビルド</title>
       <para>X/Qt のフルビルドを行います。フルビルドを行うことにより、ipkg の生成と、開発ライブラリ/ヘッダのインストールが行われます。</para>
       <programlisting>
  $ cd xqt2
  $ ./build DevWorld
 </programlisting>
-
-      <para>ビルドされたパッケージは ipkg ディレクトリに入ります。
-また、開発用ライブラリ/ヘッダは<filename class="directory">/opt/Embedix/tools/arm-linux</filename> 以下にインストールされます。
+      
+      <para>ビルドされたパッケージは <filename class="directory">ipkg</filename> ディレクトリに入ります。
+また、開発用ライブラリパッケージが <filename class="directory">devpkg</filename>に生成され、<filename class="directory">/opt/Embedix/tools/arm-linux</filename> 以下にインストールされます。
 </para>
+      <para>フルビルドを行うと、<filename>dirlist</filename>ファイルに指定した順番でパッケージのビルドが行われます。各パッケージのビルドにおいては、以下の処理が順番に実行されるようになっています。</para>
+      <orderedlist>
+	<listitem><para>ソースファイルのダウンロード</para></listitem>
+	<listitem><para>ソースファイルの展開</para></listitem>
+	<listitem><para>パッチの適用</para></listitem>
+	<listitem><para>configure と make の実行</para></listitem>
+	<listitem><para>make install の実行</para></listitem>
+	<listitem><para>ipkg の生成</para></listitem>
+	<listitem><para>開発ライブラリパッケージの生成</para></listitem>
+	<listitem><para>開発ライブラリパッケージのインストール</para></listitem>
+      </orderedlist>
+    </sect2>
+
+    <sect2>
+      <title>個別ビルド</title>
+      <para>フルビルドを行った場合、<filename>dirlist</filename> に指定した順序ですべてのパッケージがビルドされますが、パッケージを個別にビルドすることも可能です。</para>
+      <para>個別ビルドを行う場合は、各パッケージのディレクトリに <command>chdir</command>して、make を実行します。make のターゲットには以下のものが指定できます。</para>
+
+      <itemizedlist>
+	<listitem><para>source : ソースの取得と展開</para></listitem>
+	<listitem><para>build : ビルド(configure / make)</para></listitem>
+	<listitem><para>install : 仮想インストール</para></listitem>
+	<listitem><para>ipkg : ipkg の生成</para></listitem>
+	<listitem><para>devpkg : 開発パッケージの生成</para></listitem>
+	<listitem><para>install-devpkg : 開発パッケージのインストール</para></listitem>
+	<listitem><para>World : source/build/install/ipkg までを実行</para></listitem>
+	<listitem><para>DevWorld : World に加え、devpkg/install-devpkg まで実行</para></listitem>
+	<listitem><para>cleanup : ビルドディレクトリ/仮想インストールディレクトリを削除する</para></listitem>
+      </itemizedlist>
     </sect2>
   </sect1>
 </article>
