@@ -2,23 +2,29 @@
 # blackbox
 # 
 
-%source
-#http://easynews.dl.sourceforge.net/sourceforge/blackboxwm/blackbox-0.65.0.tar.gz
-http://umn.dl.sourceforge.net/sourceforge/blackboxwm/blackbox-0.65.0.tar.gz
+%site
+http://umn.dl.sourceforge.net/sourceforge/blackboxwm
 
-%define builddir	blackbox-0.65.0
+%source
+blackbox-0.65.0.tar.gz
+
+%define builddir blackbox-0.65.0
 
 %build
-./configure --prefix=/opt/QtPalmtop --host=arm-linux \
-    --with-glib-prefix=%{cross_prefix} --with-gtk-prefix=%{cross_prefix} \
-    -x-includes=%{x_prefix}/include -x-libraries=%{x_prefix}/lib
+./configure %{config_opts} %{x_opts}
+make -k
 make
+exit 0
 
 %install
-make DESTDIR=%{destdir} install
+make %{install_opts} install
 
 %files
-opt/QtPalmtop/bin/*
+%{prefix}/bin
+%{prefix}/share
+
+%strip
+%{prefix}/bin/*
 
 %control
 Package: blackbox
@@ -26,8 +32,7 @@ Priority: optional
 Section: X11
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 0.65.0.1
+Version: 0.65.0-2
 Depends: xlibs
 Description: Blackbox Window Manager
 License: BSD
-

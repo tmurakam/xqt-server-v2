@@ -14,6 +14,15 @@ License: MIT
 %{prefix}/lib/X11/fonts/misc
 
 %excludes
+# remove big font
+18x18ja.pcf.gz
+12x13ja.pcf.gz
+
+# remove non japanese font
 hangl*.pcf.gz
 gb*.pcf.gz
 18x18ko.pcf.gz
+cu12.pcf.gz
+
+%preipkg
+(cd %{ipkgtmp}%{prefix}/lib/X11/fonts/misc && mkfontdir)
