@@ -20,8 +20,9 @@ make %{install_opts} install
 %define devpkg	gtk
 
 %files
-%{prefix}/lib/libgtk*.so*
-%{prefix}/lib/libgdk*.so*
+%{prefix}/share
+%{prefix}/lib
+%{prefix}/etc
 
 %excludes
 *.la
