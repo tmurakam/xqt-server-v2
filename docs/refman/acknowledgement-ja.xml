@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+
+  <sect1 id="acknowledgement">
+    <title>謝辞</title>
+    <para>
+      X/Qt は、&XF86PROJ; の XFree86 4.3.0 をベースにしています。
+    </para>
+    <para>
+      X/Qt は、&ZAURUS-JA; の成果を使用しています。
+    </para>
+    <para>
+      本ドキュメントの作成にあたり、&FROM-ZERO-XQT;を参考にさせていただきました。
+    </para>
+  </sect1>
