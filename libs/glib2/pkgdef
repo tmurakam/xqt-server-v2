@@ -1,0 +1,43 @@
+#
+# Glib 2
+# 
+
+%site
+ftp://ftp.gtk.org/pub/gtk/v2.4
+
+%source
+glib-2.4.7.tar.bz2
+
+%define builddir	glib-2.4.7
+
+%build
+glib_cv_stack_grows=no ./configure \
+ --prefix=%{prefix} --host=arm-linux --enable-shared --disable-static
+make
+
+%install
+make DESTDIR=%{destdir} install
+
+%define devpkg	glib-2
+
+%files
+%{prefix}/lib/libgmodule*
+%{prefix}/lib/libgthread*
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: glib-2
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 2.4.7
+Depends:
+License: LGPL
+Description: glib 2.4.7
