@@ -56,8 +56,8 @@
 /* )          */	K(ParenRight,	XK_parenright,	XK_parenright)
 /* ~          */	K(AsciiTilde,	XK_asciitilde,	XK_asciitilde)
 /* -          */	K(Minus,	XK_minus,	XK_equal)
-/* =          */	K(Equal,	XK_equal,	XK_equal)		// Fn+E
-/* ^          */	K(AsciiCircum,	XK_asciicircum,	XK_asciicircum)		// Fn+W	
+/* =          */	K(Equal,	XK_equal,	XK_equal)	// Fn+E
+/* ^          */	K(AsciiCircum,	XK_asciicircum,	XK_asciicircum)	// Fn+W	
 /* BackSpace  */	K(BackSpace,	XK_BackSpace,	NoSymbol)
 /* Tab        */	K(Tab,		XK_Tab,		XK_ISO_Left_Tab)
 /* Q          */	K(Q,		XK_Q,		NoSymbol)
@@ -70,11 +70,11 @@
 /* I          */	K(I,		XK_I,		NoSymbol)
 /* O          */	K(O,		XK_O,		NoSymbol)
 /* P          */	K(P,		XK_P,		NoSymbol)
-/* @          */	K(At,		XK_at,		XK_quoteleft)		// Fn+-
+/* @          */	K(At,		XK_at,		XK_quoteleft)	// Fn+-
 /* `          */	K(QuoteLeft,	XK_quoteleft,	NoSymbol)
-/* [          */	K(BracketLeft,	XK_bracketleft, XK_braceleft)		// Fn+T
-/* {          */	K(BraceLeft,	XK_braceleft,	NoSymbol)		// ???
-/* cent       */	K(cent,		XK_cent,	NoSymbol)		// Fn+U
+/* [          */	K(BracketLeft,	XK_bracketleft, XK_braceleft)	// Fn+T
+/* {          */	K(BraceLeft,	XK_braceleft,	NoSymbol)	// ???
+/* cent       */	K(cent,		XK_cent,	NoSymbol)	// Fn+U
 /* Return     */	K(Return,	XK_Return,	NoSymbol)
 /* OK         */	K(F33,		XK_Return,	NoSymbol)
 /* Control    */	K(Control,	XK_Control_L,	NoSymbol)
@@ -87,15 +87,14 @@
 /* J          */	K(J,		XK_J,		NoSymbol)
 /* K          */	K(K,		XK_K,		NoSymbol)
 /* L          */	K(L,		XK_L,		NoSymbol)
-/* ;          */	K(Semicolon,	XK_semicolon,	XK_plus)		// Fn+G
-/* +          */	K(Plus,		XK_plus,	NoSymbol)		// Fn+R
-/* :          */	K(Colon,	XK_colon,	XK_asterisk)		// Fn+H
-/* *          */	K(Asterisk,	XK_asterisk,	NoSymbol)		// Fn+K
-/* ZenHan     */	K(F21,		XK_Zenkaku_Hankaku,	NoSymbol)
+/* ;          */	K(Semicolon,	XK_semicolon,	XK_plus)	// Fn+G
+/* +          */	K(Plus,		XK_plus,	NoSymbol)	// Fn+R
+/* :          */	K(Colon,	XK_colon,	XK_asterisk)	// Fn+H
+/* *          */	K(Asterisk,	XK_asterisk,	NoSymbol)	// Fn+K
 /* Shift      */	K(Shift,	XK_Shift_L,	NoSymbol)
-/* ]          */	K(BracketRight,	XK_bracketright,XK_braceright)		// Fn+Y
+/* ]          */	K(BracketRight,	XK_bracketright,XK_braceright)	// Fn+Y
 /* }          */	K(BraceRight,	XK_braceright,	NoSymbol)
-/* stering    */	K(sterling,	XK_sterling,	NoSymbol)		// Fn+I
+/* stering    */	K(sterling,	XK_sterling,	NoSymbol)	// Fn+I
 /* Z          */	K(Z,		XK_Z,		NoSymbol)
 /* X          */	K(X,		XK_X,		NoSymbol)
 /* C          */	K(C,		XK_C,		NoSymbol)
@@ -103,33 +102,16 @@
 /* B          */	K(B,		XK_B,		NoSymbol)
 /* N          */	K(N,		XK_N,		NoSymbol)
 /* M          */	K(M,		XK_M,		NoSymbol)
-/* comma      */	K(Comma,	XK_comma,	XK_comma)		// !!!
-/* .          */	K(Period,	XK_period,	XK_period)		// !!!
-/* /          */	K(Slash,	XK_slash,	XK_slash)		// Shift+,
-/* <          */	K(Less,		XK_less,	XK_less)		// Fn+,
-/* >          */	K(Greater,	XK_greater,	XK_greater)		// Fn+?
-/* ?          */	K(Question,	XK_question,	XK_question)		// Shift+.
+/* comma      */	K(Comma,	XK_comma,	XK_comma)	// !!!
+/* .          */	K(Period,	XK_period,	XK_period)	// !!!
+/* /          */	K(Slash,	XK_slash,	XK_slash)	// Shift+,
+/* <          */	K(Less,		XK_less,	XK_less)	// Fn+,
+/* >          */	K(Greater,	XK_greater,	XK_greater)	// Fn+?
+/* ?          */	K(Question,	XK_question,	XK_question)	// Shift+.
 /* Alt        */	K(Alt,		XK_Alt_L,	XK_Meta_L)
 /* Meta       */	K(Meta,		XK_Meta_L,	NoSymbol)
 /* Space      */	K(Space,	XK_space,	NoSymbol)
 /* Caps_Lock  */	K(CapsLock,	XK_Caps_Lock,	NoSymbol)
-/* F1         */	K(F1,		XK_F1,		NoSymbol)
-/* F2         */	K(F2,		XK_F2,		NoSymbol)
-/* F3         */	K(F3,		XK_F3,		NoSymbol)
-/* F4         */	K(F4,		XK_F4,		NoSymbol)
-/* F5         */	K(F5,		XK_F5,		NoSymbol)
-/* F6         */	K(F6,		XK_F6,		NoSymbol)
-/* F7         */	K(F7,		XK_F7,		NoSymbol)
-/* F8         */	K(F8,		XK_F8,		NoSymbol)
-/* F9         */	K(F9,		XK_F9,		NoSymbol)
-/* F10(Addr.) */	K(F10,		XK_Control_L,	NoSymbol)		// Use Addr As CTRL
-/* F11        */	K(F11,		XK_F11,		NoSymbol)
-/* F12(Home)  */	K(F12,		XK_Alt_L,	XK_Meta_L)		// Use Home as ALT
-/* F13(Mail)  */	K(F13,		XK_F13,		NoSymbol)
-/* F14        */	K(F14,		XK_F14,		NoSymbol)
-/* HiraKata   */	K(F15,		XK_F15,		NoSymbol)
-/* F16        */	K(F16,		XK_F16,		NoSymbol)
-/* F17        */	K(F17,		XK_F17,		NoSymbol)
 /* Insert     */	K(Insert,	XK_Insert,	NoSymbol)
 /* Delete     */	K(Delete,	XK_Delete,	NoSymbol)
 /* Pause      */	K(Pause,	66,		NoSymbol)
@@ -145,9 +127,44 @@
 /* ScrollLock */	K(ScrollLock,	XK_Scroll_Lock,	NoSymbol)
 /* Break      */	/*K(Break,	XK_Break,	NoSymbol)*/
 /* Print      */	K(Print,	XK_Print,	NoSymbol)
-/* \          */	K(Backslash,	XK_backslash,	XK_backslash)		// Fn+K
-/* _          */	K(Underscore,	XK_underscore,	XK_underscore)		// no key?
-/* |          */	K(Bar,		XK_bar,		XK_bar)			// Fn+L
+/* \          */	K(Backslash,	XK_backslash,	XK_backslash)	// Fn+K
+/* _          */	K(Underscore,	XK_underscore,	XK_underscore)	// no key?
+/* |          */	K(Bar,		XK_bar,		XK_bar)		// Fn+L
+/* F1         */	K(F1,		XK_F1,		NoSymbol)
+/* F2         */	K(F2,		XK_F2,		NoSymbol)
+/* F3         */	K(F3,		XK_F3,		NoSymbol)
+/* F4         */	K(F4,		XK_F4,		NoSymbol)
+/* F5         */	K(F5,		XK_F5,		NoSymbol)
+/* F6         */	K(F6,		XK_F6,		NoSymbol)
+/* F7         */	K(F7,		XK_F7,		NoSymbol)
+/* F8         */	K(F8,		XK_F8,		NoSymbol)
+/* F9         */	K(F9,		XK_F9,		NoSymbol)
+/* F10        */	K(F10,		XK_Control_L,	NoSymbol)	// Addr: as CTRL
+/* F11        */	K(F11,		XK_F11,		NoSymbol)
+/* F12        */	K(F12,		XK_Alt_L,	XK_Meta_L)	// Home: as ALT
+/* F13        */	K(F13,		XK_F13,		NoSymbol)	// Mail
+/* F14        */	K(F14,		XK_F14,		NoSymbol)
+/* F15        */	K(F15,		XK_F15,		NoSymbol)	// HiraganaKatakana
+/* F16        */	K(F16,		XK_F16,		NoSymbol)
+/* F17        */	K(F17,		XK_F17,		NoSymbol)
+/* F18        */	K(F18,		XK_F18,		NoSymbol)
+/* F19        */	K(F19,		XK_F19,		NoSymbol)
+/* F20        */	K(F20,		XK_F20,		NoSymbol)
+/* F21        */	K(F21,		XK_Zenkaku_Hankaku, NoSymbol)	// ZenkakuHankaku
+/* F22        */	K(F22,		XK_F22,		NoSymbol)
+/* F23        */	K(F23,		XK_F23,		NoSymbol)
+/* F24        */	K(F24,		XK_F24,		NoSymbol)
+/* F25        */	K(F25,		XK_F25,		NoSymbol)
+/* F26        */	K(F26,		XK_F26,		NoSymbol)
+/* F27        */	K(F27,		XK_F27,		NoSymbol)
+/* F28        */	K(F28,		XK_F28,		NoSymbol)
+/* F29        */	K(F29,		XK_F29,		NoSymbol)
+/* F30        */	K(F30,		XK_F30,		NoSymbol)
+/* F31        */	K(F31,		XK_F31,		NoSymbol)
+/* F32        */	K(F32,		XK_F32,		NoSymbol)
+/* F33        */	K(F33,		XK_F33,		NoSymbol)
+/* F34        */	K(F34,		XK_F34,		NoSymbol)
+/* F35        */	K(F35,		XK_F35,		NoSymbol)
 
 // --- Sharp SL-Cxxx series ---
 /* \          */	KD(0x2022,	XK_backslash,	NoSymbol)
