@@ -25,7 +25,6 @@ libs/gtk2
 net/openssl
 libs/libxml2
 
-libs/libid3tag
 libs/libmad
 
 wm/blackbox
