@@ -47,6 +47,31 @@
   &INTRO;
   &XSERVER;
   &INPUTMETHOD;
+
+  <sect1>
+    <title>ウィンドウマネージャ : blackbox</title>
+    <para>執筆中</para>
+  </sect1>
+
+  <sect1>
+    <title>メーラ : Sylpheed</title>
+    <para>執筆中</para>
+  </sect1>
+
+  <sect1>
+    <title>エディタ : Emacs</title>
+    <para>執筆中</para>
+    <sect2>
+      <title>Wanderlust</title>
+      <para></para>
+    </sect2>
+    <sect2>
+      <title>navi2ch</title>
+      <para></para>
+    </sect2>
+  </sect1>
+
+
   &ACKNOWLEDGEMENT;
   &COPYRIGHT;
   &GFDL;
