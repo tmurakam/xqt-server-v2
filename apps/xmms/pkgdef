@@ -1,0 +1,44 @@
+#
+# xmms
+# 
+
+%site
+http://www3.big.or.jp/~sian/linux/products/xmms/files/sources
+
+%source
+xmms-1.2.10j_20040415.tar.bz2
+
+%define builddir  xmms-1.2.10j_20040415
+
+%build
+./configure --prefix=%{prefix} --host=arm-linux %{x_opts} --disable-mikmod --disable-esd
+make
+
+%install
+make DESTDIR=%{destdir} install
+
+%files
+%{prefix}/bin
+%{prefix}/lib
+%{prefix}/share/xmms
+%{prefix}/share/locale/en
+%{prefix}/share/locale/ja
+
+%strip
+!%{prefix}/bin/*
+*.so*
+
+%control
+Package: xmms
+Priority: optional
+Section: multimedia
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 1.2.10j-20040415-1
+Depends: xlibs, glib, gtk
+Cardinst: enable
+License: GPL
+Description: A multimedia player for X which resembles Winamp
+ Xmms is a multimedia player for the X Window System with
+ an interface similar to Winamp's. Xmms supports playlists and
+ streaming content and has a configurable interface.
