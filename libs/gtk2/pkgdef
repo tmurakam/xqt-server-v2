@@ -42,7 +42,7 @@ pkgconfig
 *.so*
 
 %control
-Package: gtk+-2
+Package: gtk2
 Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>

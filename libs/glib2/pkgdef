@@ -29,12 +29,13 @@ mv %{destdir}%{cross_prefix}/* %{destdir}%{prefix}/
 %excludes
 *.la
 *.a
+pkgconfig
 
 %strip
 *.so*
 
 %control
-Package: glib-2
+Package: glib2
 Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
