@@ -111,6 +111,34 @@ make や gcc は当然として、autoconf / automake / libtool などが必要です。
 
   <sect1 id="buildxqt">
     <title>X/Qt のビルド</title>
+    <para>ここでは、X/Qt のビルドを行います。</para>
+
+    <sect2>
+      <title>X/Qt のビルドの必要性</title>
+      <para>X/Qt のビルドには、２つの意味があります。一つは、X/Qt の配布物、すわなち ipkg ファイルの生成です。
+ここで生成した ipkg ファイルは、そのままZaurus にインストールして使用することが出来ます。</para>
+      <para>もう一つは、開発ライブラリ/ヘッダのインストールです。X/Qt で動作する X や GTK+ のアプリケーションをビルドする場合、X や GTK+ のヘッダが必要になります。これらは、SHARP が提供する開発ライブラリには含まれていませんので、自分でビルドしなければなりません。</para>
+
+      <para>X/Qt のビルドにおいてインストールされるライブラリには、主に以下のものがあります。
+これらのライブラリは、さまざまなアプリケーションのビルド時によく必要になるものばかりです。</para>
+
+      <itemizedlist>
+	<listitem><para>XFree86</para></listitem>
+	<listitem><para>glibc</para></listitem>
+	<listitem><para>ncurses</para></listitem>
+	<listitem><para>zlib</para></listitem>
+	<listitem><para>libjpeg</para></listitem>
+	<listitem><para>libpng</para></listitem>
+	<listitem><para>libungif</para></listitem>
+	<listitem><para>libtiff</para></listitem>
+	<listitem><para>freetype</para></listitem>
+	<listitem><para>expat</para></listitem>
+	<listitem><para>fontconfig</para></listitem>
+	<listitem><para>GLib</para></listitem>
+	<listitem><para>GTK+</para></listitem>
+	<listitem><para>OpenSSL</para></listitem>
+      </itemizedlist>
+    </sect2>
 
     <sect2>
       <title>ソースの取り出し</title>
