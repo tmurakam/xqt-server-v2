@@ -33,7 +33,18 @@ class Pkgdef
 
     # ソース取得と展開処理
     def getSource
+	cleanup()
 	GetSource(@sections["source"], @sections["site"])
+    end
+
+    # cleanup 処理
+    def cleanup
+	builddir = GetDefine("builddir")
+	destdir = GetDefine("destdir")
+	system("/bin/rm -rf #{destdir}")
+	if (builddir != nil && builddir != "." && GetDefine("noclean") == nil)
+	    system("/bin/rm -rf #{builddir}")
+	end
     end
 
     def Dump
