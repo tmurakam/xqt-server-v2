@@ -1,0 +1,43 @@
+diff -urN xc.org/programs/Xserver/Imakefile xc/programs/Xserver/Imakefile
+--- xc.org/programs/Xserver/Imakefile	2004-09-01 09:59:17.000000000 +0900
++++ xc/programs/Xserver/Imakefile	2004-09-16 18:04:53.000000000 +0900
+@@ -1161,13 +1161,38 @@
+ 
+ #endif /* XDarwinServer */
+ 
++#if defined(XqtXServer)
++XCOMM
++XCOMM Xqt Server Section
++XCOMM
++
++QTDIR	  = QtDir
++
++KDDIRS    = StdKdDirs
++
++XQTDDXDIR = hw/xqt
++SHADOWDIR = miext/shadow
++XQTDIRS = $(STDDIRS) $(KDDIRS) $(XQTDDXDIR) $(SHADOWDIR) $(LAYERDIR) $(DEPDIRS)
++
++XQTLIB     = $(XQTDDXDIR)/LibraryTargetName(xqt)
++XQTOBJS    =	
++
++XQTLIBS    = PreFbLibs $(XQTLIB) KdLibs $(SHADOW) $(LAYER) FbPostFbLibs
++XQTSYSLIBS = StdKdSysLibs -L$(QTDIR)/lib QtLibs
++
++/* C++ linker must be used to build Xqt server */
++CCLINK	   = $(CXXLINK)
++
++ServerTarget(Xqt,$(XQTDIRS),$(XQTOBJS),$(XQTLIBS),$(XQTSYSLIBS))
++#endif	/* XqtServer */
++
+ 
+ CFBSUBDIRS = $(CFB8SUBDIR) $(CFB16SUBDIR) $(CFB24SUBDIR) $(CFB32SUBDIR)
+ MIEXTDIRS = $(SHADOWDIR) $(LAYERDIR) $(ROOTLESSDIR) $(MIDAMAGEDIR)
+ IPLANDIRS = $(IPLAN2P2DIR) $(IPLAN2P4DIR) $(IPLAN2P8DIR)
+ DDXDIRS = $(DECWSDDXDIR) $(SUNDDXDIR) $(LYNXDDXDIR) \
+ 	  $(HPDDXDIR) $(XFREE86DDXDIR) $(XWINDDXDIR) $(DARWINDDXDIR) \
+-	  $(XVFBDDXDIR) $(XNESTDDXDIR) $(XDMXDDXDIR)
++	  $(XVFBDDXDIR) $(XNESTDDXDIR) $(XDMXDDXDIR) $(XQTDDXDIR)
+ SUBDIRS = $(STDDIRS) $(MFBSUBDIR) $(CFBSUBDIRS) \
+ 	  $(IPLANDIRS) $(ILBMDIR) $(AFBSUBDIR) \
+           $(LMFCFBDIR) $(DDXDIRS) $(FBSUBDIR) $(KDRIVEDIRS) $(MIEXTDIRS)
