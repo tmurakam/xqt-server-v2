@@ -24,7 +24,7 @@ make CC=$CC DESTDIR=%{destdir} prefix=%{prefix} install
 %define devpkg	libpng
 
 %files
-%{prefix}/lib/*
+%{prefix}/lib/*.so*
 
 %excludes
 *.la
