@@ -25,7 +25,7 @@ class Pkgdef
 		fh.puts line
 	    end
 	end
-	if (!system("cd #{builddir} && /bin/sh -v tmp.sh"))
+	if (!system("cd #{builddir} && /bin/sh -x tmp.sh"))
 	    STDERR.puts "Error: command execution error: #{$?.to_i() / 256}"
 	    exit 1
 	end
