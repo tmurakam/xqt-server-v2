@@ -118,14 +118,29 @@ make や gcc は当然として、autoconf / automake / libtool などが必要です。
       <programlisting>
  $ export CVSROOT=:pserver:anonymous@cvs.sourceforge.jp:/cvsroot/xqt
  $ cvs login
-   パスワードは空でよい
+   [パスワードは空でよい]
  $ cvs checkout xqt2
 </programlisting>
     </sect2>
 
     <sect2>
       <title>wget の設定</title>
-      <para></para>
+      <para>X/Qt2 のビルドスクリプトは、ビルド中にソースを wget を使ってダウンロードするようになっています。
+Proxy を使う場合は、wgetrc ファイルに設定を行っておくか、http_proxy や ftp_proxy 環境変数を設定しておいてください。
+</para>
+    </sect2>
+
+    <sect2>
+      <title>ビルド</title>
+      <para>X/Qt のフルビルドを行います。フルビルドを行うことにより、ipkg の生成と、開発ライブラリ/ヘッダのインストールが行われます。</para>
+      <programlisting>
+ $ cd xqt2
+ $ ./build DevWorld
+</programlisting>
+
+      <para>ビルドされたパッケージは ipkg ディレクトリに入ります。
+また、開発用ライブラリ/ヘッダは<filename class="directory">/opt/Embedix/tools/arm-linux</filename> 以下にインストールされます。
+</para>
     </sect2>
   </sect1>
 </article>
