@@ -1,3 +1,6 @@
+# sudo を使う場合は以下を有効にすること
+#%define	sudo	sudo
+
 # ソースをダウンロードする fallback URL
 %define	fallback_url	http://xqt.sourceforge.jp/distfiles/
 

@@ -126,8 +126,11 @@ cmds.each do |cmd|
 	when "install-devpkg"
 	    devpkg = pkg.GetDefine("devpkg")
 	    cross_prefix = pkg.GetDefine("cross_prefix")
+	    sudo = pkg.GetDefine("sudo")
+	    sudo = "" if (sudo == nil)
+
 	    if (devpkg != nil)
-		cmdline = "sudo tar xvzf #{devpkgdir}/#{devpkg}.tar.gz -C #{cross_prefix}"
+		cmdline = "#{sudo} tar xvzf #{devpkgdir}/#{devpkg}.tar.gz -C #{cross_prefix}"
 		puts cmdline
 		system(cmdline)
 	    end
