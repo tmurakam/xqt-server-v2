@@ -11,26 +11,20 @@ glib-2.4.7.tar.bz2
 %define builddir	glib-2.4.7
 
 %build
-glib_cv_stack_grows=no ./configure \
- --prefix=%{prefix} --host=arm-linux --enable-shared --disable-static
+glib_cv_stack_grows=no ./configure %{config_opts}
+# --prefix=%{prefix} --host=arm-linux --enable-shared --disable-static
 make
 
 %install
 make DESTDIR=%{destdir} install
 
-cd %{destdir}%{prefix}/lib/pkgconfig
-for f in *.pc; do
-	mv $f $f.org
-	sed -e 's|libdir=.*|libdir=%{cross_prefix}/lib|' \
-	-e 's|includedir=.*|includedir=%{cross_prefix}/include|' < $f.org > $f
-	rm $f.org
-done
+# ad hoc...
+mv %{destdir}%{cross_prefix}/* %{destdir}%{prefix}/
 
 %define devpkg	glib-2
 
 %files
-%{prefix}/lib/libgmodule*
-%{prefix}/lib/libgthread*
+%{prefix}/lib
 
 %excludes
 *.la
