@@ -1,0 +1,45 @@
+#
+# zlib
+# 
+
+%site
+http://www.zlib.net/
+
+%source
+zlib-1.2.1.tar.gz
+
+%define builddir	zlib-1.2.1
+
+%prep
+
+%build
+./configure --prefix=%{prefix} --shared
+make
+
+%install
+make install prefix=%{destdir}/usr
+
+%define devpkg	zlib
+
+%files
+usr/lib/*
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: zlib
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 1.2.1-1
+Depends:
+License: BSD
+Description: The zlib compression and decompression library.
+ Zlib is a general-purpose, patent-free, lossless data compression
+ library which is used by many different programs.
