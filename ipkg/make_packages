@@ -1,0 +1,60 @@
+#!/usr/bin/ruby -Ke
+
+def analyze_ipkg(file)
+    size = 0
+    md5sum = 'unknown'
+    control = ''
+    license = ''
+    section = ''
+    nocard = false
+    desc = ''
+
+    begin
+	# get file size / md5sum
+	size = FileTest.size(file)
+	md5sum = `md5sum #{file} | awk '{print $1}'`
+	md5sum.chop!
+
+	# load/parse control file
+	is_desc = false
+	`tar -xzOf #{file} ./control.tar.gz | tar -xzOf - ./control`.each do |line|
+	    line.chop!
+
+	    next if (line =~ /^\s*$/)
+	    if (line =~ /^Description:/) 
+		is_desc = true
+	    end
+	    if (!is_desc)
+		control = control + line + "\n"
+	    else
+		desc = desc + line + "\n"
+	    end
+
+	    # check license
+	    if (line =~ /^License:\s+(.*)$/)
+		license = $1
+	    end
+	    if (line =~ /^Section:\s+(.*)$/)
+		section = $1
+	    end
+	end
+
+	control = control + "Filename: #{file}\n"
+	control = control + "Size: #{@size}\n"
+	control = control + "MD5Sum: #{md5sum}\n"
+	control = control + desc
+
+    rescue
+	# nothing to do
+    end
+
+    return control
+end
+
+# start from here
+open("Packages", "w") do |fh|
+    Dir.glob("*.ipk").sort.each do |ipk|
+	fh.puts analyze_ipkg(ipk)
+	fh.puts
+    end
+end
