@@ -41,42 +41,15 @@
 #include "XKBsrv.h"
 #endif
 
-static Bool g_qtKeyState[NUM_KEYCODES];
-
-
-/* 
- * Translate a Windows WM_[SYS]KEY(UP/DOWN) message
- * into an ASCII scan code.
- *
- * We do this ourselves, rather than letting Windows handle it,
- * because Windows tends to munge the handling of special keys,
- * like AltGr on European keyboards.
+/*
+ * Define keymap
  */
-#if 0	
-/* これと同様の関数は自分で作る必要がある。
-   Qt::Key の値から変換する
-*/
-void
-winTranslateKey (WPARAM wParam, LPARAM lParam, int *piScanCode)
-{
-  int		iKeyFixup = g_iKeyMap[wParam * WIN_KEYMAP_COLS + 1];
-  int		iKeyFixupEx = g_iKeyMap[wParam * WIN_KEYMAP_COLS + 2];
-
-  /* Branch on special extended, special non-extended, or normal key */
-  if ((HIWORD (lParam) & KF_EXTENDED) && iKeyFixupEx)
-    *piScanCode = iKeyFixupEx;
-  else if (iKeyFixup)
-    *piScanCode = iKeyFixup;
-  else
-    *piScanCode = LOBYTE (HIWORD (lParam));
-}
-#endif
+static Bool g_qtKeyState[NUM_KEYCODES];
 
 /*
  * We call this function from qtKeybdProc when we are
  * initializing the keyboard.
  */
-
 void
 qtGetKeyMappings (KeySymsPtr pKeySyms, CARD8 *pModMap)
 {
@@ -518,7 +491,7 @@ qtSendKeyEvent (DWORD dwKey, int fDown)
 	xCurrentEvent.u.u.type = fDown ? KeyPress : KeyRelease;
 	xCurrentEvent.u.keyButtonPointer.time =
 		g_c32LastInputEventTime = GetTimeInMillis();
-	xCurrentEvent.u.u.detail = dwKey + MIN_KEYCODE;
+	xCurrentEvent.u.u.detail = dwKey; // + MIN_KEYCODE;
 	mieqEnqueue (&xCurrentEvent);
 }
 
