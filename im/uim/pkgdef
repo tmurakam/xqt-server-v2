@@ -1,0 +1,30 @@
+#
+# uim
+# 
+
+%site
+http://freedesktop.org/Software/UimDownload/
+
+%source
+uim-0.4.3.tar.gz
+
+%define builddir	uim-0.4.3
+
+%build
+./configure %{config_opts} %{x_opts}
+make
+
+%install
+make %{install_opts} install
+
+%define devpkg	uim
+
+%files
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
