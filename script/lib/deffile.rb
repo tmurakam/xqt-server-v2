@@ -46,7 +46,7 @@ module DefFile
 		# %env 処理
 		ENV[$1] = $2
 		
-	    elsif (line =~ /^%(\S+)/)
+	    elsif (line =~ /^%(\w+)/)
 		# セクション名
 		section = $1
 

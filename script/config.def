@@ -1,23 +1,26 @@
 # コンパイラ類の指定
-%env CC		/opt/Embedix/tools/bin/arm-linux-gcc
-%env CXX	/opt/Embedix/tools/bin/arm-linux-g++
-%env LD		/opt/Embedix/tools/bin/arm-linux-ld
-%env AR		/opt/Embedix/tools/bin/arm-linux-ar
-%env AS		/opt/Embedix/tools/bin/arm-linux-as
-%env RANLIB	/opt/Embedix/tools/bin/arm-linux-ranlib
-%env STRIP	/opt/Embedix/tools/bin/arm-linux-strip
-%env AS		/opt/Embedix/tools/bin/arm-linux-as
+%define tool_path	/opt/Embedix/tools
+
+%env CC		%{tool_path}/bin/arm-linux-gcc
+%env CXX	%{tool_path}/bin/arm-linux-g++
+%env LD		%{tool_path}/bin/arm-linux-ld
+%env AR		%{tool_path}/bin/arm-linux-ar
+%env AS		%{tool_path}/bin/arm-linux-as
+%env RANLIB	%{tool_path}/bin/arm-linux-ranlib
+%env STRIP	%{tool_path}/bin/arm-linux-strip
+%env AS		%{tool_path}/bin/arm-linux-as
 
 %env CC_FOR_BUILD	gcc
 %env HOST_CC		gcc
 
 # パス指定
-%define	cross_prefix	/opt/Embedix/tools/arm-linux
-%define	x_prefix	/opt/Embedix/tools/arm-linux/X11R6
+%define prefix		/opt/QtPalmtop
 
+%define	cross_prefix	%{tool_path}/arm-linux
+%define	x_prefix	%{cross_prefix}/X11R6
 
-%env PKG_CONFIG_PATH	/opt/Embedix/tools/arm-linux/lib/pkgconfig
+%env PKG_CONFIG_PATH	%{cross_prefix}/lib/pkgconfig
 %env CONFIG_SITE	%{scriptdir}/zaurus-config.site
 
 # configure オプション
-%define config_opts	--host=arm-linux --prefix=/opt/QtPalmtop
+%define config_opts	--host=arm-linux --prefix=%{prefix}

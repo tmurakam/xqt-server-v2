@@ -22,8 +22,8 @@ scriptdir = File.expand_path(File.dirname($0))
 topdir    = File.expand_path(scriptdir + "/..")
 distfiledir = topdir + "/distfile"
 devpkgdir   = topdir + "/devpkg"
+ipkgdir     = topdir = "/ipkg"
 destdir = File.expand_path("./dest")
-ipkgdir = File.expand_path("./.ipktmp")
 
 $ipkg_build = File.expand_path(scriptdir + "/ipkg-build")
 
@@ -39,6 +39,8 @@ cmd = ARGV.shift
 cmds = []
 if (cmd == "World")
     cmds = ["cleanup", "source", "build", "install", "ipkg"]
+elsif (cmd == "DevWorld")
+    cmds = ["cleanup", "source", "build", "install", "devpkg", "install-devpkg", "ipkg"]
 else
     cmds = [cmd]
 end
@@ -56,10 +58,14 @@ if (deffiles.size == 0)
     end
 end
 
+pkgs = Array.new
+
 deffiles.each do |file|
 
     # パッケージ定義を読み込む
     pkg = Pkgdef.new
+    pkgs.push(pkg)
+
     pkg.SetDefine("destdir", destdir)
     pkg.SetDefine("scriptdir", scriptdir)
     pkg.SetDefine("ipkgdir", ipkgdir)
@@ -73,10 +79,13 @@ deffiles.each do |file|
     if (builddir == nil)
 	pkg.SetDefine("builddir", ".")
     end
+end
 
-    cmds.each do |cmd|
+cmds.each do |cmd|
+    pkgs.each do |pkg|
 	case cmd
 	when "cleanup"
+	    builddir = pkg.GetDefine("builddir")
 	    if (pkg.GetDefine("noclean") == nil || builddir != ".")
 		system("/bin/rm -rf #{builddir} #{destdir}")
 	    end
@@ -87,9 +96,18 @@ deffiles.each do |file|
 	    pkg.BuildIpkg
 	when "devpkg"
 	    devpkg = pkg.GetDefine("devpkg")
+	    prefix = pkg.GetDefine("prefix")
 	    if (devpkg != nil)
 		Dir.mkdir(devpkgdir) if (!FileTest.exist?(devpkgdir))
-		system("(cd #{destdir}/opt/QtPalmtop && tar cvzf #{devpkgdir}/#{devpkg}.tar.gz include bin lib)")
+		system("(cd #{destdir}/#{prefix} && tar cvzf #{devpkgdir}/#{devpkg}.tar.gz .)")
+	    end
+	when "install-devpkg"
+	    devpkg = pkg.GetDefine("devpkg")
+	    cross_prefix = pkg.GetDefine("cross_prefix")
+	    if (devpkg != nil)
+		cmd = "sudo tar xvzf #{devpkgdir}/#{devpkg}.tar.gz -C #{cross_prefix}"
+		puts cmd
+		system(cmd)
 	    end
 	else
 	    pkg.ExecSection(cmd)

@@ -78,7 +78,7 @@ module GetSource
 	cmd = nil
 	if (path =~ /\.tgz$/ || path =~ /\.tar\.gz$/)
 	    cmd = "tar xvzf"
-	elsif (path =~ /\.tbz2?$/ || /\.tar\.bz2?$/)
+	elsif (path =~ /\.tbz2?$/ || path =~ /\.tar\.bz2?$/)
 	    cmd = "tar xvjf"
 	else
 	    STDERR.puts "How should I do? : #{path}"
