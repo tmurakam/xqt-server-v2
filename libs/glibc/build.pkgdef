@@ -1,0 +1,28 @@
+#
+# glibc 2.2.2
+# 
+
+%site
+http://ring.asahi-net.or.jp/archives/GNU/glibc
+
+%source
+glibc-2.2.2.tar.gz
+glibc-linuxthreads-2.2.2.tar.gz
+local:glibc-2.2.2-cp932-2.diff.gz;patch=1
+
+%define builddir	glibc-2.2.2
+
+%prep
+mv ../linuxthreads .
+mv ../linuxthreads_db .
+
+%build
+./configure --prefix=/usr --exec-prefix=/ --target=arm-linux --host=arm-linux \
+	--with-headers=/opt/Embedix/tools/arm-linux/include \
+	--enable-add-ons --disable-sanity-checks
+make
+
+%install
+make install_root=%{destdir} install
+
+#%define devpkg	glibc
