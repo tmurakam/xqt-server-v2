@@ -12,15 +12,15 @@ License: GPL
 Cardinst: enable
 
 %install
-mkdir -p %{destdir}/opt/QtPalmtop/Applications
+mkdir -p %{destdir}/opt/QtPalmtop/apps/Applications
 mkdir -p %{destdir}/opt/QtPalmtop/pic
 mkdir -p %{destdir}/opt/QtPalmtop/help/html
 
-cp ../files/Xqt.desktop %{destdir}/opt/QtPalmtop/apps/Applications
-cp ../files/Xqt.png     %{destdir}/opt/QtPalmtop/pic/
-cp ../files/Xqt.html    %{destdir}/opt/QtPalmtop/help/html
+cp files/Xqt.desktop %{destdir}/opt/QtPalmtop/apps/Applications/
+cp files/Xqt.png     %{destdir}/opt/QtPalmtop/pic/
+cp files/Xqt.html    %{destdir}/opt/QtPalmtop/help/html/
 
-iconv --to-code=utf8 ../files/Xqt.ja.html > %{destdir}/opt/QtPalmtop/help/html/Xqt.ja.html
+iconv --to-code=utf8 files/Xqt.ja.html > %{destdir}/opt/QtPalmtop/help/html/Xqt.ja.html
 
 %files
 opt/QtPalmtop/bin/Xqt
