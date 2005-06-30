@@ -1,0 +1,53 @@
+#
+# X/Qt-2 xpkg configuration
+#
+
+# パッケージシステムのタイプ
+%define	pkgtype		ipkg
+
+# プレフィクス
+%define prefix		/opt/QtPalmtop
+
+%define	target_prefix	/opt/Embedix/tools/arm-linux
+%define	x_prefix	%{target_prefix}
+
+# ツール設定
+%define tool_prefix	/opt/Embedix/tools/bin
+
+%env CC		%{tool_prefix}/arm-linux-gcc
+%env CXX	%{tool_prefix}/arm-linux-g++
+%env LD		%{tool_prefix}/arm-linux-ld
+%env AR		%{tool_prefix}/arm-linux-ar
+%env AS		%{tool_prefix}/arm-linux-as
+%env RANLIB	%{tool_prefix}/arm-linux-ranlib
+%env STRIP	%{tool_prefix}/arm-linux-strip
+%env AS		%{tool_prefix}/arm-linux-as
+
+%env CC_FOR_BUILD	gcc
+%env HOST_CC		gcc
+
+%env PKG_CONFIG_PATH	%{target_prefix}/lib/pkgconfig
+%env CONFIG_SITE	%{configdir}/config-xqt.site
+
+# *-config コマンドパス
+%env FREETYPE_CONFIG	%{target_prefix}/bin/freetype-config
+%env FT2_CONFIG		%{target_prefix}/bin/freetype-config
+%env GLIB_CONFIG        %{target_prefix}/bin/glib-config
+%env GTK_CONFIG         %{target_prefix}/bin/gtk-config
+%env IMLIB_CONFIG       %{target_prefix}/bin/imlib-config
+%env XML2_CONFIG        %{target_prefix}/bin/xml2-config
+%env XML_CONFIG         %{target_prefix}/bin/xml2-config
+%env XFT_CONFIG         %{x_prefix}/bin/xft-config
+
+# configure オプション
+%define config_opts \
+	--host=arm-linux \
+	--prefix=%{prefix}
+
+%define	basic_opts %{config_opts}
+	
+%define x_opts \
+	--x-includes=%{x_prefix}/includes \
+	--x-libraries=%{x_prefix}/lib
+
+%define install_opts DESTDIR=%{destdir}

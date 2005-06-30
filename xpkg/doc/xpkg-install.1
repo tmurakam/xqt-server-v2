@@ -1,0 +1,63 @@
+.TH "xpkg-install" "1" "29 June 2005" "X/Qt Project"
+.SH 名前
+xpkg-install \- xpkg パッケージインストールツール
+
+.SH 書式
+.BR xpkg-install " [" options... "] <" command "> <" packages... >
+
+.SH 概要
+xpkg-install は、
+.B xpkg(1)
+で生成されたパッケージをインストールするツールである。
+
+.SH コマンド
+.B command
+には以下の値を指定することができる。
+.TP
+.B install
+パッケージファイルのインストールを行う。
+.TP
+.B update
+未実装
+.TP
+.B fetch
+未実装
+
+.SH ターゲット指定
+.B xpkg(1)
+と同様に、ターゲット指定を行う必要がある。
+
+環境変数 TARGET または -t オプションを使用すると、ビルドターゲットを指定する
+ことができる。X/Qt プロジェクトではターゲット名は 'xqt' とする。
+
+設定されていない場合は config.rb ファイル内の $default_target で指定された
+値がデフォルト値として使用される。
+
+.SH インストールディレクトリ
+パッケージのインストール先ディレクトリは、パッケージの種別によって異なる。
+
+.TP
+.B 通常パッケージ
+通常パッケージの場合は、パッケージは設定ファイル中の %{target_root}
+で指定されたディレクトリにインストールされる。
+
+.TP
+.B 開発パッケージ
+開発パッケージの場合は、パッケージは設定ファイル中の %{target_prefix}
+で指定されたディレクトリにインストールされる。なお、%{prefix} 以下の
+ディレクトリのみが %{target_prefix} にインストールされる。
+
+.SH 関連項目
+
+.BR xpkg (1),
+.BR xpkg.def (5)
+.nf
+.UR http://xqt.sourceforge.jp/
+.B http://xqt.sourceforge.jp/
+.UE
+.fi
+
+.SH 著者
+.nf
+Takuya Murakami <tmurakma@mtd.biglobe.ne.jp>
+.fi

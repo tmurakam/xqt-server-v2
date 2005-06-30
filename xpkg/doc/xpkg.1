@@ -1,0 +1,114 @@
+.TH "xpkg" "1" "29 June 2005" "X/Qt Project"
+.SH 名前
+xpkg \- パッケージクロスビルドツール
+
+.SH 書式
+.BR xpkg " [" options... "] <" mode "> <" deffile >
+
+.SH 概要
+
+xpkg はパッケージをクロスコンパイルして、パッケージ(主にipkg)
+を生成するためのスクリプトである。
+
+.SH 動作モード
+.B mode
+には以下の値を指定することができる。
+.TP
+.B source
+ソース tarball のダウンロードと展開、パッチの適用を行う。
+.TP
+.B build
+ビルドを実行する。
+.TP
+.B pkg
+パッケージファイルの生成を行う。 
+.TP
+.B install-pkg
+パッケージファイルをローカルインストールする。
+.TP
+.B install-develpkg
+開発パッケージをインストールする。
+.TP
+.B cleanup
+展開したソースコードとオブジェクトを削除する。
+.TP
+.B World
+cleanup, source, build, pkg の一連の作業を行う。
+.TP
+.B DevelWorld
+cleanup, source, build, pkg, install-develpkg の一連の作業を行う。
+
+.SH 定義ファイル
+
+.B deffile
+には、xpkg の動作を規定する定義ファイルを１つ指定する。
+指定しなかった場合は 'pkgdef' が採用される。
+
+def ファイルフォーマットの詳細は 
+.B xpkg.def(8)
+を参照のこと。
+
+.SH ターゲット指定
+
+環境変数 TARGET または -t オプションを使用すると、ビルドターゲットを指定する
+ことができる。X/Qt プロジェクトではターゲット名は 'xqt' とする。
+
+設定されていない場合は config.rb ファイル内の $default_target で指定された
+値がデフォルト値として使用される。
+
+.SH 出力ディレクトリ
+
+ダウンロードした tarball や生成されたパッケージは、通常はカレントディレクトリ
+に直接出力されるが、出力ディレクトリを固定することもできる。
+
+出力ディレクトリは以下のように決定される。
+
+.RS
+1) 環境変数 XPKGTOP で指定したディレクトリ
+
+2) 設定ファイルの $xpkgtop で指定したディレクトリ
+
+3) _xpkgtop が存在するディレクトリ (カレントディレクトリの先祖ディレクトリからサーチする)
+.RE
+
+出力ディレクトリが指定された場合は、このディレクトリに XPKG/distfiles, 
+XPKG/packages, XPKG/develpkgs ディレクトリが作成され、
+それぞれ tarball と生成パッケージ、開発パッケージが格納される。
+
+.SH 設定ファイル
+
+.SS 個人設定ファイル
+
+~/.xpkg ファイルに個人設定を記述しておくことができる。
+~/.xpkg ファイルのサンプルが /etc/xpkg/dot.xpkg.sample にあるので、
+これを参照のこと。
+
+.SS 共通設定ファイル
+
+xpkg 全体にかかわる共通の設定ファイルは、以下の２種類である。
+これらのファイルは、/etc/xpkg に置かれる。
+
+.TP
+.B config.rb
+このファイルには、xpkg のコンフィグレーションを指定する。
+設定内容の詳細は config.rb ファイル内のコメントを参照のこと。
+
+.TP
+.B config.def または config-ターゲット名.def
+全パッケージから共通で使用するコンフィグレーションを指定する。
+config.def ファイルは、各パッケージの def ファイルと同じ書式で記述する。
+
+.SH 関連項目
+
+.BR xpkg-install (1),
+.BR xpkg.def (5)
+.nf
+.UR http://xqt.sourceforge.jp/
+.B http://xqt.sourceforge.jp/
+.UE
+.fi
+
+.SH 著者
+.nf
+Takuya Murakami <tmurakma@mtd.biglobe.ne.jp>
+.fi

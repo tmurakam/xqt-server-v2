@@ -1,0 +1,24 @@
+■ インストール手順
+
+○ RPM を使用する場合
+
+ $ make rpm
+
+で RPM が生成される。tarball から生成する場合は、
+
+ $ rpmbuild --ta xpkg-*.tar.gz
+
+とする。
+
+
+○ RPM を使わない場合
+
+root になって、
+
+ $ make install
+
+でインストールする。prefix を変更したい場合は、
+
+ $ make prefix=/usr/local install
+
+のようにする。
