@@ -1,18 +1,9 @@
-■■ xpkg : X/Qt プロジェクト パッケージビルドシステム
+xpkg : Package cross build system for X/Qt server project
 
-xpkg はパッケージをクロスコンパイルして、パッケージ(主にipkg)
-を生成するためのツールである。
+'xpkg' is a small utility to cross build the packages for
+X/Qt server project.
 
-■ インストール
+See file 'INSTALL' for installation instructions.
+See file 'COPYING' for license information.
 
-root になって、make install する。
-RPM を生成したい場合は、make rpm で RPM パッケージを生成できる。
-
-
-■ 利用方法
-
-man xpkg を参照のこと。
-
-■ ライセンス
-
-COPYING を参照のこと。
+See 'man xpkg' for usage.
