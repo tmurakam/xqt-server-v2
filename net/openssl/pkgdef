@@ -2,14 +2,19 @@
 # OpenSSL
 # 
 
+%define ver     0.9.7d
+%define rel     1
+%define develpkg yes
 %site
 http://www.openssl.org/source/
 
 %source
-openssl-0.9.7d.tar.gz
+openssl-%{ver}.tar.gz
 local:arm-linux.patch;patch=1
 
-%define builddir openssl-0.9.7d
+%define builddir openssl-%{ver}
+%define develpkg yes
+
 
 %prep
 
@@ -19,8 +24,6 @@ make
 
 %install
 make INSTALL_PREFIX=%{destdir} install
-
-%define devpkg	openssl
 
 %files
 %{prefix}/bin/openssl
@@ -40,7 +43,7 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 0.9.7d-1
+Version: %{ver}-%{rel}
 Depends:
 License:
 Description: OpenSSL library

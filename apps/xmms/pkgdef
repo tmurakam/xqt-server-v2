@@ -2,13 +2,17 @@
 # xmms
 # 
 
+%define ver     1.2.10j_20040415
+%define rel     1
+
 %site
 http://www3.big.or.jp/~sian/linux/products/xmms/files/sources
 
 %source
-xmms-1.2.10j_20040415.tar.bz2
+xmms-%{ver}.tar.bz2
 
-%define builddir  xmms-1.2.10j_20040415
+%define builddir  xmms-%{ver}
+%define develpkg yes
 
 %build
 ./configure --prefix=%{prefix} --host=arm-linux %{x_opts} --disable-mikmod --disable-esd
@@ -16,8 +20,6 @@ make
 
 %install
 make DESTDIR=%{destdir} install
-
-%define devpkg xmms
 
 %files
 %{prefix}/bin

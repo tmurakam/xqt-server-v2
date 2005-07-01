@@ -2,13 +2,17 @@
 # uim
 # 
 
+%define ver     0.4.3
+%define rel     1
+
 %site
 http://freedesktop.org/releases/
 
 %source
-uim-0.4.3.tar.gz
+uim-%{ver}.tar.gz
 
-%define builddir	uim-0.4.3
+%define builddir	uim-%{ver}
+%define develpkg yes
 
 %build
 ./configure %{config_opts} %{x_opts} --disable-applet --disable-xfce4-panel \
@@ -17,8 +21,6 @@ make
 
 %install
 make %{install_opts} install
-
-%define devpkg	uim
 
 %files
 %{prefix}/bin/*
@@ -39,7 +41,7 @@ Priority: optional
 Section: im
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 0.4.3-1
+Version: %{ver}-%{rel}
 Depends: xlibs, ncurses
 License: BSD
 Description: A multilingual input method library

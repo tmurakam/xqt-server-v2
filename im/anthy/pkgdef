@@ -2,13 +2,17 @@
 # anthy
 # 
 
+%define ver     5900
+%define rel     1
+
 %site
 http://osdn.dl.sourceforge.jp/anthy/12071/
 
 %source
-anthy-5900.tar.gz
+anthy-%{ver}.tar.gz
 
-%define builddir	anthy-5900
+%define builddir	anthy-%{ver}
+#%define develpkg yes
 
 %build
 # stage 1 : build host tools
@@ -28,8 +32,6 @@ make
 
 %install
 make %{install_opts} install
-
-#%define devpkg	uim
 
 %files
 %{prefix}/bin
@@ -51,7 +53,7 @@ Priority: optional
 Section: im
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 5900-1
+Version: %{ver}-%{rel}
 Depends: 
 License:
 Description: Anthy

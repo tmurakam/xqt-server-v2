@@ -12,7 +12,7 @@ http://www.zlib.net
 zlib-%{ver}.tar.gz
 
 %define builddir	zlib-%{ver}
-%define devpkg		yes
+%define develpkg	yes
 
 %prep
 

@@ -2,13 +2,17 @@
 # xmms-mad
 # 
 
+%define ver     0.6
+%define rel     1
+
 %site
 http://umn.dl.sourceforge.net/sourceforge/xmms-mad
 
 %source
-xmms-mad-0.6.tar.gz
+xmms-mad-%{ver}.tar.gz
 
-%define builddir  xmms-mad-0.6
+%define builddir  xmms-mad-%{ver}
+%define develpkg yes
 
 %build
 ./configure %{config_opts} --disable-static --enable-shared
@@ -16,8 +20,6 @@ make
 
 %install
 make DESTDIR=%{destdir} install
-
-%devpkg xmms
 
 %files
 %{prefix}/lib
@@ -35,7 +37,7 @@ Priority: optional
 Section: multimedia
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 0.6-1
+Version: %{ver}-%{rel}
 Depends: xlibs, glib, gtk, xmms
 Cardinst: enable
 License: GPL
