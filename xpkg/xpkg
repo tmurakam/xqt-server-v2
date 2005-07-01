@@ -38,14 +38,18 @@ class Xpkg
     # メイン
     def main
 	# 引数の処理
-	target, command, deffile = parse_opt()
+	target, command, deffiles = parse_opt()
 
 	# ディレクトリ設定
 	setupdirs(target)
 	
 	# deffile のロード
-	pkg = Pkg.new
-	pkg.loaddef(deffile, target, @destdir, $sysconfdir)
+        pkgs = Array.new
+        deffiles.each do |deffile|
+            pkg = Pkg.new
+            pkg.loaddef(deffile, target, @destdir, $sysconfdir)
+            pkgs.push(pkg)
+        end
 
 	# *World の処理
 	cmds = nil
@@ -57,69 +61,23 @@ class Xpkg
 	    cmds = [command]
 	end
 
-	# pkgbuild の準備
-	pkgbuild = nil
-	case pkg.df.getDefine("pkgtype")
-	when "ipkg"
-	    pkgbuild = IpkgBuild.new
-	    pkgbuild.SetIpkgParam("#{$pkglibdir}/ipkg-build")
-	else
-	    pkgbuild = GenPkgBuild.new
-	end
-	pkgbuild.SetParam(pkg.df, @destdir, @pkgdir, @develpkgdir, ".")
-	
 	# workstate の準備
 	state = WorkState.new
 
 	# ビルド処理
 	st = Time.now
 	cmds.each do |command|
-	    next if (command != "clear" && state.done?(command))
+            next if (command != "clear" && state.done?(command))
 
-	    puts "----- Execute #{command} with #{deffile}"
-	    begin
-		# command 別の処理
-		case command
-		when "source"
-		    pkg.getSource(@distfiledir)
-		    pkg.execSectionScript("prep")
-		    pkg.execSectionScript("patch") # backword compatilibity
+            pkgs.each do |pkg|
+                execBuildCommand(pkg, command)
+            end
 
-		when "download"
-		    pkg.getSource(@distfiledir, true)
-
-		when "pkg", "ipkg"
-		    pkgbuild.Build
-		    
-		when "install-pkg", "install-ipkg"
-		    pkgbuild.InstallLocal()
-
-		when "install-develpkg"
-		    pkgbuild.InstallDevelPackage()
-
-		when "cleanup"
-		    pkg.cleanup()
-
-		when "clear"
-		    # do nothing, clear state only
-
-		else
-		    pkg.execSectionScript(command)
-		end
-		
-		if (command == "cleanup" || command == "clear")
-		    state.clear
-		else
-		    state.setdone(command)
-		end
-
-	    rescue
-		STDERR.puts $!
-		if (command != "ipkg")
-		    STDERR.puts "Abort."
-		    exit 1
-		end
-	    end
+            if (command == "cleanup" || command == "clear")
+                state.clear
+            else
+                state.setdone(command)
+            end
 	end
 
 	state.save
@@ -128,13 +86,73 @@ class Xpkg
 
 	sku = ENV["SKU"]
 	if (sku != nil)
-	    sk = sprintf(", %.3f SKU", tm / sku.to_f)
+	    sk = sprintf(", %f SKU", (tm / sku.to_f * 1000).to_i / 1000.0)
 	else
 	    sk = ""
 	end
 	puts "----- Compile time: #{tm} sec (#{tm / 60}:#{tm % 60}#{sk})."
 	puts "done."
 	exit 0
+    end
+
+    # 1パッケージ分のビルド処理
+    def execBuildCommand(pkg, command)
+	# pkgbuild の準備
+	pkgbuild = nil
+        case command
+        when "pkg", "install-pkg", "install-develpkg"
+        end
+	
+        puts "----- Execute #{command} with #{pkg.deffile}"
+        begin
+            # command 別の処理
+            case command
+            when "source"
+                pkg.getSource(@distfiledir)
+                pkg.execSectionScript("prep")
+                pkg.execSectionScript("patch") # backword compatilibity
+
+            when "download"
+                pkg.getSource(@distfiledir, true)
+
+            when "pkg", "ipkg"
+                getPkgBuild(pkg).Build
+                
+            when "install-pkg", "install-ipkg"
+                getPkgBuild(pkg).InstallLocal()
+
+            when "install-develpkg"
+                getPkgBuild(pkg).InstallDevelPackage()
+
+            when "cleanup"
+                pkg.cleanup()
+
+            when "clear"
+                # do nothing, clear state only
+
+            else
+                pkg.execSectionScript(command)
+            end
+            
+        rescue
+            STDERR.puts $!
+            if (command != "ipkg")
+                STDERR.puts "Abort."
+                exit 1
+            end
+        end
+    end
+
+    def getPkgBuild(pkg)
+        case pkg.df.getDefine("pkgtype")
+        when "ipkg"
+            pkgbuild = IpkgBuild.new
+            pkgbuild.SetIpkgParam("#{$pkglibdir}/ipkg-build")
+        else
+            pkgbuild = GenPkgBuild.new
+        end
+        pkgbuild.SetParam(pkg.df, @destdir, @pkgdir, @develpkgdir, ".")
+        return pkgbuild
     end
 
     # オプションの処理
@@ -163,18 +181,27 @@ class Xpkg
 	end
 
 	command = ARGV.shift
-	deffile = ARGV.shift
+	deffiles = ARGV
 	
-	if (deffile == nil)
-	    if (File.exist?("pkgdef"))
-		deffile = "pkgdef"
-	    else
-		STDERR.puts "pkgdef does not exist."
-		exit 1
-	    end
-	end
+        # pkgdef.list の処理
+        if (deffiles.size == 0)
+            if (FileTest.exist?("pkgdef.list"))
+                IO.readlines("pkgdef.list").each do |line|
+                    line.chop!
+                    line.strip!
+                    next if (line == "" || line =~ /^#/)
+                    deffiles.push(line)
+                end
+            else
+                if (!File.exist?("pkgdef"))
+                    STDERR.puts "pkgdef does not exist."
+                    exit 1
+                end
+                deffiles = ["pkgdef"]
+            end
+        end
 
-	return target, command, deffile
+	return target, command, deffiles
     end
 end
 

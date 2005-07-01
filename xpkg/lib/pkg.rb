@@ -28,7 +28,7 @@ class Pkg
     include GetSource
     include ExecScript
 
-    attr_reader :df
+    attr_reader :df, :deffile
 
     def initialize
 	@df = DefFile.new
@@ -36,6 +36,7 @@ class Pkg
 
     def loaddef(deffile, target, destdir, configdir)
 	@destdir = destdir
+        @deffile = deffile
 
 	# グローバル設定
 	@df.setDefine("target", target)
