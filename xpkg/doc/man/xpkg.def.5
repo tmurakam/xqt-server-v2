@@ -1,0 +1,224 @@
+.TH "xpkg.def" "5" "29 June 2005" "X/Qt Server Project"
+.SH NAME
+.B pkgdef
+\- xpkg definition file
+
+.SH DESCRIPTION
+
+xpkg definition file (default file name is 'pkgdef') contains
+all information needed to build a package.
+
+This file is a text file and looks like spec file of RPM.
+
+.SH SECTIONS
+
+The definition file contains multiple 'sections'.
+Each sections are specified as
+
+	%section_name
+
+Followings are typical section names.
+
+.TP
+.B %site
+Specify base URLs to download source tarball.
+
+.TP
+.B %source
+Specify source tarball name.
+
+The tarballs are downloaded with %site URL.
+You can also specify full URL.
+
+To specify local file, start with 'local:'.
+
+To specify patch file, end with ';patch=[n]'.
+Value 'n' is passed to -n option of patch command.
+
+.TP
+.B %prep
+Specify scripts after extract source tarballs.
+
+.TP
+.B %build
+Specify build scripts, such as configure and make.
+
+.TP
+.B %install
+Specify install scripts, such as 'make install'.
+Note: install destination must be '%{destdir}'.
+
+.TP
+.B %files [sub_package_name]
+File listing to be included in the package file.
+
+.TP
+.B %excludes [sub_package_name]
+Exclude file listings.
+
+.TP
+.B %strip [sub_package_name]
+File listing to be stripped.
+
+.TP
+.B %control [sub_package_name]
+.TP
+.B %preinst [sub_package_name]
+.TP
+.B %postinst [sub_package_name]
+.TP
+.B %postrm [sub_package_name]
+.TP
+.B %conffiles [sub_package_name]
+control/preinst/postinst/postrm/conffiles files for IPKG.
+
+.RS
+.SS SUB PACKAGE
+
+A pkgdef file can contains multiple sub packages.
+To use sub packages, specify sub package name after section name.
+
+.SS control section
+
+The control section is required for each sub packages.
+
+The format is same as IPKG control file.
+
+If the name of the Package name ends with '-devel', this package
+is treated as development package.
+
+.RE
+
+.SH SYMBOL DEFINITIONS
+
+You can define 'symbols'.
+
+.TP
+.B %define name value
+Define name as value.
+
+You can refer the symbol with '%{name}'.
+
+.SS PRE-DEFINED SYMBOLS
+
+.TP
+.B %{target}
+Build target. Same as TARGET environment variable or -t option of xpkg.
+
+.TP
+.B %{destdir}
+Virtual install directory.
+
+.TP
+.B %{configdir}
+Configuration directory. Default value is '/etc/xpkg'.
+
+.SS SYMBOLS SHOULD BE DEFINED IN EACH DEFINITION FILES
+
+.TP
+.B %{builddir}
+Build directory. Usually directory name with extracted source.
+
+.SS SYMBOLS MUST BE DEFINED IN TARGET COMMON DEFINITION FILES
+
+.TP
+.B %{pkgtype}
+Specify package type.
+To use IPKG, specify "ipkg".
+
+.TP
+.B %{prefix}
+Build prefix prefix, used with --prefix option of configure.
+
+.TP
+.B %{target_root}
+The directory to install target binary (root file system).
+
+.TP
+.B %{target_prefix}
+The directory of target development prefix.
+All development packages are installed in this prefix.
+
+
+.SS SYMBOLS SHOULD BE DEFINED IN TARGET COMMON DEFINITION FILES
+
+.TP
+.B %{arch}
+Target architecture, used with --host option of configure.
+
+.TP
+.B %{ipkarch}
+IPKG architecture used in Architecture: field in IPKG control file.
+
+.TP
+.B %{x_prefix}
+Prefix directory for X11.
+
+.TP
+.B %{config_opts}
+Basic configuration options for configure, includes
+--host, --prefix, --libdir, --includedir.
+
+.TP
+.B %{x_opts}
+X11 configuration options, includes
+--x-includes, --x-libraries.
+
+.TP
+.B %{install_opts}
+Option values with 'make install', includes
+DESTDIR, prefix, libdir, bindir, includedir.
+
+.SH ENVIRONMENT VARIABLES
+
+.TP
+.B %env name value
+Specify environment variables to be used in compilation.
+
+.SS PRE DEFINED ENVIRONMENT VARIABLES
+
+.TP
+.B CC, LD, AR, AS, CXX, NM, RANLIB, STRIP
+Specify cross build tools.
+
+.TP
+.B CC_FOR_BUILD
+Specify host build tools.
+
+.TP
+.B CONFIG_SITE
+Specify config.site for configure.
+X/Qt project uses %{configdir}/config-xqt.site.
+
+.TP
+.B PKG_CONFIG_PATH
+Default path for pkgconfig.
+
+.SH DEVELOPMENT PACKAGES
+
+To create development packages:
+
+.TP
+.B 1) Same as normal packages
+Create control, files sections as normal packages.
+Note: package name must be end with '-devel'.
+
+.TP
+.B 2) Define develpkg
+Specify  '%define develpkg yes' in definition file.
+Control and files sections are created automatically.
+
+.SH SEE ALSO
+
+.BR xpkg (1),
+.BR xpkg-install (1),
+.nf
+.UR http://xqt.sourceforge.jp/
+.B http://xqt.sourceforge.jp/
+.UE
+.fi
+
+.SH AUTHORS
+.nf
+Takuya Murakami <tmurakma@mtd.biglobe.ne.jp>
+.fi

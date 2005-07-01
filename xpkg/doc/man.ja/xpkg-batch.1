@@ -1,0 +1,69 @@
+.TH "xpkg" "1" "29 June 2005" "X/Qt Server Project"
+.SH 名前
+xpkg-batch \- xpkg バッチビルドツール
+
+.SH 書式
+.BR xpkg " [" options... "] <" command ">
+
+.SH 概要
+
+xpkg-batch は、xpkg を使って複数のパッケージを連続的にビルドするための
+ツールである。
+
+.SH コマンド
+.B command
+には
+.B xpkg(1)
+の動作モードと同じ値を指定することができる。
+
+.SH オプション
+.B options
+には以下の値を指定できる。
+
+.TP
+.B -s, --skiplist=[modules]
+ビルドをスキップするモジュールを記述する。モジュール名は、ディレクトリ名の一部のみを
+指定すればよい。',' または ':' で区切って複数モジュールを記述することもできる。
+
+.TP
+.B -t, --target=[target]
+ビルドターゲットを指定する。
+
+.SH ディレクトリリスト
+
+xpkg-batch を実行するさい、カレントディレクトリにディレクトリリストファイル
+を置いておく必要がある。
+
+ディレクトリリストは、
+.I dirlist.[ターゲット名]
+というファイル名で作成する。
+.I dirlist.[ターゲット名]
+が存在しない場合は
+.I dirlist
+が採用される。
+
+各行には、ビルドを行うサブディレクトリ名を記述する。xpkg-batch 
+は記述された順番に xpkg を起動してビルドを実行する。
+
+.SH スキップリスト
+
+ビルドを一時的に実施したくないパッケージが有る場合は、
+.I skiplist.[ターゲット名]
+または
+.I skiplist
+ファイルにスキップしたいパッケージ名一覧を記述できる。
+
+.SH 関連項目
+
+.BR xpkg (1),
+.BR xpkg.def (5)
+.nf
+.UR http://xqt.sourceforge.jp/
+.B http://xqt.sourceforge.jp/
+.UE
+.fi
+
+.SH 著者
+.nf
+Takuya Murakami <tmurakma@mtd.biglobe.ne.jp>
+.fi

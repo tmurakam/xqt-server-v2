@@ -1,0 +1,133 @@
+#!/usr/bin/ruby
+
+# xpkg: Package build system for X/Qt project
+#
+# Copyright (C) 2003-2005 Takuya Murakami
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+$debug = false
+
+$LOAD_PATH.push(File.expand_path(File.dirname($0)))
+require "xpkg-common"
+
+class XpkgBatch
+    def LoadListFile(file)
+	ary = Array.new
+	begin
+	    open(file, "r") do |fh|
+		fh.each do |line|
+		    line.chop!
+		    next if (line =~ /^#/ || line =~ /^\s*$/)
+
+		    ary.push(line)
+		end
+	    end
+	rescue
+	    # do nothing
+	end
+	return ary
+    end
+
+    def RemoveSkip(list, skiplist)
+	newlist = Array.new
+
+	list.each do |item|
+	    if (skiplist.find{|skip| item.include?(skip)} == nil)
+		newlist.push(item)
+	    end
+	end
+	return newlist
+    end
+
+    def main
+	cmd = parse_opt()
+
+	f = "dirlist.#{@target}"
+	if (!FileTest.exist?(f))
+	    f = "dirlist"
+	end
+	if (!FileTest.exist?(f))
+	    STDERR.puts "#{f} does not exist. abort."
+	    exit 1
+	end
+	dirlist = LoadListFile(f)
+
+	f = "skiplist.#{@target}"
+	if (!FileTest.exist?(f))
+	    f = "skiplist"
+	end
+	skiplist = LoadListFile(f)
+
+	dirlist = RemoveSkip(dirlist, skiplist)
+	dirlist = RemoveSkip(dirlist, @skip_modules)
+
+	dirlist.uniq!
+
+	dirlist.each do |dir|
+	    puts "----------- START : #{cmd} in #{dir} -------------"
+	    cmdline = "(cd #{dir} && xpkg #{cmd})"
+	    puts cmdline
+	    if (!system(cmdline))
+		puts "Abort."
+		break
+	    end
+	    puts "----------- END : #{cmd} in #{dir} -------------"
+	    puts
+	end
+	
+	puts "done."
+    end
+
+    # オプションの処理
+    def parse_opt
+	@target = ENV["TARGET"]
+	if (@target == nil || @target == "")
+	    @target = $default_target  # default value
+	end
+
+	skip = ""
+	@skip_modules = nil
+
+	opt = OptionParser.new
+        opt.banner = "xpkg-batch version #{$version}\n" +
+                 "Copyright (C) 2003-2005 X/Qt Project\n" + 
+                 "This program may be freely redistributed under the terms of the GNU GPL\n\n" + 
+	         "Usage: xpkg-batch [options...] [xpkg command]"
+
+	opt.on("-h", "--help", "Show this message") { puts opt; exit 1; }
+	opt.on("-t", "--target=TARGET", String, "Specify target") {|v| @target = v }
+#	opt.on("-v", "--verbose", "Verbose") {$verbose = true}
+	opt.on("-s", "--skip=modules", String, "Specify modules to skip") {|skip|}
+
+	opt.parse!(ARGV)
+	
+	if (ARGV.size != 1)
+	    puts opt
+	    exit 1
+	end
+
+	command = ARGV.shift
+
+	@skip_modules = skip.split(/[,:]/)
+
+	return command
+    end
+
+end
+
+x = XpkgBatch.new
+x.main
+

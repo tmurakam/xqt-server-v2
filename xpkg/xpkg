@@ -1,0 +1,182 @@
+#!/usr/bin/ruby
+
+# xpkg: Package build system for X/Qt project
+#
+# Copyright (C) 2003-2005 Takuya Murakami
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+$debug = false
+
+$LOAD_PATH.push(File.expand_path(File.dirname($0)))
+require "xpkg-common"
+
+# ライブラリ読み込み
+require "pkg"
+require "install"
+require "pkgbuild"
+require "ipkg"
+require "misc"
+require "workstate"
+
+
+class Xpkg
+    include Misc
+
+    # メイン
+    def main
+	# 引数の処理
+	target, command, deffile = parse_opt()
+
+	# ディレクトリ設定
+	setupdirs(target)
+	
+	# deffile のロード
+	pkg = Pkg.new
+	pkg.loaddef(deffile, target, @destdir, $sysconfdir)
+
+	# *World の処理
+	cmds = nil
+	if (command == "World")
+	    cmds = ["source", "build", "install", "pkg"]
+	elsif (command == "DevelWorld")
+	    cmds = ["source", "build", "install", "pkg", "install-develpkg"]
+	else
+	    cmds = [command]
+	end
+
+	# pkgbuild の準備
+	pkgbuild = nil
+	case pkg.df.getDefine("pkgtype")
+	when "ipkg"
+	    pkgbuild = IpkgBuild.new
+	    pkgbuild.SetIpkgParam("#{$pkglibdir}/ipkg-build")
+	else
+	    pkgbuild = GenPkgBuild.new
+	end
+	pkgbuild.SetParam(pkg.df, @destdir, @pkgdir, @develpkgdir, ".")
+	
+	# workstate の準備
+	state = WorkState.new
+
+	# ビルド処理
+	st = Time.now
+	cmds.each do |command|
+	    next if (command != "clear" && state.done?(command))
+
+	    puts "----- Execute #{command} with #{deffile}"
+	    begin
+		# command 別の処理
+		case command
+		when "source"
+		    pkg.getSource(@distfiledir)
+		    pkg.execSectionScript("prep")
+		    pkg.execSectionScript("patch") # backword compatilibity
+
+		when "download"
+		    pkg.getSource(@distfiledir, true)
+
+		when "pkg", "ipkg"
+		    pkgbuild.Build
+		    
+		when "install-pkg", "install-ipkg"
+		    pkgbuild.InstallLocal()
+
+		when "install-develpkg"
+		    pkgbuild.InstallDevelPackage()
+
+		when "cleanup"
+		    pkg.cleanup()
+
+		when "clear"
+		    # do nothing, clear state only
+
+		else
+		    pkg.execSectionScript(command)
+		end
+		
+		if (command == "cleanup" || command == "clear")
+		    state.clear
+		else
+		    state.setdone(command)
+		end
+
+	    rescue
+		STDERR.puts $!
+		if (command != "ipkg")
+		    STDERR.puts "Abort."
+		    exit 1
+		end
+	    end
+	end
+
+	state.save
+
+	tm = (Time.now - st).to_i
+
+	sku = ENV["SKU"]
+	if (sku != nil)
+	    sk = sprintf(", %.3f SKU", tm / sku.to_f)
+	else
+	    sk = ""
+	end
+	puts "----- Compile time: #{tm} sec (#{tm / 60}:#{tm % 60}#{sk})."
+	puts "done."
+	exit 0
+    end
+
+    # オプションの処理
+    def parse_opt
+	target = ENV["TARGET"]
+	if (target == nil || target == "")
+	    target = $default_target  # default value
+	end
+
+	opt = OptionParser.new
+        opt.banner = "xpkg version #{$version}\n" +
+                 "Copyright (C) 2003-2005 X/Qt Project\n" + 
+                 "This program may be freely redistributed under the terms of the GNU GPL\n\n" + 
+                 "Usage: xpkg [option...] [command] [deffile]"
+	opt.on_head(" command: source|build|clean|cleanup|pkg|install-develpkg|install-ipkg\n option:")
+
+	opt.on("-h", "--help", "Show this message") { puts opt; exit 1; }
+	opt.on("-t", "--target=TARGET", String, "Specify target") {|v| target = v }
+	opt.on("-v", "--verbose", "Verbose") {$verbose = true}
+
+	opt.parse!(ARGV)
+	
+	if (ARGV.size < 1)
+	    puts opt
+	    exit 1
+	end
+
+	command = ARGV.shift
+	deffile = ARGV.shift
+	
+	if (deffile == nil)
+	    if (File.exist?("pkgdef"))
+		deffile = "pkgdef"
+	    else
+		STDERR.puts "pkgdef does not exist."
+		exit 1
+	    end
+	end
+
+	return target, command, deffile
+    end
+end
+
+xpkg = Xpkg.new
+xpkg.main

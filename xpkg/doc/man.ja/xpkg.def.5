@@ -1,0 +1,262 @@
+.TH "xpkg.def" "5" "29 June 2005" "X/Qt Server Project"
+.SH 名前
+.B pkgdef
+\- xpkg 定義ファイル
+
+.SH 概要
+
+xpkg 定義ファイル (デフォルトのファイル名は pkgdef) には、
+パッケージのビルドに必要な定義を全て記述する。
+
+このファイルはテキストファイルで、フォーマットは RPM の spec ファイルに似ている。
+
+.SH セクション
+
+def ファイルは複数のセクションに分かれている。セクションは
+
+	%セクション名
+
+で指定する。セクションの一覧とその説明を以下に示す。
+
+.TP
+.B %site
+ソース tarball をダウンロードするベース URL を指定する。
+複数指定した場合は、先頭から順にダウンロードを試行する。
+なお、デフォルト/フォールバック用のダウンロード URL は、
+config.rb で指定しておくことができる。
+
+.TP
+.B %source
+ソース tarball 名を指定する。
+
+単純なファイル名の場合は、%site で指定した URL から
+ダウンロードする。先頭が http: https: ftp: の場合は、
+URL をフルに指定したものとみなしてダウンロードを行う。
+
+先頭が local: の場合は、ローカルファイルを指定した
+ものとみなす。
+
+末尾に ;patch=数値 と記載されている場合は、このファイルを
+パッチとみなし、ソース展開後にパッチを適用する。このとき、
+指定した数値は patch コマンドの -n オプションに引き渡される。
+
+.TP
+.B %prep
+ソースを展開後に実行するスクリプトを記述する。
+
+.TP
+.B %build
+ビルドスクリプトを記述する。
+主に、configure, make の作業を記述する。
+
+.TP
+.B %install
+インストールスクリプトを記述する。
+make install の処理を記述する。
+インストール先は %{destdir} にすること。
+
+.TP
+.B %files [サブパッケージ名]
+パッケージに含めるファイル一覧を記述する。
+ファイルは %{destdir} からの相対で記述する。
+
+.TP
+.B %excludes [サブパッケージ名]
+パッケージから除外するファイル一覧を記述する。
+
+.TP
+.B %strip [サブパッケージ名]
+パッケージ生成前に strip するファイル一覧を記述する。
+
+
+.TP
+.B %control [サブパッケージ名]
+.TP
+.B %preinst [サブパッケージ名]
+.TP
+.B %postinst [サブパッケージ名]
+.TP
+.B %postrm [サブパッケージ名]
+.TP
+.B %conffiles [サブパッケージ名]
+ipkg の control/preinst/postinst/postrm/conffilesファイルを記述する。
+
+.RS
+.SS サブパッケージ
+
+一つの pkgdef ファイル中に複数のパッケージを含めることができる。
+複数のパッケージを含める場合は、各セクション名の後ろにパッケージ名を記述する。
+
+.SS control セクション
+
+control セクションは、各サブパッケージ毎に必ず１つ必要である。
+
+書式は ipkg の control ファイルと同等である。
+必ず指定しなければならないのは Package, Architecture, Version の３フィールド
+である。
+
+また、Package 名称を '-devel' で終わる名称にすると、このパッケージは
+開発パッケージと見なされる。
+
+.RE
+
+.SH シンボル定義
+
+pkgdef ファイル中で、シンボルを定義することが可能である。
+定義したシンボルは後で参照することができる。
+
+シンボルの定義は以下のように行う。
+
+.TP
+.B %define name value
+name に value を定義する。定義の参照は %{name} で行うことができる。
+
+.SS 定義済みの値
+
+以下の値は xpkg プログラムが内部的に定義済する値である。
+
+.TP
+.B %{target}
+ビルドターゲット。環境変数 TARGET または -t オプションで指定した値と同じ。
+
+.TP
+.B %{destdir}
+バイナリの仮想インストール先。"${PWD}/destdir" に設定される。
+ipkg や開発パッケージの生成は、このディレクトリをベースに行う。
+
+.TP
+.B %{configdir}
+設定ファイルが格納されているディレクトリ。
+/etc/xpkg に設定される。
+
+.SS 各 def ファイルで定義しなければならない値
+
+以下の値は def ファイル中で指定しておかなければならない。
+
+.TP
+.B %{builddir}
+ビルドを行うディレクトリ名を指定する。通常は、tarball
+を展開したディレクトリ名を指定する。
+
+.SS ターゲット共通定義ファイルで指定しなければならない値
+
+以下の値は、config.def ファイル ($use_multi_config == true の場合は
+config-[ターゲット名].def) で定義しておかなければならない。
+
+.TP
+.B %{pkgtype}
+生成するパッケージのタイプを指定する。
+"ipkg" を指定した場合は ipkg を生成する。
+それ以外、または未指定の場合は tarball を生成する。
+(拡張子は .xpkg)
+
+.TP
+.B %{prefix}
+ビルド用 prefix。configure の --prefix に指定する値。
+
+.TP
+.B %{target_root}
+ターゲットバイナリのインストール先(ルートファイルシステムなど)。
+xpkg install-pkg を実行すると、ここで指定された場所に
+ファイルがインストールされる。
+
+.TP
+.B %{target_prefix}
+ターゲット prefix。開発ヘッダ/ライブラリのインストール先。
+xpkg install-develpkg を実行すると、ここで指定された場所に
+開発パッケージがインストールされる。		     			  
+
+
+.SS ターゲット共通定義ファイルで指定すべき値
+
+以下の値は xpkg の動作上必須ではないが、X/Qt プロジェクトではターゲット定義
+ファイルに指定しておき、各パッケージのビルドで共通に使用できるようにする。
+
+.TP
+.B %{arch}
+アーキテクチャを指定する。configure の --host に指定する値。
+
+.TP
+.B %{ipkarch}
+ipkg の control ファイルの Architecture: に指定する値。
+
+.TP
+.B %{x_prefix}
+X11 用の prefix。
+
+.TP
+.B %{config_opts}
+configure に指定する基本設定。
+--host, --prefix, --libdir, --includedir を含む。
+
+.TP
+.B %{x_opts}
+X11 アプリケーションのビルドで configure に指定する値。
+--x-includes, --x-libraries を含む。
+
+.TP
+.B %{install_opts}
+make install 時に指定する基本設定。
+DESTDIR, prefix, libdir, bindir, includedir などを含む。
+
+.SH 環境変数
+
+コンパイル時に必要となる環境変数を def ファイル中で指定することができる。
+
+.TP
+.B %env name value
+コンパイル時に使用する環境変数 name を value に設定する。
+
+.SS 設定済みの環境変数
+以下の値は、ターゲット共通定義ファイルで定義する環境変数である。
+
+.TP
+.B CC, LD, AR, AS, CXX, NM, RANLIB, STRIP
+クロスビルドツールを指定する。
+
+.TP
+.B CC_FOR_BUILD
+ホストビルドツールを指定する。
+
+.TP
+.B CONFIG_SITE
+configure 時の config.site ファイルを指定する。
+X/Qt プロジェクトでは、%{configdir}/config-xqt.site を指定する。
+
+.TP
+.B PKG_CONFIG_PATH
+pkgconfig で使用するパッケージ設定ファイルのパスを指定する。
+
+.SH 開発パッケージ
+
+開発パッケージの生成には以下の２つの方法がある。
+
+.TP
+.B 1) 通常パッケージと同様にセクションを設定する方法
+通常のパッケージと同じように、control, files セクションを作成する。
+この際、パッケージ名は末尾が '-devel' で終わるようにしなければならない。
+
+.TP
+.B 2) develpkg を define する方法。
+ '%define develpkg yes' のように指定すると、自動的に開発パッケージが
+作成される。
+
+開発パッケージ名は、デフォルトの control セクション (サブパッケージ名
+指定なし）の Package で指定された名称に '-devel' を付与したものとなる。
+	
+開発パッケージには、インストールされたファイルが自動的に全て含まれる。
+
+.SH 関連項目
+
+.BR xpkg (1),
+.BR xpkg-install (1),
+.nf
+.UR http://xqt.sourceforge.jp/
+.B http://xqt.sourceforge.jp/
+.UE
+.fi
+
+.SH 著者
+.nf
+Takuya Murakami <tmurakma@mtd.biglobe.ne.jp>
+.fi

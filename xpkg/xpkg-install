@@ -1,0 +1,155 @@
+#!/usr/bin/ruby
+
+# xpkg-install: Package installer for X/Qt project
+#
+# Copyright (C) 2003-2005 Takuya Murakami
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+$debug = false
+
+$LOAD_PATH.push(File.expand_path(File.dirname($0)))
+require "xpkg-common"
+
+require "pkg"
+require "install"
+require "pkgbuild"
+require "ipkg"
+require "misc"
+
+
+class XpkgInstall
+    include Misc
+    include ExecScript
+
+    # ファイルインストール
+    def Install(file)
+	installer = PkgInstall.new
+	installer.SetParamFromDef(@df)
+
+	installer.InstallFileAuto(file)
+    end
+
+    # update
+    def Update(isDevel)
+	installer = PkgInstall.new
+	installer.SetParamFromDef(@df)
+
+	p = nil
+	if (isDevel)
+	    p = Packages.new($feed_devel_url, @develpkgdir)
+	else
+	    p = Packages.new($feed_url, @pkgdir)
+	end
+	p.FetchIndex()
+	p.LoadIndex()
+	p.UpdatePackages(installer)
+    end
+
+    # upload
+    def Upload(isDevel)
+	dir = @pkgdir
+	feeddir = $feed_dir
+	if (isDevel)
+	    dir = @develpkgdir
+	    feeddir = $feed_devel_dir
+	end
+
+	# upload necessaly files
+	ExecCmd("rsync -auvz -e ssh #{dir}/*.*pk*  #{$feed_host}:#{feeddir}")
+	ExecCmd("rsync -auvz -e ssh #{$pkglibdir}/feed-update.rb #{$feed_host}:#{feeddir}")
+	ExecCmd("ssh #{$feed_host} 'cd #{feeddir} && ./feed-update.rb'")
+    end
+
+    # メイン
+    def main
+	# 引数の処理
+	target, command, files = parse_opt()
+
+	# ディレクトリ設定
+	setupdirs(target)
+
+	# feed URL の書き換え
+	$feed_url.gsub!(/@target@/, target) if ($feed_url != nil)
+	$feed_devel_url.gsub!(/@target@/, target) if ($feed_devel_url != nil)
+	$feed_dir.gsub!(/@target@/, target) if ($feed_dir != nil)
+	$feed_devel_dir.gsub!(/@target@/, target) if ($feed_devel_dir != nil)
+
+	# 設定ファイルのロード
+	pkg = Pkg.new
+	pkg.loaddef(nil, target, "", $sysconfdir)
+
+	@df = pkg.df
+
+	# 分岐
+	case command
+	when "install"
+	    files.each do |file|
+		Install(file)
+	    end
+
+	when "update"
+	    Update(false)
+
+	when "update-devel"
+	    Update(true)
+
+	when "upload"
+	    Upload(false)
+
+	when "upload-devel"
+	    Upload(true)
+
+	# not yet...
+
+	else
+	    STDERR.puts "Unknown command: #{command}"
+	    exit 1
+	end
+    end
+
+    # オプションの処理
+    def parse_opt
+	target = ENV["TARGET"]
+	if (target == nil || target == "")
+	    target = $default_target  # default value
+	end
+
+	opt = OptionParser.new
+        opt.banner = "xpkg-install version #{$version}\n" +
+                 "Copyright (C) 2003-2005 X/Qt Project\n" + 
+                 "This program may be freely redistributed under the terms of the GNU GPL\n\n" + 
+                 "Usage: xpkg-install [command] [package files...]"
+	opt.on_head(" command: install update")
+
+	opt.on("-h", "--help", "Show this message") { puts opt; exit 1; }
+	opt.on("-t", "--target=TARGET", String, "Specify target") {|v| target = v }
+	opt.on("-v", "--verbose", "Verbose") {$verbose = true}
+
+	opt.parse!(ARGV)
+	
+	if (ARGV.size < 1)
+	    puts opt
+	    exit 1
+	end
+
+	command = ARGV.shift
+
+	return target, command, ARGV
+    end
+end
+
+xpkginstall = XpkgInstall.new
+xpkginstall.main

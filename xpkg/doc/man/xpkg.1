@@ -1,0 +1,114 @@
+.TH "xpkg" "1" "29 June 2005" "X/Qt Server Project"
+.SH NAME
+xpkg \- Package cross build tool
+
+.SH SYNOPSIS
+.BR xpkg " [" options... "] <" command "> <" deffile >
+
+.SH DESCRIPTION
+
+.B xpkg
+is a small utility to corss build modules and create package 
+file (such as ipkg).
+
+.SH COMMANDS
+You can specify following commands.
+
+.TP
+.B source
+Extract source tarballs and apply patch.
+.TP
+.B build
+Execute build.
+.TP
+.B install
+Execute virtual installation.
+.TP
+.B pkg
+Create package file.
+.TP
+.B install-pkg
+Install compiled package file into local filesystem.
+.TP
+.B install-develpkg
+Install development packages.
+.TP
+.B cleanup
+Clean up all extracted source and object files.
+.TP
+.B World
+Execute source, build, and pkg.
+.TP
+.B DevelWorld
+Execute source, build, pkg, and install-develpkg.
+
+.SH DEFINITION FILE
+
+For
+.B deffile
+, specify one definition file which control xpkg.
+Default filename is 'pkgdef'.
+
+For detail of the definition file format, see
+.B xpkg.def(8)
+.
+
+.SH TARGET
+
+To specify build target, you can use TARGET environment variable or
+-t option. For X/Qt server peoject, default target name is 'xqt'.
+
+You can modify default value of the target with '$default_target'
+in config.rb file.
+
+.SH OUTPUT DIRECTORY
+
+Usually, all downloaded tarballs and package files are stored into current
+directory, but you can fix it with:
+
+.RS
+1) Environment variable 'XPKGTOP'.
+
+2) $xpkgtop variable in configuration file.
+
+3) Directory contains '_xpkgtop' file (any ancestor directory of current one.)
+.RE
+
+If you specify output directory, tarballs, packages and development packages
+are stored in XPKG/distfiles, XPKG/packages and XPKG/develpkgs respectively.
+
+
+.SH CONFIGRATION FILES
+
+.SS PERSONAL CONFIGRATION FILES
+
+You can use ~/.xpkg file as personal configuration file.
+The sample file are /etc/xpkg/dot.xpkg.sample.
+
+.SS COMMON CONFIGRATION FILES
+
+Common configuration files are stored in /etc/xpkg/ direcotry.
+
+.TP
+.B config.rb
+Xpkg global configuration file. For more info, see comments in the file.
+
+.TP
+.B config.def or config-[target].def
+Common configuration files for all packages.
+
+.SH SEE ALSO
+
+.BR xpkg-batch (1),
+.BR xpkg-install (1),
+.BR xpkg.def (5)
+.nf
+.UR http://xqt.sourceforge.jp/
+.B http://xqt.sourceforge.jp/
+.UE
+.fi
+
+.SH AUTHORS
+.nf
+Takuya Murakami <tmurakma@mtd.biglobe.ne.jp>
+.fi

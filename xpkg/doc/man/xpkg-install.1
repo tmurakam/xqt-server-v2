@@ -1,0 +1,59 @@
+.TH "xpkg-install" "1" "29 June 2005" "X/Qt Server Project"
+.SH NAME
+xpkg-install \- xpkg package installation tool
+
+.SH SYNOPSIS
+.BR xpkg-install " [" options... "] <" command "> <" packages... >
+
+.SH DESCRIPTION
+xpkg-install is a installation tool for compiled packages with
+.B xpkg(1)
+.
+
+And it can download/upload the compiled packages from/to feed server.
+
+.SH COMMAND
+
+.TP
+.B install
+Install package files.
+.TP
+.B update
+Download all updated packages from feed server.
+Also renewed packages will be installed too.
+.TP
+.B update-devel
+Download all updated development packages from feed server.
+Also renewed packages will be installed too.
+.TP
+.B upload
+Upload compiled package to feed server.
+.TP
+.B upload-devel
+Upload compiled development package to feed server.
+
+.SH TARGET
+You must specify target same as
+.B xpkg(1)
+.
+
+.SH DOWNLOAD PACKAGES
+You need wget command to download packages from feed server.
+
+.SH UPLOAD PACKAGES
+To upload the compiled packages, you need ssh account on feed server.
+
+.SH SEE ALSO
+
+.BR xpkg (1),
+.BR xpkg.def (5)
+.nf
+.UR http://xqt.sourceforge.jp/
+.B http://xqt.sourceforge.jp/
+.UE
+.fi
+
+.SH AUTHORS
+.nf
+Takuya Murakami <tmurakma@mtd.biglobe.ne.jp>
+.fi

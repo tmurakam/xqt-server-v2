@@ -1,0 +1,54 @@
+.TH "xpkg" "1" "29 June 2005" "X/Qt Server Project"
+.SH NAME
+xpkg-batch \- xpkg batch build tool
+
+.SH SYNOPSIS
+.BR xpkg " [" options... "] <" command ">
+
+.SH DESCRIPTION
+
+xpkg-batch is a tool to batch build multiple packages with xpkg.
+
+.SH COMMAND
+.B command
+Same as 
+.B xpkg(1)
+.
+
+.SH OPTIONS
+
+.TP
+.B -s, --skiplist=[modules]
+Specify modules to skip build.
+
+.TP
+.B -t, --target=[target]
+Specify build target.
+
+.SH DIRECTORY LISTING
+
+You need directory listing file as 'dirlist' or 'dirlist.[target]'
+in current directory.
+
+The listing file contains subdirectory names in each line.
+xpkg-batch executes build for each lines.
+
+.SH SKIP BUILD LISTING
+
+You can place skip build listing file as 'skiplist' or 'skiplist.[target]'.
+
+
+.SH SEE ALSO
+
+.BR xpkg (1),
+.BR xpkg.def (5)
+.nf
+.UR http://xqt.sourceforge.jp/
+.B http://xqt.sourceforge.jp/
+.UE
+.fi
+
+.SH AUTHORS
+.nf
+Takuya Murakami <tmurakma@mtd.biglobe.ne.jp>
+.fi
