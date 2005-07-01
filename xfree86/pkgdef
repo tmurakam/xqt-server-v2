@@ -1,0 +1,267 @@
+#
+# XFree86 4.3.0 : Build def
+# 
+
+%site
+http://ring.asahi-net.or.jp/archives/XFree86/4.3.0/source
+
+%source
+X430src-1.tgz
+X430src-2.tgz
+X430src-3.tgz
+X430src-4.tgz
+X430src-5.tgz
+#X430src-6.tgz
+#X430src-7.tgz
+local:patch/cross.patch;patch=1
+local:patch/xqt-make.patch;patch=1
+local:patch/xchar2b.patch;patch=1
+local:patch/fephack.patch;patch=1
+
+%define builddir	xc
+
+%prep
+mkdir programs/Xserver/hw/xqt
+#cp -r ../xqt-driver/* programs/Xserver/hw/xqt
+(cd programs/Xserver/hw/xqt && ln -s ../../../../../xqt-driver/* .)
+
+cp ../config/host.def config/cf
+
+%build
+unset CC
+unset LD
+unset AR
+
+make World
+
+%install
+make -k DESTDIR=%{destdir} install
+
+%define devpkg	xfree86
+%control
+Package: xqt-server
+Priority: required
+Section: Qtopia
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 1.9.0
+Depends: xlibs,xbase-clients,freetype
+Description: X/Qt Server 
+ XFree86 server port over Qtopia.
+License: GPL
+Cardinst: enable
+
+%install
+mkdir -p         %{destdir}%{prefix}/pics
+cp files/Xqt.png %{destdir}%{prefix}/pics
+
+mkdir -p             %{destdir}%{prefix}/apps/Applications
+cp files/Xqt.desktop %{destdir}%{prefix}/apps/Applications
+
+mkdir -p %{destdir}%{prefix}/help/html
+cp files/Xqt.html    %{destdir}%{prefix}/help/html/
+iconv --to-code=utf8 files/Xqt.ja.html > %{destdir}%{prefix}/help/html/Xqt.ja.html
+
+cp files/Xqt.png %{destdir}%{prefix}/pics/
+
+%files
+%{prefix}/bin/Xqt
+%{prefix}/pics
+%{prefix}/apps/Applications
+%{prefix}/help
+
+%strip
+Xqt
+%control
+Package: xbase-clients
+Priority: optional
+Section: X11
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 4.3.0-3
+Depends:
+Description: X11 base clients
+ XFree86 base clients.
+License: MIT
+
+%files
+%{prefix}/bin
+
+%excludes
+Xqt
+xedit
+
+%strip
+*
+%control
+Package: xbase-etc
+Priority: optional
+Section: X11
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 4.3.0-3
+Depends:
+Description: X11 base etc files
+ XFree86 etc files
+License: MIT
+
+%files
+etc
+%control
+Package: xlibs
+Priority: optional
+Section: X11
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: 4.3.0-3
+Depends:
+Description: X11 libraries
+ XFree86 libraries.
+License: MIT
+
+%files
+%{prefix}/lib
+
+%excludes
+*.la
+*.a
+!%{prefix}/lib/X11/config
+!%{prefix}/lib/X11/fonts
+!%{prefix}/lib/X11/icons/redglass
+!%{prefix}/lib/X11/icons/whiteglass
+
+%strip
+*.so*
+%control
+Package: xqt-fonts-75dpi-iso8859-1
+Priority: optional
+Section: fonts
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 4.3.0-3
+Depends: xlibs
+Description: X11 ISO-8859-1 75dpi fonts
+ XFree86 ISO-8859-1 75dpi fonts files
+License: MIT
+
+%files
+%{prefix}/lib/X11/fonts/75dpi/fonts.dir
+%{prefix}/lib/X11/fonts/75dpi/fonts.alias
+%{prefix}/lib/X11/fonts/75dpi/*ISO8859-1.pcf.gz
+%control
+Package: xqt-fonts-100dpi-iso8859-1
+Priority: optional
+Section: fonts
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 4.3.0-3
+Depends: xlibs
+Description: X11 ISO-8859-1 100dpi fonts
+ XFree86 ISO-8859-1 100dpi fonts
+License: MIT
+
+%files
+%{prefix}/lib/X11/fonts/100dpi/fonts.dir
+%{prefix}/lib/X11/fonts/100dpi/fonts.alias
+%{prefix}/lib/X11/fonts/100dpi/*ISO8859-1.pcf.gz
+%control
+Package: xqt-fonts-misc
+Priority: optional
+Section: fonts
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 4.3.0-3
+Depends: xlibs
+Description: X11 misc fonts
+ XFree86 misc font files (small set)
+License: MIT
+
+%files
+%{prefix}/lib/X11/fonts/misc
+
+%excludes
+# remove big font
+18x18ja.pcf.gz
+12x13ja.pcf.gz
+
+# remove non japanese font
+hangl*.pcf.gz
+gb*.pcf.gz
+18x18ko.pcf.gz
+cu12.pcf.gz
+
+%preipkg
+(cd %{ipkgtmp}%{prefix}/lib/X11/fonts/misc && mkfontdir)
+%control
+Package: xqt-fonts-ttf
+Priority: optional
+Section: fonts
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 4.3.0-3
+Depends: xlibs
+Description: X11 base TrueType fonts
+ XFree86 base TrueType fonts
+License: MIT
+
+%files
+%{prefix}/lib/X11/fonts/TTF
+%control
+Package: xqt-fonts-type1
+Priority: optional
+Section: fonts
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 4.3.0-3
+Depends: xlibs
+Description: X11 Type1 fonts
+ XFree86 Type1 fonts files
+License: MIT
+
+%files
+%{prefix}/lib/X11/fonts/Type1
+%control
+Package: xqt-fonts-encodings
+Priority: optional
+Section: fonts
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 4.3.0-3
+Depends: xlibs
+Description: X11 base font encodings
+ XFree86 base font encodings files
+License: MIT
+
+%files
+%{prefix}/lib/X11/fonts/encodings
+%control
+Package: xqt-startup-scripts
+Priority: optional
+Section: X11
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 0.0.3
+Depends: xqt-server,xlibs,xbase-clients,rxvt,blackbox
+Description: X/Qt server startup scripts
+License: GPL
+
+#%conffiles
+#/home/zaurus/.xinitrc
+#/home/zaurus/.xserverrc
+
+#%postinst
+#chown zaurus /home/zaurus/.xinitrc
+#chown zaurus /home/zaurus/.xserverrc
+
+%files
+!files/startx-wrapper		%{prefix}/bin/
+!files/dot.xinitrc		/home/zaurus/.xinitrc
+!files/dot.xserverrc		/home/zaurus/.xserverrc
+!files/startx.desktop		%{prefix}/apps/Applications/
+#!files/Xqt.desktop		%{prefix}/apps/Applications/Xqt.desktop
+
+
+%preipkg
+chmod 0755    %{ipkgtmp}%{prefix}/bin/startx-wrapper
+#chown 500:500 %{ipkgtmp}/home/zaurus/.xinitrc
+#chown 500:500 %{ipkgtmp}/home/zaurus/.xserverrc
