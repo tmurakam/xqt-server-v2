@@ -2,13 +2,17 @@
 # expat
 # 
 
+%define ver	2.1.5
+%define rel	1
+
 %site
 ftp://ring.asahi-net.or.jp/pub/graphics/freetype/freetype2
 
 %source
-freetype-2.1.5.tar.bz2
+freetype-%{ver}.tar.bz2
 
-%define builddir	freetype-2.1.5
+%define builddir	freetype-%{ver}
+%define develpkg	yes
 
 %prep
 
@@ -18,8 +22,6 @@ make
 
 %install
 make %{install_opts} install
-
-%define devpkg	freetype
 
 %files
 %{prefix}/lib/*
@@ -37,7 +39,7 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 2.1.5-1
+Version: %{ver}-%{rel}
 Depends:
 License: GPL
 Description: Freetype2 library

@@ -2,14 +2,18 @@
 # gdk-pixbuf
 # 
 
+%define ver	0.22.0
+%define rel	2
+
 %site
 ftp://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/0.22
 
 %source
-gdk-pixbuf-0.22.0.tar.bz2
+gdk-pixbuf-%{ver}.tar.bz2
 local:cross.patch;patch=1
 
-%define builddir	gdk-pixbuf-0.22.0
+%define builddir	gdk-pixbuf-%{ver}
+%define develpkg	yes
 
 %prep
 # dirty hack...
@@ -30,8 +34,6 @@ make
 %install
 make %{install_opts} install
 
-%define devpkg	gdk-pixbuf
-
 %files
 %{prefix}/lib/*.so*
 
@@ -48,7 +50,7 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 0.22.0-2
+Version: %{ver}-%{rel}
 Depends: xlibs, gtk, libpng
 License: LGPL
 Description:  gdk-pixbuf image loading library

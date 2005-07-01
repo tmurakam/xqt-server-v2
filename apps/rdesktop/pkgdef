@@ -15,7 +15,7 @@ mv Makefile Makefile.org
 sed -e 's/strip/\$(STRIP)/g' Makefile.org > Makefile
 
 %build
-./configure --prefix=%{prefix} --with-x=%{x_prefix} --with-openssl=%{cross_prefix}
+./configure --prefix=%{prefix} --with-x=%{x_prefix} --with-openssl=%{target_prefix}
 make
 
 %install

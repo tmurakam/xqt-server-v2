@@ -2,13 +2,17 @@
 # expat
 # 
 
+%define ver	1.95.8
+%define rel	1
+
 %site
 http://umn.dl.sourceforge.net/sourceforge/expat
 
 %source
-expat-1.95.8.tar.gz
+expat-%{ver}.tar.gz
 
-%define builddir	expat-1.95.8
+%define builddir	expat-%{ver}
+%define develpkg	yes
 
 %prep
 
@@ -24,8 +28,6 @@ make install \
  includedir=%{destdir}%{prefix}/include \
  mandir=%{destdir}%{prefix}/man \
  man1dir=%{destdir}%{prefix}/man/man1
-
-%define devpkg	expat
 
 %files
 %{prefix}/lib/*
@@ -43,7 +45,7 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 1.95.8-1
+Version: %{ver}-%{rel}
 Depends:
 License: BSD
 Description: expat xml parser

@@ -23,6 +23,8 @@
 module GetSource
     # ソース取得処理
     def GetSource(sites, src, distfiledir, dest, dlOnly)
+        return if src == nil
+
 	@sites = sites
 	@distfiledir = distfiledir
 	@dest = dest

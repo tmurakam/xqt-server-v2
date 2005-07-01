@@ -2,13 +2,17 @@
 # atk
 # 
 
+%define ver	1.6.1
+%define rel	1
+
 %site
 ftp://ftp.gtk.org/pub/gtk/v2.4
 
 %source
-atk-1.6.1.tar.bz2
+atk-%{ver}.tar.bz2
 
-%define builddir	atk-1.6.1
+%define builddir	atk-%{ver}
+%define develpkg	yes
 
 %build
 ./configure %{config_opts} --enable-shared --disable-static --disable-gtk-doc
@@ -16,8 +20,6 @@ make
 
 %install
 make %{install_opts} install
-
-%define devpkg	atk
 
 %files
 %{prefix}/lib
@@ -36,7 +38,7 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 1.6.1
+Version: %{ver}-%{rel}
 Depends: glib-2
 License: LGPL
 Description: Accessability Toolkit
