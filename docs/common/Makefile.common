@@ -1,22 +1,26 @@
 XMLFILE		= $(DOCNAME).xml
-#XSLFILE		= ../xsl/docbook-xsl-1.66.1/html/tldp-one-page.xsl
 XSLFILE		= ../xsl/main-html.xsl
+TEX_XSLFILE	= ../xsl/db2latex.xsl
 
 all:	html
 
 html: $(XMLFILE)
-	xmlto html -x $(XSLFILE) -o $(DOCNAME) $(XMLFILE)
+	xmlto -vv html -x $(XSLFILE) -o $(DOCNAME) $(XMLFILE)
 #	xsltproc -o test.html $(XSLFILE) $(XMLFILE)
 	mkdir -p $(DOCNAME)/images
 	cp ../images/*.png $(DOCNAME)/images
 	-cp images/*.png $(DOCNAME)/images
 	cp ../css/xqt.css $(DOCNAME)
 
-pdf: $(XMLFILE_UTF8)
-	xmlto pdf -x ../xsl/main-pdf.xsl $(XMLFILE)
+pdf: $(XMLFILE)
+	xsltproc -o $(DOCNAME).tex $(TEX_XSLFILE) $(XMLFILE)
+	-platex $(DOCNAME).tex
+	pdvips -o $(DOCNAME).ps $(DOCNAME).dvi
+	ps2pdf $(DOCNAME).ps
+#	xmlto pdf -x ../xsl/main-pdf.xsl $(XMLFILE)
 
 clean:
-	-/bin/rm -rf *.html *.pdf $(DOCNAME)
+	-/bin/rm -rf *.html *.tex *.dvi *.ps *.pdf *.aux *.log $(DOCNAME)
 
 upload: html
 	rsync -auvz --delete -e ssh ./$(DOCNAME)/ \
