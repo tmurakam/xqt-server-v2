@@ -21,7 +21,7 @@
 #
 
 class WorkState
-    StateFile = ".mkpkg.state"
+    StateFile = ".xpkg.state"
 
     def initialize
 	@state = Array.new
