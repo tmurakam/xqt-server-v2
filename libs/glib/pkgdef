@@ -2,14 +2,18 @@
 # Glib 1.2
 # 
 
+%define ver     1.2.10
+%define rel     2
+
 %site
 ftp://ftp.gtk.org/pub/gtk/v1.2
 
 %source
-glib-1.2.10.tar.gz
-local:glib-1.2.10-cross.patch;patch=1
+glib-%{ver}.tar.gz
+local:glib-%{ver}-cross.patch;patch=1
 
-%define builddir	glib-1.2.10
+%define builddir	glib-%{ver}
+%define develpkg yes
 
 %prep
 rm acinclude.m4
@@ -24,8 +28,6 @@ make
 
 %install
 make %{install_opts} install
-
-%define devpkg	glib
 
 %files
 %{prefix}/lib/libgmodule*
@@ -44,7 +46,7 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 1.2.10-2
+Version: %{ver}-%{rel}
 Depends:
 License: LGPL
 Description: glib additional libraries

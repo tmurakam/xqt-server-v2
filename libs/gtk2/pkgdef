@@ -2,15 +2,19 @@
 # GTK+ 2
 # 
 
+%define ver     2.2.4
+%define rel     1
+
 %site
 #ftp://ftp.gtk.org/pub/gtk/v2.4
 ftp://ftp.gtk.org/pub/gtk/v2.2
 
 %source
 #gtk+-2.4.13.tar.bz2
-ftp://ftp.gtk.org/pub/gtk/v2.2/gtk+-2.2.4.tar.bz2
+ftp://ftp.gtk.org/pub/gtk/v2.2/gtk+-%{ver}.tar.bz2
 
-%define builddir	gtk+-2.2.4
+%define builddir	gtk+-%{ver}
+%define develpkg yes
 
 %build
 ./configure %{config_opts} --enable-shared --disable-static
@@ -27,8 +31,6 @@ make SRC_SUBDIRS='gdk-pixbuf gdk gtk modules tests contrib' DESTDIR=%{destdir} i
 
 # ad hoc...
 #mv %{destdir}%{cross_prefix}/* %{destdir}%{prefix}/
-
-%define devpkg	gtk+-2
 
 %files
 %{prefix}/bin
@@ -50,7 +52,7 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 2.2.4-1
+Version: %{ver}-%{rel}
 Depends:
 License: LGPL
 Description: GTK+-2

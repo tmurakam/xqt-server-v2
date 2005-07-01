@@ -2,14 +2,17 @@
 # ncurses
 # 
 
+%define ver	4.2
+%define rel	1
+
 %site
 http://ring.asahi-net.or.jp/archives/GNU/ncurses/
 
 %source
-ncurses-4.2.tar.gz
-local:ncurses-4.2.cross.patch;patch=1
+ncurses-%{ver}.tar.gz
+local:ncurses-%{ver}.cross.patch;patch=1
 
-%define builddir	ncurses-4.2
+%define builddir	ncurses-%{ver}
 
 %prep
 /bin/rm -rf Ada95
@@ -29,8 +32,6 @@ make
 %install
 make DESTDIR=%{destdir} libdir=%{prefix}/lib install
 
-%define devpkg ncurses
-
 %files
 %{prefix}/lib/*.so*
 
@@ -40,3 +41,18 @@ make DESTDIR=%{destdir} libdir=%{prefix}/lib install
 
 %strip
 *.so*
+
+%control
+Package: ncurses-devel
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: %{ver}-%{rel}
+Depends:
+License:
+Description: ncurses development package
+
+
+
+

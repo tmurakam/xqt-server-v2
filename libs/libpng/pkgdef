@@ -2,13 +2,17 @@
 # libpng
 # 
 
+%define ver	1.2.7
+%define rel	1
+
 %site
 http://umn.dl.sourceforge.net/sourceforge/png-mng/
 
 %source
-libpng-1.2.7.tar.bz2
+libpng-%{ver}.tar.bz2
 
-%define builddir	libpng-1.2.7
+%define builddir	libpng-%{ver}
+%define develpkg	yes
 
 %prep
 cp scripts/makefile.linux Makefile
@@ -20,8 +24,6 @@ make CC=$CC AR=$AR RANLIB=$RANLIB prefix=%{target_prefix} \
 %install
 mkdir -p %{destdir}%{prefix}
 make CC=$CC DESTDIR=%{destdir} prefix=%{prefix} install
-
-%define devpkg	libpng
 
 %files
 %{prefix}/lib/*.so*
@@ -39,7 +41,7 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 1.2.7-1
+Version: %{ver}-%{rel}
 Depends:
 License: OSI Certified
 Description: A library of functions for manipulating PNG image format files.

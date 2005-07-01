@@ -2,13 +2,17 @@
 # Glib 2
 # 
 
+%define ver     2.4.7
+%define rel     1
+
 %site
 ftp://ftp.gtk.org/pub/gtk/v2.4
 
 %source
-glib-2.4.7.tar.bz2
+glib-%{ver}.tar.bz2
 
-%define builddir	glib-2.4.7
+%define builddir	glib-%{ver}
+%define develpkg yes
 
 %build
 glib_cv_stack_grows=no ./configure --prefix=%{prefix} --host=arm-linux --enable-shared --disable-static
@@ -19,8 +23,6 @@ make DESTDIR=%{destdir} install
 
 # ad hoc...
 #mv %{destdir}%{cross_prefix}/* %{destdir}%{prefix}/
-
-%define devpkg	glib-2
 
 %files
 %{prefix}/lib
@@ -39,7 +41,7 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 2.4.7
+Version: %{ver}-%{rel}
 Depends:
 License: LGPL
-Description: glib 2.4.7
+Description: glib %{ver}
