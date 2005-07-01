@@ -1,11 +1,5 @@
 --- tiff-v3.6.1.org/config.site	2002-10-12 21:52:46.000000000 +0900
 +++ tiff-v3.6.1/config.site	2004-10-04 20:59:47.000000000 +0900
-@@ -1,4 +1,4 @@
--# $Header: /cvsroot/osrs/libtiff/config.site,v 1.8 2002/10/11 14:33:49 dron Exp $
-+# $Header: /cvsroot/xqt/libs/libtiff/config.site,v 1.3 2004/02/09 16:25:49 tmurakam Exp $
- #
- # TIFF Software
- #
 @@ -40,23 +40,23 @@
  #
  # Package controls.
