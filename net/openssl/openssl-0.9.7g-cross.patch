@@ -1,0 +1,12 @@
+diff -urN openssl-0.9.7g.org/Configure openssl-0.9.7g/Configure
+--- openssl-0.9.7g.org/Configure	2005-07-01 23:31:08.000000000 +0900
++++ openssl-0.9.7g/Configure	2005-07-01 23:33:19.371326992 +0900
+@@ -437,7 +437,7 @@
+ # Linux on ARM
+ # ARM comes in both little- and big-endian flavors. The following line is
+ # endian neutral, but ./config is free to throw in -D[BL]_ENDIAN...
+-"linux-elf-arm","gcc:-DTERMIO -O3 -fomit-frame-pointer -Wall::-D_REENTRANT::-ldl:BN_LLONG::::::::::dlfcn:linux-shared:-fPIC::.so.\$(SHLIB_MAJOR).\$(SHLIB_MINOR)",
++"linux-elf-arm","/opt/Embedix/tools/bin/arm-linux-gcc:-DTERMIO -O3 -fomit-frame-pointer -Wall::-D_REENTRANT::-ldl:BN_LLONG::::::::::dlfcn:linux-shared:-fPIC::.so.\$(SHLIB_MAJOR).\$(SHLIB_MINOR)",
+ 
+ # SCO/Caldera targets.
+ #
