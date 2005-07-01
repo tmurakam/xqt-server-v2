@@ -108,13 +108,15 @@ end
 class Packages
     include ExecScript
 
-    def initialize(pkgdir)
+    def initialize(url, pkgdir)
+	@url = url
 	@pkgdir = pkgdir
     end
 
+    # Index ファイルをダウンロードする
     def FetchIndex
-	if ($feed_url == nil)
-	    puts "You must specify $feed_url."
+	if (@url == nil)
+	    puts "You must specify $feed_url or $feed_devel_url."
 	    exit 1
 	end
 
@@ -128,9 +130,10 @@ class Packages
 	if (FileTest.exist?("Packages"))
 	    File.rename("Packages", "Packages.old")
 	end
-	ExecCmd("wget #{$feed_url}/Packages")
+	ExecCmd("wget #{@url}/Packages")
     end
 
+    # Index ファイルをロードする
     def LoadIndex
 	@filelist = Array.new
 
@@ -144,11 +147,12 @@ class Packages
 	end
     end
 
+    # 存在しないファイルをダウンロードしてインストールする
     def UpdatePackages(installer)
 	@filelist.each do |f|
 	    next if (FileTest.exist?(f))
 	    puts "#{f} does not exist. update..." if ($verbose)
-	    ExecCmd("wget #{$feed_url}/#{f}")
+	    ExecCmd("wget #{@url}/#{f}")
 
 	    installer.InstallFileAuto(f) if (installer)
 	end
