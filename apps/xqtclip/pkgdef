@@ -2,8 +2,7 @@
 # xqtclip
 # 
 
-%define builddir	src
-%define noclean		yes
+%define builddir	src:noclean
 
 %build
 make clean && make
