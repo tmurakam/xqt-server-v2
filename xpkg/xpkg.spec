@@ -1,5 +1,5 @@
 %define name	xpkg
-%define version	1.0.0
+%define version	1.0.1
 %define release	1
 
 %define	prefix	/usr
@@ -11,7 +11,7 @@ Copyright: 	GPL
 Group: 		Development/Tools
 Url: 		http://xqt.sourceforge.net/
 Source: 	%{name}-%{version}.tar.gz
-Summary: 	A cross compilation tools for X/Qt project.
+Summary: 	A cross compilation tools for X/Qt server project.
 Vendor: 	X/Qt Project
 Packager: 	Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-root
@@ -19,7 +19,7 @@ BuildArch:	noarch
 Requires:	ruby >= 1.6
 
 %description
-This is a small utility for X/Qt project to cross compile the
+This is a small utility for X/Qt server project to cross compile the
 module and create the package files (ipkg and so on).
 
 %package config-xqt
@@ -28,7 +28,7 @@ Summary: 	xpkg configuration files for X/Qt.
 Requires:	xpkg
 
 %description config-xqt
-Xpkg configuration files for X/Qt project.
+Xpkg configuration files for X/Qt server project.
 
 %prep
 
@@ -48,7 +48,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %defattr(-,root,root)
 
 %doc AUTHORS COPYING README INSTALL ChangeLog
-%doc %{prefix}/man/man[1-9]/*
+%doc %{prefix}/share/man/man[1-9]/*
+%doc %{prefix}/share/man/ja/man[1-9]/*
 %{prefix}/bin/*
 %{prefix}/lib/xpkg
 
@@ -57,5 +58,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %config /etc/xpkg
 
 %changelog
-* Tue Jun 28 2005 Takuya Murakami <tmurakam@mtd.biglobe.ne.jp> 0.1
+* Tue Jul 1 2005 Takuya Murakami <tmurakam@mtd.biglobe.ne.jp> 1.0.0
+- Add some utilities
+
+* Tue Jun 28 2005 Takuya Murakami <tmurakam@mtd.biglobe.ne.jp> 1.0.0
 - Initial

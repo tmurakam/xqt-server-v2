@@ -1,24 +1,21 @@
-■ インストール手順
+HOW TO INSTALL XPKG
 
-○ RPM を使用する場合
+INSTALL FROM RPM PACKAGE
+
+To create an RPM package, execute
 
  $ make rpm
 
-で RPM が生成される。tarball から生成する場合は、
+or to build from tarball,
 
  $ rpmbuild --ta xpkg-*.tar.gz
 
-とする。
 
+BUILD FROM SOURCE WITHOUT RPM
 
-○ RPM を使わない場合
-
-root になって、
-
+ $ su
  $ make install
 
-でインストールする。prefix を変更したい場合は、
+If you'd like to change prefix, execute
 
  $ make prefix=/usr/local install
-
-のようにする。

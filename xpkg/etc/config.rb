@@ -59,4 +59,17 @@ $site_fallback = "http://xqt.sourceforge.jp/distfiles/"
 $feed_url = "http://xqt.sourceforge.jp/feed-testing/"
 
 # コンパイル済み開発パッケージの feed URL
-$devel_feed_url = "http://xqt.sourceforge.jp/feed-devel/"
+$feed_devel_url = "http://xqt.sourceforge.jp/feed-devel/"
+
+#
+# feed upload 設定
+#
+
+# feed ホスト (ssh でログインできるホスト)
+$feed_host = "shells.sourceforge.jp"
+
+# feed ホスト上のパッケージディレクトリ
+$feed_dir = "/home/groups/x/xq/xqt/htdocs/feed-testing"
+
+# feed ホスト上の開発パッケージディレクトリ
+$feed_devel_dir = "/home/groups/x/xq/xqt/htdocs/feed-devel"
