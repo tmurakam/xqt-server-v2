@@ -2,7 +2,7 @@
 # OpenSSL
 # 
 
-%define ver     0.9.7d
+%define ver     0.9.7g
 %define rel     1
 %define develpkg yes
 %site
@@ -10,7 +10,7 @@ http://www.openssl.org/source/
 
 %source
 openssl-%{ver}.tar.gz
-local:arm-linux.patch;patch=1
+local:openssl-%{ver}-cross.patch;patch=1
 
 %define builddir openssl-%{ver}
 %define develpkg yes
