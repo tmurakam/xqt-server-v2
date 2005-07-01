@@ -78,9 +78,8 @@ class Xpkg
             else
                 state.setdone(command)
             end
+            state.save
 	end
-
-	state.save
 
 	tm = (Time.now - st).to_i
 
