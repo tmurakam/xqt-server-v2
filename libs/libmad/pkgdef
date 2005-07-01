@@ -1,0 +1,50 @@
+#
+# libmad
+# 
+
+%define ver	0.15.1b
+%define rel	1
+
+%site
+ftp://ftp.mars.org/pub/mpeg
+
+%source
+libid3tag-%{ver}.tar.gz
+libmad-%{ver}.tar.gz
+
+%define builddir	libmad-%{ver}
+%define develpkg	yes
+
+%prep
+mv ../libid3tag-%{ver} libid3tag
+
+%build
+(cd libid3tag && ./configure %{config_opts} && make)
+./configure %{config_opts} 
+make
+
+%install
+(cd libid3tag && make %{install_opts} install)
+make %{install_opts} install
+
+%files
+%{prefix}/lib
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: libmad
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: %{ver}-%{rel}
+Depends:
+Cardinst: enable
+Description: Mad library includes libmad, libid3tag.
+License: GPL
