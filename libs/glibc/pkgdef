@@ -1,0 +1,101 @@
+#
+# glibc 2.2.2
+# 
+
+%define	ver	2.2.2
+%define	rel	1
+
+%site
+http://ring.asahi-net.or.jp/archives/GNU/glibc
+
+%source
+glibc-%{ver}.tar.gz
+glibc-linuxthreads-%{ver}.tar.gz
+local:glibc-%{ver}-cp932-2.diff.gz;patch=1
+
+%define builddir	glibc-%{ver}
+
+%prep
+mv ../linuxthreads .
+mv ../linuxthreads_db .
+
+%build
+./configure --prefix=/usr --target=arm-linux --host=arm-linux \
+	--with-headers=/opt/Embedix/tools/arm-linux/include \
+	--enable-add-ons --disable-sanity-checks
+make
+
+%install
+make -k install_root=%{destdir} install
+
+mkdir -p %{destdir}/usr/lib/locale
+localedef -f localedata/charmaps/EUC-JP -i localedata/locales/ja_JP %{destdir}/usr/lib/locale/ja_JP.eucjp
+
+localedef -f localedata/charmaps/UTF-8  -i localedata/locales/ja_JP %{destdir}/usr/lib/locale/ja_JP.utf8
+
+exit 0
+
+
+##############################################################
+%control glibc-gconv-ja
+Package: glibc-gconv-ja
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: %{ver}-%{rel}
+Depends:
+License: LGPL
+Description: GNU libc gconv library (ja)
+ GNU libc gconv library for Japanese environment
+
+%files glibc-gconv-ja
+usr/lib/gconv/gconv-modules
+usr/lib/gconv/ISO8859-1.so
+usr/lib/gconv/UNICODE.so
+usr/lib/gconv/UTF-7.so
+usr/lib/gconv/UTF-16.so
+usr/lib/gconv/CP932.so
+usr/lib/gconv/EUC-JP.so
+usr/lib/gconv/EUC-JP-MS.so
+usr/lib/gconv/SJIS.so
+usr/lib/gconv/ISO-2022-JP.so
+usr/lib/gconv/libJIS.so
+usr/lib/gconv/libCNS.so
+usr/lib/gconv/libGB.so
+usr/lib/gconv/libKSC.so
+
+%strip glibc-gconv-ja
+*.so
+
+##############################################################
+%files glibc-locale-ja-eucjp
+usr/lib/locale/ja_JP.eucjp
+
+%control glibc-locale-ja-eucjp
+Package: glibc-locale-ja-eucjp
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: %{ver}-%{rel}
+Depends:
+License: LGPL
+Description: GNU libc locale data (eucjp)
+ GNU libc locale data for ja_JP.eucjp
+
+##############################################################
+%files glibc-locale-ja-utf8
+usr/lib/locale/ja_JP.utf8
+
+%control glibc-locale-ja-utf8
+Package: glibc-locale-ja-utf8
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: arm
+Version: %{ver}-%{rel}
+Depends:
+License: LGPL
+Description: GNU libc locale data (UTF8)
+ GNU libc locale data for ja_JP.utf8
