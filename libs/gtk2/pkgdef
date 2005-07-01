@@ -3,12 +3,14 @@
 # 
 
 %site
-ftp://ftp.gtk.org/pub/gtk/v2.4
+#ftp://ftp.gtk.org/pub/gtk/v2.4
+ftp://ftp.gtk.org/pub/gtk/v2.2
 
 %source
-gtk+-2.4.13.tar.bz2
+#gtk+-2.4.13.tar.bz2
+ftp://ftp.gtk.org/pub/gtk/v2.2/gtk+-2.2.4.tar.bz2
 
-%define builddir	gtk+-2.4.13
+%define builddir	gtk+-2.2.4
 
 %build
 ./configure %{config_opts} --enable-shared --disable-static
@@ -48,7 +50,7 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 2.4.13
+Version: 2.2.4-1
 Depends:
 License: LGPL
 Description: GTK+-2

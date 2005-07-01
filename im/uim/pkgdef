@@ -3,7 +3,7 @@
 # 
 
 %site
-http://freedesktop.org/Software/UimDownload/
+http://freedesktop.org/releases/
 
 %source
 uim-0.4.3.tar.gz

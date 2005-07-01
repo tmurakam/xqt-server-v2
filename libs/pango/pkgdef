@@ -3,16 +3,19 @@
 # 
 
 %site
-ftp://ftp.gtk.org/pub/gtk/v2.4
+#ftp://ftp.gtk.org/pub/gtk/v2.4
+ftp://ftp.gtk.org/pub/gtk/v2.2
 
 %source
-pango-1.4.1.tar.gz
+#pango-1.4.1.tar.gz
+pango-1.2.5.tar.bz2
 
-%define builddir	pango-1.4.1
+%define builddir	pango-1.2.5
 
 %build
 ./configure --host=arm-linux --prefix=%{prefix} \
 	--enable-shared --disable-static --disable-gtk-doc
+make -k
 make
 
 %install
@@ -39,7 +42,7 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 1.4.1
+Version: 1.2.5-1
 Depends: glib-2, xlibs
 License: LGPL
 Description: System for layout and rendering of internationalized text

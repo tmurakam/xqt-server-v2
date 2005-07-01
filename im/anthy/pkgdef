@@ -3,12 +3,12 @@
 # 
 
 %site
-http://osdn.dl.sourceforge.jp/anthy/10139
+http://osdn.dl.sourceforge.jp/anthy/12071/
 
 %source
-anthy-5500.tar.gz
+anthy-5900.tar.gz
 
-%define builddir	anthy-5500
+%define builddir	anthy-5900
 
 %build
 # stage 1 : build host tools
@@ -51,7 +51,7 @@ Priority: optional
 Section: im
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
-Version: 5500-1
+Version: 5900-1
 Depends: 
 License:
 Description: Anthy
