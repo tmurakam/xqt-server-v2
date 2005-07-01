@@ -183,10 +183,10 @@ class PkgBuild
 	@excludes.each do |file|
 	    if (file =~ /^!([^\/].*)/ || file =~ /^([^\/].*\/.*)$/)
 		# path
-		cmd = "cd #{@pkgtmpdir}; /bin/rm -rf #{$1}"
+		cmd = "/bin/rm -rf #{@pkgtmpdir}#{$1}"
 	    else
 		# file spec
-		cmd = "cd #{@pkgtmpdir}; find . -name '#{file}' -exec /bin/rm -rf {} \\;"
+		cmd = "find #{@pkgtmpdir} -name '#{file}' -exec /bin/rm -rf {} \\;"
 	    end
 	    ExecCmd(cmd, true)
 	end
@@ -200,7 +200,7 @@ class PkgBuild
 	    strip = "/usr/bin/strip"
 	end
 	@strip.each do |file|
-	    cmd = "cd #{@pkgtmpdir}; #{strip} #{file}"
+	    cmd = "#{strip} #{@pkgtmpdir}/#{file}"
 	    ExecCmd(cmd, true)
 	end
     end
