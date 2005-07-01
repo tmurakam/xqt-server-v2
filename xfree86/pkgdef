@@ -51,15 +51,12 @@ cp ../files/Xqt.desktop %{destdir}%{prefix}/apps/Applications
 
 mkdir -p %{destdir}%{prefix}/help/html
 cp ../files/Xqt.html    %{destdir}%{prefix}/help/html/
-iconv --to-code=utf8 files/Xqt.ja.html > %{destdir}%{prefix}/help/html/Xqt.ja.html
+iconv --to-code=utf8 ../files/Xqt.ja.html > %{destdir}%{prefix}/help/html/Xqt.ja.html
 
 cp ../files/Xqt.png %{destdir}%{prefix}/pics/
 
 # for xqt-fonts-misc
 (cd %{destdir}%{prefix}/lib/X11/fonts/misc && mkfontdir)
-
-# for xqt-startup-scripts
-chmod 0755    %{destdir}%{prefix}/bin/startx-wrapper
 
 ##########################################################
 %control xfree86-devel
