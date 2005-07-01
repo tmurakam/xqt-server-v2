@@ -76,7 +76,7 @@ module GetSource
 	    sitelist.unshift($site_default)
 	end
 	if ($site_fallback != nil)
-	    sitelist.push($site_default)
+	    sitelist.push($site_fallback)
 	end
 
 	fullpath = @distfiledir + "/" + file
