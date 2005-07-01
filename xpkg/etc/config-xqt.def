@@ -50,4 +50,6 @@
 	--x-includes=%{x_prefix}/includes \
 	--x-libraries=%{x_prefix}/lib
 
+%define	gtk_opts
+
 %define install_opts DESTDIR=%{destdir}

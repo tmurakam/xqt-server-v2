@@ -14,8 +14,8 @@ libpng-1.2.7.tar.bz2
 cp scripts/makefile.linux Makefile
 
 %build
-make CC=$CC AR=$AR RANLIB=$RANLIB prefix=%{cross_prefix} \
- ZLIBINC=%{cross_prefix}/include ZLIBLIB=%{cross_prefix}/lib
+make CC=$CC AR=$AR RANLIB=$RANLIB prefix=%{target_prefix} \
+ ZLIBINC=%{target_prefix}/include ZLIBLIB=%{target_prefix}/lib
 
 %install
 mkdir -p %{destdir}%{prefix}
