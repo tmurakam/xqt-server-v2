@@ -87,14 +87,9 @@ class Pkg
     def getSource(distfiledir, dlOnly = false)
 	sites = @df.getSectValues("site")
 	sources = @df.getSectValues("source")
-	dir = getBuildDir()
+	builddir = getBuildDir()
 
-	GetSource(sites, sources, distfiledir, dir, dlOnly)
-
-	# パッチ適用
-	if (!dlOnly) 
-	    execSectionScript("patch")
-	end
+	GetSource(sites, sources, distfiledir, builddir, dlOnly)
     end
 
     # clean する

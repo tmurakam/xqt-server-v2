@@ -17,17 +17,18 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #
-# ソースダウンロード処理モジュール
+# Source tarball download module
 #
 
 module GetSource
-    # ソース取得処理
-    def GetSource(sites, src, distfiledir, dest, dlOnly)
+
+    # Get source tarball
+    def GetSource(sites, src, distfiledir, builddir, dlOnly)
         return if src == nil
 
 	@sites = sites
 	@distfiledir = distfiledir
-	@dest = dest
+	@builddir = builddir
 
 	if (!FileTest.exist?(distfiledir))
 	    system("mkdir -p #{distfiledir}")
@@ -35,8 +36,9 @@ module GetSource
 
 	cmd = nil
 
-	# ソース tarball の展開
+	# download & extract
 	src.each do |file|
+	    # check ';patch=n' suffix
 	    patchlevel = nil
 	    if (file =~ /^(.*);patch=(.*)$/)
 		file = $1
@@ -61,12 +63,14 @@ module GetSource
 	end
     end
 
-    # 以下は private method
+    # private methods...
     private
-
+    
+    # download one file
     def Download(file)
 	sitelist = nil
-	if (file =~ /^(.*tp:\/\/.*)\/([^\/]+)$/)
+	if (file =~ %r!^([a-z]+tp://.*)/([^/]+)$!)
+	    # full URL (http://, ftp:// etc.)
 	    file = $2
 
 	    sitelist = Array.new
@@ -83,11 +87,11 @@ module GetSource
 
 	fullpath = @distfiledir + "/" + file
 
-	# ファイルをダウンロードする
+	# Download file
 	sitelist.each do |site|
 	    break if (FileTest.exist?(fullpath))
 
-	    if (site =~ /[^\/]$/)
+	    if (site =~ %r![^/]$!)
 		site = site + "/"
 	    end
 	    cmd = "wget -P #{@distfiledir} #{site}#{file}"
@@ -101,8 +105,9 @@ module GetSource
 	return fullpath
     end
 
+
+    # extract tarball or patch
     def Extract(file, patchlevel)
-	# 圧縮展開コマンド
 	cat = "cat"
 	if (file =~ /gz$/)
 	    cat = "zcat"
@@ -110,14 +115,16 @@ module GetSource
 	    cat = "bzcat"
 	end
 
-	# パッチの適用またはファイル展開
 	cmd = nil
 	if (patchlevel != nil)
-	    cmd = "cd #{@dest}; #{cat} #{file} | patch -p#{patchlevel}"
+	    # patch
+	    cmd = "cd #{@builddir} && #{cat} #{file} | patch -p#{patchlevel}"
 	elsif (file =~ /\.tar\.[bg]z2?$/ || file =~ /\.tgz$/ || file =~ /\.tar$/)
+	    # extract
 	    cmd = "#{cat} #{file} | tar xvf -"
 	else
-	    cmd = "cp #{file} ."
+	    # copy file to builddir
+	    cmd = "cp #{file} #{@builddir}"
 	end
 
 	if (cmd) 
