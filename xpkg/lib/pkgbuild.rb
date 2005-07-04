@@ -183,7 +183,7 @@ class PkgBuild
 	@excludes.each do |file|
 	    if (file =~ /^\// || file.include?("/"))
 		# path
-		cmd = "/bin/rm -rf #{@pkgtmpdir}#{$1}"
+		cmd = "/bin/rm -rf #{@pkgtmpdir}#{file}"
 	    else
 		# file spec
 		cmd = "find #{@pkgtmpdir} -name '#{file}' -exec /bin/rm -rf {} \\;"
