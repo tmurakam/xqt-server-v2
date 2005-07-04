@@ -47,14 +47,13 @@ class IfStack
 	#
 	# ruby の式に変換して eval で評価する
 	#
-	cond.gsub!(/\w+/) {|w|
+	cond.gsub!(/^[a-zA-Z]\w+/) {|w|
 	    if (w == @target)
 		"true"
 	    else
 		"false"
 	    end
 	}
-	cond.gsub!(/,/, '||')
 
 	if (eval(cond))
 	    return Match

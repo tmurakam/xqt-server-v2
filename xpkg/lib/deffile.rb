@@ -146,12 +146,15 @@ class DefFile
 		next
 	    end
 	    
+	    # 定義の展開
+	    line = expand_str(line)
+
 	    # 条件節処理
 	    next if (!ifs.parse(line))
 
 	    if (line =~ /^%define\s+(\S+)\s+(.*)$/)
 		# %define 処理
-		@defines[$1] = expand_str($2).strip
+		@defines[$1] = $2.strip
 
 	    elsif (line =~ /^%define\s+(\S+)$/)
 		# %define 処理
@@ -159,12 +162,12 @@ class DefFile
 
 	    elsif (line =~ /%env\s+(\S+)\s+(.*)$/)
 		# %env 処理
-		ENV[$1] = expand_str($2)
+		ENV[$1] = $2
 		
 	    elsif (line =~ /^%(\w+)\s+(\S+)/)
 		# %section 処理 (pkgname つき)
 		section = $1
-		pkgname = expand_str($2)
+		pkgname = $2
 		cursect = @sections.newSection(section, pkgname)
 		
 	    elsif (line =~ /^%(\w+)/)
@@ -174,7 +177,6 @@ class DefFile
 		
 	    else
 		# 一般処理
-		line = expand_str(line)
 		cursect.push_line(line)
 	    end
 	end
