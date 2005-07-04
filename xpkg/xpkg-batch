@@ -18,12 +18,59 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
+# 
+# xpkg batch build tool
+# 
+
 $debug = false
 
 $LOAD_PATH.push(File.expand_path(File.dirname($0)))
 require "xpkg-common"
 
 class XpkgBatch
+    def main
+	cmd = parse_opt()
+
+	# load dirlist
+	f = "dirlist.#{@target}"
+	if (!FileTest.exist?(f))
+	    f = "dirlist"
+	end
+	if (!FileTest.exist?(f))
+	    STDERR.puts "#{f} does not exist. abort."
+	    exit 1
+	end
+	dirlist = LoadListFile(f)
+
+	# load skiplist
+	f = "skiplist.#{@target}"
+	if (!FileTest.exist?(f))
+	    f = "skiplist"
+	end
+	skiplist = LoadListFile(f)
+
+	dirlist = RemoveSkip(dirlist, skiplist)
+	dirlist = RemoveSkip(dirlist, @skip_modules)
+
+	dirlist.uniq!
+
+	# execute build
+	dirlist.each do |dir|
+	    puts "----------- START : #{cmd} in #{dir} -------------"
+	    cmdline = "(cd #{dir} && xpkg #{cmd})"
+	    puts cmdline
+	    if (!system(cmdline))
+		puts "Abort."
+		break
+	    end
+	    puts "----------- END : #{cmd} in #{dir} -------------"
+	    puts
+	end
+	
+	puts "done."
+    end
+
+    # load dirlist/skiplist
     def LoadListFile(file)
 	ary = Array.new
 	begin
@@ -41,6 +88,7 @@ class XpkgBatch
 	return ary
     end
 
+    # remove skip modules
     def RemoveSkip(list, skiplist)
 	newlist = Array.new
 
@@ -52,46 +100,7 @@ class XpkgBatch
 	return newlist
     end
 
-    def main
-	cmd = parse_opt()
-
-	f = "dirlist.#{@target}"
-	if (!FileTest.exist?(f))
-	    f = "dirlist"
-	end
-	if (!FileTest.exist?(f))
-	    STDERR.puts "#{f} does not exist. abort."
-	    exit 1
-	end
-	dirlist = LoadListFile(f)
-
-	f = "skiplist.#{@target}"
-	if (!FileTest.exist?(f))
-	    f = "skiplist"
-	end
-	skiplist = LoadListFile(f)
-
-	dirlist = RemoveSkip(dirlist, skiplist)
-	dirlist = RemoveSkip(dirlist, @skip_modules)
-
-	dirlist.uniq!
-
-	dirlist.each do |dir|
-	    puts "----------- START : #{cmd} in #{dir} -------------"
-	    cmdline = "(cd #{dir} && xpkg #{cmd})"
-	    puts cmdline
-	    if (!system(cmdline))
-		puts "Abort."
-		break
-	    end
-	    puts "----------- END : #{cmd} in #{dir} -------------"
-	    puts
-	end
-	
-	puts "done."
-    end
-
-    # オプションの処理
+    # Parse options
     def parse_opt
 	@target = ENV["TARGET"]
 	if (@target == nil || @target == "")
