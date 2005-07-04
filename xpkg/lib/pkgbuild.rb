@@ -181,7 +181,7 @@ class PkgBuild
     def Excludes
 	return if (@excludes == nil)
 	@excludes.each do |file|
-	    if (file =~ /^!([^\/].*)/ || file =~ /^([^\/].*\/.*)$/)
+	    if (file =~ /^\// || file.include?("/"))
 		# path
 		cmd = "/bin/rm -rf #{@pkgtmpdir}#{$1}"
 	    else
