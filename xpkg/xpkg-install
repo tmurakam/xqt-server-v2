@@ -128,9 +128,7 @@ class XpkgInstall
 	end
 
 	opt = OptionParser.new
-        opt.banner = "xpkg-install version #{$version}\n" +
-                 "Copyright (C) 2003-2005 X/Qt Project\n" + 
-                 "This program may be freely redistributed under the terms of the GNU GPL\n\n" + 
+        opt.banner = "xpkg-install version #{$version}\n" + $copyright + 
                  "Usage: xpkg-install [command] [package files...]"
 	opt.on_head(" command: install update")
 

@@ -23,7 +23,7 @@ $debug = false
 $LOAD_PATH.push(File.expand_path(File.dirname($0)))
 require "xpkg-common"
 
-# ライブラリ読み込み
+# load libraries
 require "pkg"
 require "install"
 require "pkgbuild"
@@ -35,15 +35,15 @@ require "workstate"
 class Xpkg
     include Misc
 
-    # メイン
+    # main
     def main
-	# 引数の処理
+	# parse arguments
 	target, command, deffiles = parse_opt()
 
-	# ディレクトリ設定
+	# setup directory parameters
 	setupdirs(target)
 	
-	# deffile のロード
+	# load deffile
         pkgs = Array.new
         deffiles.each do |deffile|
             pkg = Pkg.new
@@ -51,7 +51,7 @@ class Xpkg
             pkgs.push(pkg)
         end
 
-	# *World の処理
+	# handles World/DevelWorld arg
 	cmds = nil
 	if (command == "World")
 	    cmds = ["source", "build", "install", "pkg"]
@@ -61,26 +61,17 @@ class Xpkg
 	    cmds = [command]
 	end
 
-	# workstate の準備
-	state = WorkState.new
+	workstate = WorkState.new
 
-	# ビルド処理
+	# build main loop
 	st = Time.now
 	cmds.each do |command|
-            next if (command != "clear" && state.done?(command))
-
             pkgs.each do |pkg|
-                execBuildCommand(pkg, command)
+                execBuildCommand(pkg, command, workstate)
             end
-
-            if (command == "cleanup" || command == "clear")
-                state.clear
-            else
-                state.setdone(command)
-            end
-            state.save
 	end
 
+	# show status
 	tm = (Time.now - st).to_i
 
 	sku = ENV["SKU"]
@@ -94,14 +85,10 @@ class Xpkg
 	exit 0
     end
 
-    # 1パッケージ分のビルド処理
-    def execBuildCommand(pkg, command)
-	# pkgbuild の準備
-	pkgbuild = nil
-        case command
-        when "pkg", "install-pkg", "install-develpkg"
-        end
-	
+    # build one module
+    def execBuildCommand(pkg, command, workstate)
+	return if (command != "clear" && workstate.done?(command))
+
         puts "----- Execute #{command} with #{pkg.deffile}"
         begin
             # command 別の処理
@@ -140,8 +127,16 @@ class Xpkg
                 exit 1
             end
         end
+
+	if (command == "cleanup" || command == "clear")
+	    workstate.clear
+	else
+	    workstate.setdone(command)
+	end
+	workstate.save
     end
 
+    # create PkgBuild instance
     def getPkgBuild(pkg)
         case pkg.df.getDefine("pkgtype")
         when "ipkg"
@@ -154,19 +149,19 @@ class Xpkg
         return pkgbuild
     end
 
-    # オプションの処理
+    # Parse command line option
     def parse_opt
+	# build target
 	target = ENV["TARGET"]
 	if (target == nil || target == "")
 	    target = $default_target  # default value
 	end
 
+	# setup option parser
 	opt = OptionParser.new
-        opt.banner = "xpkg version #{$version}\n" +
-                 "Copyright (C) 2003-2005 X/Qt Project\n" + 
-                 "This program may be freely redistributed under the terms of the GNU GPL\n\n" + 
-                 "Usage: xpkg [option...] [command] [deffile]"
-	opt.on_head(" command: source|build|clean|cleanup|pkg|install-develpkg|install-ipkg\n option:")
+        opt.banner = "xpkg version #{$version}\n" + $copyright + 
+                 "Usage: xpkg [option...] [command] [deffile...]"
+	opt.on_head(" command: source|build|clean|cleanup|pkg|install-develpkg|install-pkg\n option:")
 
 	opt.on("-h", "--help", "Show this message") { puts opt; exit 1; }
 	opt.on("-t", "--target=TARGET", String, "Specify target") {|v| target = v }
@@ -182,14 +177,19 @@ class Xpkg
 	command = ARGV.shift
 	deffiles = ARGV
 	
-        # pkgdef.list の処理
+        # handle pkgdef.list
         if (deffiles.size == 0)
             if (FileTest.exist?("pkgdef.list"))
-                IO.readlines("pkgdef.list").each do |line|
-                    line.chop!
-                    line.strip!
-                    next if (line == "" || line =~ /^#/)
-                    deffiles.push(line)
+                IO.readlines("pkgdef.list").each do |file|
+                    file.chop!
+                    file.strip!
+                    next if (file == "" || file =~ /^#/)
+
+		    if (!File.exist?(file))
+			STDERR.puts "#{file} does not exist."
+			exit 1
+		    end
+                    deffiles.push(file)
                 end
             else
                 if (!File.exist?("pkgdef"))

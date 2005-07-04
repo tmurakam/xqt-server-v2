@@ -102,9 +102,7 @@ class XpkgBatch
 	@skip_modules = nil
 
 	opt = OptionParser.new
-        opt.banner = "xpkg-batch version #{$version}\n" +
-                 "Copyright (C) 2003-2005 X/Qt Project\n" + 
-                 "This program may be freely redistributed under the terms of the GNU GPL\n\n" + 
+        opt.banner = "xpkg-batch version #{$version}\n" + $copyright + 
 	         "Usage: xpkg-batch [options...] [xpkg command]"
 
 	opt.on("-h", "--help", "Show this message") { puts opt; exit 1; }
