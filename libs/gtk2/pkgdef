@@ -2,16 +2,16 @@
 # GTK+ 2
 # 
 
-%define ver     2.2.4
+#%define ver     2.2.4
+%define ver     2.4.14
 %define rel     1
 
 %site
-#ftp://ftp.gtk.org/pub/gtk/v2.4
-ftp://ftp.gtk.org/pub/gtk/v2.2
+#ftp://ftp.gtk.org/pub/gtk/v2.2
+ftp://ftp.gtk.org/pub/gtk/v2.4
 
 %source
-#gtk+-2.4.13.tar.bz2
-ftp://ftp.gtk.org/pub/gtk/v2.2/gtk+-%{ver}.tar.bz2
+gtk+-%{ver}.tar.bz2
 
 %define builddir	gtk+-%{ver}
 %define develpkg yes
@@ -23,8 +23,7 @@ ftp://ftp.gtk.org/pub/gtk/v2.2/gtk+-%{ver}.tar.bz2
 make -C gdk/x11 CFLAGS='-O1 -fno-exceptions -Wall'
 
 # demos ディレクトリは除外
-#make SRC_SUBDIRS='gdk-pixbuf gdk gtk modules tests contrib'
-make
+make SRC_SUBDIRS='gdk-pixbuf gdk gtk modules tests contrib'
 
 %install
 make SRC_SUBDIRS='gdk-pixbuf gdk gtk modules tests contrib' DESTDIR=%{destdir} install

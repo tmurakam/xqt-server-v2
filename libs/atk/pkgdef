@@ -2,7 +2,8 @@
 # atk
 # 
 
-%define ver	1.6.1
+#%define ver	1.6.1
+%define ver	1.8.0
 %define rel	1
 
 %site

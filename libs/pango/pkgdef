@@ -2,12 +2,13 @@
 # pango
 # 
 
-%define	ver	1.2.5
+#%define	ver	1.2.5
+%define	ver	1.4.1
 %define	rel	1
 
 %site
-#ftp://ftp.gtk.org/pub/gtk/v2.4
-ftp://ftp.gtk.org/pub/gtk/v2.2
+ftp://ftp.gtk.org/pub/gtk/v2.4
+#ftp://ftp.gtk.org/pub/gtk/v2.2
 
 %source
 pango-%{ver}.tar.bz2

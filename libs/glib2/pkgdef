@@ -2,7 +2,7 @@
 # Glib 2
 # 
 
-%define ver     2.4.7
+%define ver     2.4.8
 %define rel     1
 
 %site
