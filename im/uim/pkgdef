@@ -30,6 +30,8 @@ cp uim/uim-sh.host uim/uim-sh
 make
 
 %install
+rm uim/uim-sh
+cp uim/uim-sh.target uim/uim-sh
 make %{install_opts} install
 
 %files
