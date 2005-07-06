@@ -1,5 +1,5 @@
 %define name	xpkg
-%define version	1.0.1
+%define version	1.0.2
 %define release	1
 
 %define	prefix	/usr

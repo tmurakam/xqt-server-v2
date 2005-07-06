@@ -1,5 +1,5 @@
 name = xpkg
-version  = 1.0.1
+version  = 1.0.2
 
 distdir	= $(name)-$(version)
 

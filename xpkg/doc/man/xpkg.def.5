@@ -54,7 +54,10 @@ File listing to be included in the package file.
 
 .TP
 .B %excludes [sub_package_name]
-Exclude file listings.
+Exclude file patterns. Wild card can be used.
+
+If the pattern include '/', the name is treated as relative path from %{destdir}.
+If not, all files matches the pattern under %{destdir} are excluded.
 
 .TP
 .B %strip [sub_package_name]
@@ -193,6 +196,33 @@ X/Qt project uses %{configdir}/config-xqt.site.
 .TP
 .B PKG_CONFIG_PATH
 Default path for pkgconfig.
+
+.SH CONDITIONAL COMPILATION
+
+.BR %if , %elsif , %else , %endif
+can be used.
+
+You can use ruby equation in the condition.
+If the target name appear in the condition, it is treated as true if 
+it is same as current target name. For example, 
+
+.RS
+%if xqt
+.br
+A
+.br
+%endif
+.RE
+
+are same as following:
+
+.RS
+%if "%{target}" == "xqt"
+.br
+A
+.br
+%endif
+.RE
 
 .SH DEVELOPMENT PACKAGES
 
