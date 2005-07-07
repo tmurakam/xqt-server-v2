@@ -43,6 +43,8 @@ class Pkg
 	@df.setDefine("destdir", destdir)
 	@df.setDefine("configdir", configdir)
 
+	@df.setDefine("username", `whoami`.chop)
+
 	@df.setTarget(target)
 	
 	# pkgdef ファイルロード
@@ -100,7 +102,7 @@ class Pkg
     # cleanup する
     def cleanup
 	builddir, opt = getBuildDir()
-	if (builddir != nil && FileTest.exist?(builddir) && opt != "noclean")
+	if (builddir != nil && builddir != "." && FileTest.exist?(builddir) && opt != "noclean")
 	    ExecCmd("/bin/rm -rf #{builddir}")
 	end
 

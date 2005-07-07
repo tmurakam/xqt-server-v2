@@ -61,6 +61,10 @@ class PkgBuild
 	    exit 1
 	end
 
+	if (!FileTest.exist?(root))
+	    system "mkdir -p #{root}"
+	end
+
 	pkgnames = @df.getPackageNames("control")
 	pkgnames.each do |subpkg|
 	    p = @df.getControlParam("Package", subpkg)
@@ -77,6 +81,10 @@ class PkgBuild
 	if (root == nil)
 	    STDERR.puts "You must set target_prefix in deffile."
 	    exit 1
+	end
+
+	if (!FileTest.exist?(root))
+	    system "mkdir -p #{root}"
 	end
 
 	pkgnames = @df.getPackageNames("control")
