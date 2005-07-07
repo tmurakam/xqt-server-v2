@@ -37,9 +37,8 @@ module Misc
 	    @develpkgdir = "#{topdir}/XPKG/develpkgs"
 
 	    if ($use_multi_config == true)
-		@pkgdir += "/#{target}"
-		@develpkgdir += "/#{target}"
-	    else
+		@pkgdir      = "#{topdir}/XPKG/#{target}/packages"
+		@develpkgdir = "#{topdir}/XPKG/#{target}/develpkgs"
 	    end
 	end
     end
