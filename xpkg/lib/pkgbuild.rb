@@ -110,17 +110,27 @@ class PkgBuild
 	arch = @df.getControlParam("Architecture", subpkg)
 	ver  = @df.getControlParam("Version", subpkg)
 
-	if (pkg != nil && arch != nil && ver != nil) 
-	    fname = pkg + "_" + ver + "_" + arch
-
-	    if (isDevelPkg?(subpkg))
-		fname += @devpkgsuffix
-	    else
-		fname += @pkgsuffix
-	    end
-	    return fname
+	if (pkg == nil)
+	    puts "No Package value in control section"
+	    return nil
 	end
-	return nil
+	if (arch == nil)
+	    puts "No Architecture value in control section"
+	    return nil
+	end
+	if (ver == nil)
+	    puts "No Version value in control section"
+	    return nil
+	end
+
+	fname = pkg + "_" + ver + "_" + arch
+
+	if (isDevelPkg?(subpkg))
+	    fname += @devpkgsuffix
+	else
+	    fname += @pkgsuffix
+	end
+	return fname
     end
 
     # パッケージ種別の取得
