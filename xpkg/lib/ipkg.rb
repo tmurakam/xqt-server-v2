@@ -17,7 +17,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #
-# IPKG 関連の処理
+# IPKG
 #
 
 class IpkgBuild < PkgBuild
@@ -31,14 +31,14 @@ class IpkgBuild < PkgBuild
 	@ipkg_build = ipkg_build
     end
 
-    # 以下は private method
+    # private method
     private
 
-    # ipkg 作成処理
+    # setup ipkg file
     def SetupFiles(pkg)
 	super
 
-	# コントロールファイル生成
+	# create control files
 	GenControl(pkg, "control",   0644);
 	GenControl(pkg, "preinst",   0755);
 	GenControl(pkg, "postinst",  0755);
@@ -61,7 +61,7 @@ class IpkgBuild < PkgBuild
 	File.chmod(perm, path)
     end
 
-    # パッケージの生成
+    # generate package file
     def GenPkgFile(pkg)
 	if (isDevelPkg?(pkg))
 	    cmd = "cd #{@develpkgdir} && #{$fakeroot} #{@ipkg_build} pkgtmp"
@@ -71,13 +71,13 @@ class IpkgBuild < PkgBuild
 	ExecCmd(cmd)
     end
 
-    # パッケージのローカルインストール
+    # install packages locally
     def InstallLocalOne(pkg, dest)
 	fname = getPkgFilename(pkg)
 	@installer.InstallIpkg("#{@pkgdir}/#{fname}")
     end
 
-    # 開発パッケージのインストール
+    # install development package
     def InstallDevelPackageOne(pkg, dest)
 	fname = getPkgFilename(pkg)
 	@installer.InstallIpkgDevel("#{@develpkgdir}/#{fname}")

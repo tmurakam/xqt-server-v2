@@ -17,12 +17,12 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #
-# deffile を扱うクラス
+# deffile class
 #	
 
 require "ifstack.rb"
 
-# セクションを扱うクラス
+# Section class
 class Section
     attr_reader :name, :pkgname
     attr_reader :sectval
@@ -41,7 +41,7 @@ class Section
 	@sectval = val
     end
 
-    # section 値の取得 (array に分割、空行削除)
+    # Get section values (split lines into array, remove null line)
     def getValues
 	ary = Array.new
 	@sectval.each do |line|
@@ -53,7 +53,7 @@ class Section
 	return ary
     end
 
-    # control パラメータを取得する (control セクションのみ)
+    # Get control parameters (only control section)
     def getControlParam(name)
 	@sectval.each do |line|
 	    line.strip!
@@ -70,12 +70,13 @@ class Section
     end
 end
 
+# Section manager class
 class Sections
     def initialize
 	@sections = Array.new
     end
 
-    # セクション取得
+    # get section
     def getSection(name, pkgname = nil)
 	@sections.each do |section|
 	    if (section.name == name && section.pkgname == pkgname)
@@ -85,7 +86,7 @@ class Sections
 	return nil
     end
 
-    # セクション作成
+    # create new section
     def newSection(name, pkgname = nil)
 	section = getSection(name, pkgname)
 	return section if (section)
@@ -95,7 +96,7 @@ class Sections
 	return section
     end
 
-    # サブパッケージ名一覧を取得
+    # Get subpackage list
     def getPackageNames(name)
 	pkgnames = Array.new
 	@sections.each do |section|
@@ -108,6 +109,7 @@ class Sections
 
 end
 
+# Deffile class
 class DefFile
     def initialize
 	@defines = Hash.new
@@ -118,7 +120,7 @@ class DefFile
 	@target = target
     end
 
-    # 定義ファイルのロード
+    # load deffile from file
     def load_from_file(deffile)
 	ifs = IfStack.new(@target)
 	prev = nil
@@ -133,10 +135,10 @@ class DefFile
 	    line.chop!
 	    @lineno = @lineno + 1
 
-	    # コメントのスキップ
+	    # skip comment
 	    next if (line =~ /^#/)
 
-	    # 継続行処理
+	    # continuous line
 	    if (prev != nil)
 		line = prev + " " + line.strip
 		prev = nil
@@ -146,37 +148,37 @@ class DefFile
 		next
 	    end
 	    
-	    # 定義の展開
+	    # expand defines
 	    line = expand_str(line)
 
-	    # 条件節処理
+	    # conditions
 	    next if (!ifs.parse(line))
 
 	    if (line =~ /^%define\s+(\S+)\s+(.*)$/)
-		# %define 処理
+		# %define
 		@defines[$1] = $2.strip
 
 	    elsif (line =~ /^%define\s+(\S+)$/)
-		# %define 処理
+		# %define
 		@defines[$1] = ""
 
 	    elsif (line =~ /%env\s+(\S+)\s+(.*)$/)
-		# %env 処理
+		# %env
 		ENV[$1] = $2
 		
 	    elsif (line =~ /^%(\w+)\s+(\S+)/)
-		# %section 処理 (pkgname つき)
+		# %section (with sub package name)
 		section = $1
 		pkgname = $2
 		cursect = @sections.newSection(section, pkgname)
 		
 	    elsif (line =~ /^%(\w+)/)
-		# %section 処理
+		# %section
 		section = $1
 		cursect = @sections.newSection(section, nil)
 		
 	    else
-		# 一般処理
+		# generic
 		cursect.push_line(line)
 	    end
 	end
@@ -184,8 +186,7 @@ class DefFile
 	createDevelPkgSection
     end
 
-    # develpkg 指定処理
-    # デフォルトの control セクションから新規セクションを生成する
+    # Automatically create develpkg section from control section
     def createDevelPkgSection
 	dpkg = getDefine("develpkg")
 	if (dpkg)
@@ -211,24 +212,24 @@ class DefFile
 	end
     end
 	
-    # define 値をセットする
+    # set define value
     def setDefine(k, v)
 	@defines[k] = v
     end
 
-    # define 値をセットする (複数)
+    # set define values from hash
     def setDefines(hash)
 	hash.each do |k, v|
 	    @defines[k] = v
 	end
     end
 
-    # define 値の取得
+    # get define value
     def getDefine(k)
 	return @defines[k]
     end
 
-    # section 値の取得
+    # get section value
     def getSection(section, pkgname = nil)
 	s = @sections.getSection(section, pkgname)
 	return nil if (s == nil)
@@ -236,7 +237,7 @@ class DefFile
 	return s.sectval
     end
 
-    # section 値の取得 (array に分割、空行削除)
+    # get section value (split into array, remove null line)
     def getSectValues(section, pkgname = nil)
 	s = @sections.getSection(section, pkgname)
 	return nil if (s == nil)
@@ -244,7 +245,7 @@ class DefFile
 	return s.getValues
     end
 
-    # control 値の取得
+    # get control parameters
     def getControlParam(name, pkgname = nil)
 	s = @sections.getSection("control", pkgname)
 	return nil if (s == nil)
@@ -252,15 +253,15 @@ class DefFile
 	return s.getControlParam(name)
     end
 
-    # パッケージ名一覧の取得
-    # セクションのパッケージ名一覧から取得する
+    # get package name list
+    #   extrace from package name of each sections.
     def getPackageNames(name)
 	return @sections.getPackageNames(name)
     end
 
-    # 以下は private method
+    # private method
 
-    # define と環境変数の展開
+    # expand define and enviroment variables
     def expand_str(s)
 	s.gsub!(/%\{(\w+)\}/) { 
 	    if (@defines[$1] == nil)
@@ -281,7 +282,7 @@ class DefFile
 	return s
     end
 
-    # debug 用...
+    # debug ...
     def showsection(section)
 	print @sectval[section], "\n"
     end

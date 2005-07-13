@@ -17,11 +17,11 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #
-# スクリプト実行系
+# Execute scripts
 #
 
 module ExecScript
-    # コマンド実行
+    # execute command
     def ExecCmd(cmd, ignore_err = false)
 	STDERR.puts(cmd)
 	return if ($debug)
@@ -38,14 +38,14 @@ module ExecScript
 	return
     end
 
-    # スクリプト実行
+    # execute script
     def ExecScript(script, dir)
 	if ($debug)
 	    puts script
 	    return
 	end
 
-	# dir に移動
+	# change dir
 	if (!FileTest.exist?(dir))
 	    Dir.mkdir(dir)
 	end
@@ -53,7 +53,7 @@ module ExecScript
 	pwd = Dir.pwd
 	Dir.chdir(dir)
 
-	# スクリプトの生成と実行
+	# create script file and execute it
 	open("tmp.sh", "w") do |fh|
 	    fh.print script
 	end

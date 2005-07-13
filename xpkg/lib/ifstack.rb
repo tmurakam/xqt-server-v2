@@ -17,24 +17,24 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #
-# ifstack : %if 〜 %elsif 〜 %else 〜 %endif の処理
+# ifstack : handles %if - %elsif - %else - %endif
 #
-# parse メソッドに行を食わせると、現在 if 節に合致しているかどうかを返す
+# Handle each lines with parse method, it return if the current line matches the condition.
 #
 
 class IfStack
-    # ステート
-    NotMatch = 0	# if 節合致していない
-    Match = 1		# 合致している
-    Matched = 2		# 以前合致した（現在は合致していない)
+    # state constant
+    NotMatch = 0	# does not match the condition
+    Match = 1		# match the condition
+    Matched = 2		# matched the condition in the past (not match currently)
 
     def initialize(target)
-	# @stack は %if 状態のスタック
+	# @stack is a stack of %if states
 	@stack = Array.new
 	@target = target
     end
 
-    # 合致チェック
+    # check if the line matches the condition
     def match?
 	@stack.each do |s|
 	    return false if (s != Match)
@@ -42,10 +42,10 @@ class IfStack
 	return true
     end
 
-    # アーキテクチャのチェック
+    # check target architecture
     def checktarget(cond)
 	#
-	# ruby の式に変換して eval で評価する
+	# convert into ruby equation and evaluate with 'eval'.
 	#
 	a = cond.split(' ')
 	b = Array.new
@@ -67,7 +67,7 @@ class IfStack
 	return NotMatch
     end
 
-    # 行のパースと判定
+    # Parse each line and match the condition
     def parse(line)
 
 	if (line =~ /^(\S+)\s*(.*)$/)

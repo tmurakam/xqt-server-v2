@@ -50,7 +50,9 @@ class PkgInstall
 	Dir.mkdir(".tmp")
     end
 
-    # ファイルインストール
+    #
+    # Install package files
+    #
     def InstallGenPkg(file)
 	ExecCmd("tar xvzf #{file} -C #{@target_root}")
     end
@@ -76,9 +78,8 @@ class PkgInstall
 	CleanTmpdir()
     end
 
-    # 自動判定付
+    # Automatic install package file depends on file extention
     def InstallFileAuto(file)
-	# 拡張子チェック
 	file =~ /(\.[a-zA-Z0-9]+)$/
 	ext = $1
 
@@ -113,7 +114,7 @@ class Packages
 	@pkgdir = pkgdir
     end
 
-    # Index ファイルをダウンロードする
+    # Download Index file
     def FetchIndex
 	if (@url == nil)
 	    puts "You must specify $feed_url or $feed_devel_url."
@@ -133,7 +134,7 @@ class Packages
 	ExecCmd("wget #{@url}/Packages")
     end
 
-    # Index ファイルをロードする
+    # Load Index file
     def LoadIndex
 	@filelist = Array.new
 
@@ -147,7 +148,8 @@ class Packages
 	end
     end
 
-    # 存在しないファイルをダウンロードしてインストールする
+    # Update packages
+    #  Download missing files and install
     def UpdatePackages(installer)
 	@filelist.each do |f|
 	    next if (FileTest.exist?(f))
