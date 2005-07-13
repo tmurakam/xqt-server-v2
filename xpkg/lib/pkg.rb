@@ -30,15 +30,17 @@ class Pkg
 
     attr_reader :df, :deffile
 
+    # Initialize
     def initialize
 	@df = DefFile.new
     end
 
+    # Load def files
     def loaddef(deffile, target, destdir, configdir)
 	@destdir = destdir
         @deffile = deffile
 
-	# グローバル設定
+	# global defines
 	@df.setDefine("target", target)
 	@df.setDefine("destdir", destdir)
 	@df.setDefine("configdir", configdir)
@@ -47,7 +49,7 @@ class Pkg
 
 	@df.setTarget(target)
 	
-	# pkgdef ファイルロード
+	# load pkgdef files.
         if (FileTest.exist?("#{configdir}/config-#{target}.def"))
 	    @df.load_from_file("#{configdir}/config-#{target}.def")
 	else
@@ -67,12 +69,12 @@ class Pkg
 	return builddir, opt
     end
 
-    # スクリプト実行
+    # Execute scripts
     def execSectionScript(section)
 	sectval = @df.getSection(section)
 
-	# clean 時の特別処理 (ちょっと汚い、、、)
 	if (sectval == nil)
+            # special handling for make clean (dirty hack...)
 	    if (section == "clean")
 		sectval = "make clean\n"
 	    else
@@ -85,7 +87,7 @@ class Pkg
 	ExecScript(sectval, builddir)
     end
 
-    # ソースの展開
+    # Extract source tarball
     def getSource(distfiledir, dlOnly = false)
 	sites = @df.getSectValues("site")
 	sources = @df.getSectValues("source")
@@ -94,12 +96,12 @@ class Pkg
 	GetSource(sites, sources, distfiledir, builddir, dlOnly)
     end
 
-    # clean する
+    # Execute clean
     def clean
 	execSectionScript("clean")
     end
 
-    # cleanup する
+    # Execute cleanup
     def cleanup
 	builddir, opt = getBuildDir()
 	if (builddir != nil && builddir != "." && FileTest.exist?(builddir) && opt != "noclean")

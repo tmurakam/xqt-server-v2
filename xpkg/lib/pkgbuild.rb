@@ -17,10 +17,10 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #
-# パッケージ生成処理
+# Build package files
 #
 
-# 基底クラス
+# Base class
 class PkgBuild
     include ExecScript
 
@@ -29,6 +29,7 @@ class PkgBuild
 	@devpkgsuffix = nil
     end
 
+    # set parameters
     def SetParam(df, srcdir, pkgdir, develpkgdir, abspath)
 	@df = df
 	@srcdir = srcdir
@@ -40,7 +41,7 @@ class PkgBuild
 	@installer.SetParamFromDef(@df)
     end
 
-    # パッケージの生成
+    # Build package file
     def Build
 	pkgnames = @df.getPackageNames("control")
 	pkgnames.each do |subpkg|
@@ -53,7 +54,7 @@ class PkgBuild
 	end
     end
 
-    # パッケージのローカルインストール
+    # Install packages locally
     def InstallLocal
 	root = @df.getDefine("target_root")
 	if (root == nil)
@@ -68,14 +69,14 @@ class PkgBuild
 	pkgnames = @df.getPackageNames("control")
 	pkgnames.each do |subpkg|
 	    p = @df.getControlParam("Package", subpkg)
-	    next if (p =~ /-devel$/)  # 開発パッケージはスキップ
+	    next if (p =~ /-devel$/)  # skip development packages
 
 	    puts "-- Installing Package: #{p}"
 	    InstallLocalOne(subpkg, root)
 	end
     end
 
-    # 開発パッケージのインストール
+    # Install development packages
     def InstallDevelPackage
 	root = @df.getDefine("target_prefix")
 	if (root == nil)
@@ -90,17 +91,17 @@ class PkgBuild
 	pkgnames = @df.getPackageNames("control")
 	pkgnames.each do |subpkg|
 	    p = @df.getControlParam("Package", subpkg)
-	    next if (p !~ /-devel$/)  # 開発パッケージ以外はスキップ
+	    next if (p !~ /-devel$/)  # skip normal packages
 
 	    puts "-- Installing Package: #{p}"
 	    InstallDevelPackageOne(subpkg, root)
 	end
     end
 
-    # 以下は private method
+    # private methods
     private
 
-    # パッケージのファイル名を得る
+    # Get package file name
     def getPkgFilename(subpkg)
 	pkg = nil
 	arch = nil
@@ -133,7 +134,7 @@ class PkgBuild
 	return fname
     end
 
-    # パッケージ種別の取得
+    # Check package type
     def isDevelPkg?(subpkg)
 	pkg = @df.getControlParam("Package", subpkg)
 	if (pkg =~ /-devel$/)
@@ -142,13 +143,13 @@ class PkgBuild
 	return false
     end
 
-    # ファイルのセットアップ
+    # Setup files based on 'files/excludes/strip' section
     def SetupFiles(subpkg)
 	@files     = @df.getSectValues("files", subpkg)
 	@excludes  = @df.getSectValues("excludes", subpkg)
 	@strip     = @df.getSectValues("strip", subpkg)
 
-	# テンポラリディレクトリを生成
+	# setup temporary dir.
 	if (isDevelPkg?(subpkg))
 	    @pkgtmpdir = @develpkgdir + "/pkgtmp"
 	else
@@ -164,11 +165,12 @@ class PkgBuild
 	Strip()
     end
 
-    # 生成ファイルコピー処理
+    # Copy files based on files section
     def CopyFiles
 	return if (@files == nil)
 	@files.each do |filespec|
-	    # !file の場合、コピー元は abspath から
+	    # decide source dir.
+            # If '!xxx' notation, copy files from @abspath.
 	    if (filespec =~ /^\!(.*)/)
 		filespec = $1
 		srcdir = @abspath
@@ -176,8 +178,8 @@ class PkgBuild
 		srcdir = @srcdir
 	    end
 	    
-	    # "file dir" 指定の場合は、dir にインストール
-	    # "file" 指定の場合は同一の相対ディレクトリにインストール
+	    # "file dir" -> install into 'dir'.
+	    # "file" -> install into same relative dir.
 	    if (filespec =~ /(\S+)\s+(\S+)/ || filespec =~ /(\S+):(\S+)/)
 		srcfiles = srcdir + "/" + $1
 		dest = @pkgtmpdir + "/" + $2 + "/"
@@ -195,7 +197,7 @@ class PkgBuild
 	end
     end
 
-    # 不要ファイルの削除
+    # Exclude unnecessary files
     def Excludes
 	return if (@excludes == nil)
 	@excludes.each do |file|
@@ -210,7 +212,7 @@ class PkgBuild
 	end
     end
     
-    # strip 処理
+    # strip files
     def Strip
 	return if (@strip == nil)
 	strip = ENV["STRIP"]
@@ -223,7 +225,7 @@ class PkgBuild
 	end
     end
     
-    # tarball の作成
+    # Create tarball
     def GenPkgFile(pkg)
 	# pure virtual
     end
@@ -238,14 +240,14 @@ class PkgBuild
 
 end
 
-# 一般パッケージビルド (ipkg 以外のケース)
+# Build normal packages (other than ipkg)
 class GenPkgBuild < PkgBuild
     def initialize
 	@pkgsuffix = ".xpkg"
 	@devpkgsuffix = ".xdevpkg"
     end
 
-    # tarball の作成
+    # generate package file
     def GenPkgFile(subpkg)
 	fname = getPkgFilename(subpkg)
 	dest = @pkgdir
