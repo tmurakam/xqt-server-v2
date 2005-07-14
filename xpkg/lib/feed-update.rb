@@ -154,7 +154,12 @@ def GenPackages
     end
 end
 
+def FixPermission
+    system("chmod g+w Packages *.rb *.*pk*")
+end
+
 # start from here..
 PurgePackages()
 GenPackages()
+FixPermission()
 puts "done."
