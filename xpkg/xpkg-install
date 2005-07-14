@@ -120,7 +120,7 @@ class XpkgInstall
 	# upload necessaly files
 	ExecCmd("rsync -auvz -e ssh #{dir}/*.*pk*  #{$feed_host}:#{feeddir}")
 	ExecCmd("rsync -auvz -e ssh #{$pkglibdir}/feed-update.rb #{$feed_host}:#{feeddir}")
-	ExecCmd("ssh #{$feed_host} 'cd #{feeddir} && ./feed-update.rb'")
+	ExecCmd("ssh #{$feed_host} 'cd #{feeddir} && ruby ./feed-update.rb'")
     end
 
     # parse options
