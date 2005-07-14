@@ -35,7 +35,7 @@ class PkgDep < Pkg
 
     def load(f)
 	@deffile = f
-	@dir = f.gsub(%r|^./(.*)/pkgdef$|, "\\1")
+	@dir = f.gsub(%r|^./(.*)/pkgdef.*|, "\\1")
 
 	loaddef(@deffile, "slz", "", $sysconfdir)
 
@@ -78,6 +78,18 @@ class PkgDepends
 
     def loaddeffiles
 	deflist = `find . -name "pkgdef" -print`.split
+
+	`find . -name "pkgdef.list" -print`.split.each do |list|
+	    dir = list.gsub(%r|pkgdef.list$|, "")
+
+	    IO.readlines(list).each do |line|
+		line.chop!
+		line.strip!
+		next if (file == "" || file =~ /^#/)
+
+		deflist.push(dir + file)
+	    end
+	end
 	
 	deflist.each do |f|
 	    puts "Loading : #{f}" if ($verbose)
@@ -147,7 +159,7 @@ class PkgDepends
 	@pkgs.each do |p|
 	    dirlist.push(p.dir)
 	end
-	return dirlist
+	return dirlist.uniq
     end
 
     def resolve
@@ -161,7 +173,7 @@ class PkgDepends
 	newlist = Array.new
 
 	@pkgs.each do |p|
-	    match = list.find{|i| p.dir =~ /#{i}$/}
+	    match = list.find{|i| p.deffile.include?(i)}
 
 	    if ((!isSkip && match) || (isSkip && !match))
 		newlist.push(p)
