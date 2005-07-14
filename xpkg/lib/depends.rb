@@ -33,11 +33,11 @@ class PkgDep < Pkg
 	@depends = Array.new
     end
 
-    def load(f)
+    def load(f, target)
 	@deffile = f
 	@dir = f.gsub(%r|^./(.*)/pkgdef.*|, "\\1")
 
-	loaddef(@deffile, @target, "", $sysconfdir)
+	loaddef(@deffile, target, "", $sysconfdir)
 
 	@df.getPackageNames("control").each do |subpkg|
 	    @names.push(@df.getControlParam("Package", subpkg))
@@ -131,8 +131,7 @@ class PkgDepends
 	deflist.each do |f|
 	    puts "Loading : #{f}" if ($verbose)
 	    pkg = PkgDep.new
-	    pkg.load(f)
-	    pkg.loaddef(f, @target, "", $sysconfdir)
+	    pkg.load(f, @target)
 	    @pkgs.push(pkg)
 	end
     end
