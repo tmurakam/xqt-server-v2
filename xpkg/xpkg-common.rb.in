@@ -26,7 +26,7 @@ $pkglibdir = "@pkglibdir@"
 $sysconfdir = "@sysconfdir@"
 $version = "@version@"
 
-$copyright = "Copyright (C) 2003-2005 X/Qt Project\n" +
+$copyright = "Copyright (C) 2003-2005 X/Qt Server Project (http://xqt.sourceforge.jp)\n" +
     "This program may be freely redistributed under the terms of the GNU GPL\n\n"
 
 $xpkgtop = nil
