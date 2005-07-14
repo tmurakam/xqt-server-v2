@@ -133,7 +133,7 @@ class XpkgInstall
 	opt = OptionParser.new
         opt.banner = "xpkg-install version #{$version}\n" + $copyright + 
                  "Usage: xpkg-install [command] [package files...]"
-	opt.on_head(" command: install update")
+	opt.on_head(" command: install update update-devel upload upload-devel")
 
 	opt.on("-h", "--help", "Show this message") { puts opt; exit 1; }
 	opt.on("-t", "--target=TARGET", String, "Specify target") {|v| target = v }
