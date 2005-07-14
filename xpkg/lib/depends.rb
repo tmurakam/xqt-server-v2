@@ -24,16 +24,20 @@
 
 class PkgDep < Pkg
 
-    attr_reader :names, :depends, :level
+    attr_reader :deffile, :dir, :names, :depends, :level
 
     def initialize
 	super
 	@level = 0
-    end
-
-    def setup
 	@names = Array.new
 	@depends = Array.new
+    end
+
+    def load(f)
+	@deffile = f
+	@dir = f.gsub(%r|^./(.*)/pkgdef$|, "\\1")
+
+	loaddef(@deffile, "slz", "", $sysconfdir)
 
 	@df.getPackageNames("control").each do |subpkg|
 	    @names.push(@df.getControlParam("Package", subpkg))
@@ -69,38 +73,36 @@ end
 
 class PkgDepends
     def initialize
-	@pkgs = Hash.new
+	@pkgs = Array.new
     end
 
     def loaddeffiles
-	@deflist = `find . -name "pkgdef" -print`.split
+	deflist = `find . -name "pkgdef" -print`.split
 	
-	@deflist.each do |f|
+	deflist.each do |f|
 	    puts "Loading : #{f}" if ($verbose)
 	    pkg = PkgDep.new
+	    pkg.load(f)
 	    pkg.loaddef(f, "slz", "", $sysconfdir)
-	    pkg.setup()
-	    @pkgs[f] = pkg
+	    @pkgs.push(pkg)
 	end
     end
 
     def resolvedeps
-	resolved = Array.new
-	loop = 0
-
 	# first, purge unknown package names
 	allnames = Array.new
-	@deflist.each do |f|
-	    p = @pkgs[f]
+	@pkgs.each do |p|
 	    allnames.concat(p.names)
 	end
-	@deflist.each do |f|
-	    p = @pkgs[f]
+	@pkgs.each do |p|
 	    unknown = p.depends - allnames
 	    p.remove_depends(unknown)
 	end
 
-	while (@deflist.length > 0) do
+	resolved = Array.new
+	loop = 0
+
+	while (@pkgs.length > 0) do
 =begin
 	    puts "loop:#{loop}, resolved=#{resolved.length}, remain=#{@deflist.length}"
 	    puts
@@ -117,38 +119,33 @@ class PkgDepends
 =end
 
 	    # first, remove resolved package
-	    @deflist.each do |f|
-		p = @pkgs[f]
-
+	    @pkgs.each do |p|
 		if (p.depends.length == 0)
 		    # ok, resolved...
-		    resolved.push(f)
-		    @deflist.delete(f)
+		    resolved.push(p)
+		    @pkgs.delete(p)
 
 		    p.setlevel(loop)
 		end
 	    end
 
 	    # second, update dependency
-	    @deflist.each do |f|
-		p = @pkgs[f]
-
+	    @pkgs.each do |p|
 		resolved.each do |r|
-		    p.remove_depends(@pkgs[r].names)
+		    p.remove_depends(r.names)
 		end
 	    end
 
 	    loop = loop + 1
 	end
 
-	@deflist = resolved
+	@pkgs = resolved
     end
 
     def getdirlist
 	dirlist = Array.new
-
-	@deflist.each do |f|
-	    dirlist.push(f.gsub(%r|^./(.*)/pkgdef$|, "\\1"))
+	@pkgs.each do |p|
+	    dirlist.push(p.dir)
 	end
 	return dirlist
     end
@@ -163,27 +160,26 @@ class PkgDepends
 	return if (list == nil)
 	newlist = Array.new
 
-	@deflist.each do |f|
-	    match = list.find{|i| f =~ /#{i}\/pkgdef/}
+	@pkgs.each do |p|
+	    match = list.find{|i| p.dir =~ /#{i}$/}
 
 	    if ((!isSkip && match) || (isSkip && !match))
-		newlist.push(f)
+		newlist.push(p)
 	    end
 	end
-	@deflist = newlist
+	@pkgs = newlist
     end
 
     def dump
-	@deflist.each do |f|
-	    p = @pkgs[f]
-	    puts "#{p.level}:#{f}"
+	@pkgs.each do |p|
+	    puts "#{p.level}:#{p.dir}"
 	end
     end
 
     def test
 	resolve_list
-	@deflist.each do |f|
-	    puts "#{@pkgs[f].level}: #{f}"
+	@pkgs.each do |p|
+	    puts "#{p.level}: #{p.dir}"
 	end
     end
 end
