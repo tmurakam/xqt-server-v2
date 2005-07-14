@@ -57,7 +57,7 @@ class XpkgBatch
 
 	# resolve dependency
 	dep = PkgDepends.new
-	dep.resolve
+	dep.resolve(@target)
 
 	dep.filter_dir(dirlist, false)
 	dep.filter_dir(@only_modules, false)

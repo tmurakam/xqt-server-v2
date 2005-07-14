@@ -162,8 +162,9 @@ class PkgDepends
 	return dirlist.uniq
     end
 
-    def resolve
-	loaddeffiles
+    # main entry
+    def resolve(target)
+	loaddeffiles(target)
 	resolvedeps
     end
 
