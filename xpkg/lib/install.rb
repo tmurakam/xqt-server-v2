@@ -105,8 +105,8 @@ class PkgInstall
 end
 
 
-# Packages
-class Packages
+# Package feed class
+class PkgFeed
     include ExecScript
 
     def initialize(url, pkgdir)

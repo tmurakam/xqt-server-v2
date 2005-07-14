@@ -99,9 +99,9 @@ class XpkgInstall
 
 	p = nil
 	if (isDevel)
-	    p = Packages.new($feed_devel_url, @develpkgdir)
+	    p = PkgFeed.new($feed_devel_url, @develpkgdir)
 	else
-	    p = Packages.new($feed_url, @pkgdir)
+	    p = PkgFeed.new($feed_url, @pkgdir)
 	end
 	p.FetchIndex()
 	p.LoadIndex()
