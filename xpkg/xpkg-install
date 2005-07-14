@@ -132,12 +132,19 @@ class XpkgInstall
 
 	opt = OptionParser.new
         opt.banner = "xpkg-install version #{$version}\n" + $copyright + 
-                 "Usage: xpkg-install [command] [package files...]"
-	opt.on_head(" command: install update update-devel upload upload-devel")
+                 "Usage: xpkg-install [options...] [command] [package files...]"
+	opt.on_head("  options:")
+	opt.on("-h", "--help", "show this message") { puts opt; exit 1; }
+	opt.on("-t", "--target=TARGET", String, "specify target") {|v| target = v }
+	opt.on("-v", "--verbose", "verbose") {$verbose = true}
 
-	opt.on("-h", "--help", "Show this message") { puts opt; exit 1; }
-	opt.on("-t", "--target=TARGET", String, "Specify target") {|v| target = v }
-	opt.on("-v", "--verbose", "Verbose") {$verbose = true}
+	opt.on_tail("")
+	opt.on_tail("  command:")
+	opt.on_tail("    install                          install package")
+	opt.on_tail("    update                           update packages from feeds")
+	opt.on_tail("    update-devel                     update develpment packages from feeds")
+	opt.on_tail("    upload                           upload packages to feeds")
+	opt.on_tail("    upload-devel                     upload development packages to feeds")
 
 	opt.parse!(ARGV)
 	

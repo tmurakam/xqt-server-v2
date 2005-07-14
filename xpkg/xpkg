@@ -161,11 +161,25 @@ class Xpkg
 	opt = OptionParser.new
         opt.banner = "xpkg version #{$version}\n" + $copyright + 
                  "Usage: xpkg [option...] [command] [deffile...]"
-	opt.on_head(" command: source|build|clean|cleanup|pkg|install-develpkg|install-pkg\n option:")
+	opt.on_head("  options:")
 
-	opt.on("-h", "--help", "Show this message") { puts opt; exit 1; }
-	opt.on("-t", "--target=TARGET", String, "Specify target") {|v| target = v }
-	opt.on("-v", "--verbose", "Verbose") {$verbose = true}
+	opt.on("-h", "--help", "show this message") { puts opt; exit 1; }
+	opt.on("-t", "--target=TARGET", String, "specify target") {|v| target = v }
+	opt.on("-v", "--verbose", "verbose") {$verbose = true}
+
+	opt.on_tail("")
+	opt.on_tail("  command:")
+	opt.on_tail("    World                            run source, build, install, pkg")
+	opt.on_tail("    DevelWorld                       run source, build, install, pkg, install-develpkg")
+	opt.on_tail("    source                           fetch and extract source files")
+	opt.on_tail("    build                            execute build")
+	opt.on_tail("    install                          execute virtual install")
+	opt.on_tail("    pkg                              create package file")
+	opt.on_tail("    install-develpkg                 install development package")
+	opt.on_tail("    install-pkg                      install package locally")
+	opt.on_tail("    clean                            make clean")
+	opt.on_tail("    cleanup                          cleanup temporary directory")
+	opt.on_tail("    clear                            clear xpkg resume state file")
 
 	opt.parse!(ARGV)
 	
