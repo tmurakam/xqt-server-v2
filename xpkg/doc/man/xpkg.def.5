@@ -17,6 +17,8 @@ Each sections are specified as
 
 	%section_name
 
+Header part of the definition files is treated as 'control' section.
+
 Followings are typical section names.
 
 .TP
@@ -121,6 +123,7 @@ Configuration directory. Default value is '/etc/xpkg'.
 .TP
 .B %{builddir}
 Build directory. Usually directory name with extracted source.
+If this is omitted, %{name}-%{ver} is used instead.
 
 .SS SYMBOLS MUST BE DEFINED IN TARGET COMMON DEFINITION FILES
 
