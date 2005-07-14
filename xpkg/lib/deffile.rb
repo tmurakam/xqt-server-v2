@@ -86,10 +86,17 @@ class Sections
 	return nil
     end
 
+    # delete section
+    def deleteSection(name, pkgname = nil)
+	s = getSection(name, pkgname)
+	if (s)
+	    @sections.delete(s)
+	end
+    end
+
     # create new section
     def newSection(name, pkgname = nil)
-	section = getSection(name, pkgname)
-	@sections.delete_if {|x| x == section} if (section != nil)
+	deleteSection(name, pkgname)
 	
 	section = Section.new(name, pkgname)
 	@sections.push(section)
@@ -184,16 +191,23 @@ class DefFile
 	    end
 	end
 
+	# remove null control section
+	s = @sections.getSection("control", nil)
+	if (s.getControlParam("Package") == nil)
+	    # remove this
+	    @sections.deleteSection("control", nil)
+	end
+
+	# support devpkg
 	createDevelPkgSection
     end
 
     # Automatically create develpkg section from control section
     def createDevelPkgSection
 	dpkg = getDefine("develpkg")
-	if (dpkg)
+	default_sect = @sections.getSection("control", nil)
 
-	    default_sect = @sections.getSection("control", nil)
-
+	if (dpkg && default_sect)
 	    control = ""
 	    default_sect.sectval.each do |v|
 		v.chop!

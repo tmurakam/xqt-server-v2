@@ -3,9 +3,9 @@ xpkg : Package cross build system for X/Qt server project
 =========================================================
 
 'xpkg' is a small utility to cross build the packages for
-X/Qt server project.
+X/Qt server project (http://xqt.sourceforge.jp).
 
 See file 'INSTALL' for installation instructions.
 See file 'COPYING' for license information.
 
-See 'man xpkg' for usage.
+See 'man xpkg' for detailed usage.
