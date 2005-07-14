@@ -101,7 +101,7 @@ class Pkg
     def getSource(distfiledir, dlOnly = false)
 	sites = @df.getSectValues("site")
 	sources = @df.getSectValues("source")
-	builddir = getBuildDir()
+	builddir, opt = getBuildDir()
 
 	GetSource(sites, sources, distfiledir, builddir, dlOnly)
     end

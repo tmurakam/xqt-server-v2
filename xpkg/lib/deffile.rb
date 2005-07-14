@@ -89,7 +89,7 @@ class Sections
     # create new section
     def newSection(name, pkgname = nil)
 	section = getSection(name, pkgname)
-	return section if (section)
+	@sections.delete_if {|x| x == section} if (section != nil)
 	
 	section = Section.new(name, pkgname)
 	@sections.push(section)
@@ -124,7 +124,8 @@ class DefFile
     def load_from_file(deffile)
 	ifs = IfStack.new(@target)
 	prev = nil
-	cursect = @sections.newSection("header", nil)
+#	cursect = @sections.newSection("header", nil)
+	cursect = @sections.newSection("control", nil)
 
 	@filename = deffile
 	@lineno = 0

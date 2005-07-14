@@ -118,12 +118,14 @@ module GetSource
 	cmd = nil
 	if (patchlevel != nil)
 	    # patch
+	    system("mkdir -p #{@builddir}") if (!FileTest.exist?(@builddir))
 	    cmd = "cd #{@builddir} && #{cat} #{file} | patch -p#{patchlevel}"
 	elsif (file =~ /\.tar\.[bg]z2?$/ || file =~ /\.tgz$/ || file =~ /\.tar$/)
 	    # extract
 	    cmd = "#{cat} #{file} | tar xvf -"
 	else
 	    # copy file to builddir
+	    system("mkdir -p #{@builddir}") if (!FileTest.exist?(@builddir))
 	    cmd = "cp #{file} #{@builddir}"
 	end
 
