@@ -61,6 +61,16 @@ class Pkg
     def getBuildDir
 	builddir = @df.getDefine("builddir")
 
+	if (builddir == nil)
+	    name = @df.getDefine("name")
+	    ver = @df.getDefine("ver")
+	    if (name == nil || ver == nil)
+		puts "Error: You must specify builddir or name/ver in pkgdef."
+		exit 1
+	    end
+	    builddir = name + "-" + ver
+	end
+
 	opt = nil
 	if (builddir =~ /^(.*):(.*)$/)
 	    builddir = $1
