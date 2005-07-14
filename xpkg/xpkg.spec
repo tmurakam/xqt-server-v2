@@ -52,10 +52,13 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %doc %{prefix}/share/man/ja/man[1-9]/*
 %{prefix}/bin/*
 %{prefix}/lib/xpkg
+/etc/xpkg/dot.xpkg.sample
 
 %files config-xqt
 %defattr(-,root,root)
-%config /etc/xpkg
+%config /etc/xpkg/config-xqt.def
+%config /etc/xpkg/config-xqt.site
+%config /etc/xpkg/config.rb
 
 %changelog
 * Tue Jul 1 2005 Takuya Murakami <tmurakam@mtd.biglobe.ne.jp> 1.0.0

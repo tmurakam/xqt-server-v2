@@ -4,6 +4,7 @@
 
 # パッケージシステムのタイプ
 %define	pkgtype		ipkg
+%define	pkgarch		arm
 
 # プレフィクス
 %define prefix		/opt/QtPalmtop
