@@ -1,6 +1,10 @@
+===================
 HOW TO INSTALL XPKG
+===================
 
+========================
 INSTALL FROM RPM PACKAGE
+========================
 
 To create an RPM package, execute
 
@@ -10,8 +14,9 @@ or to build from tarball,
 
  $ rpmbuild --ta xpkg-*.tar.gz
 
-
+=============================
 BUILD FROM SOURCE WITHOUT RPM
+=============================
 
  $ su
  $ make install

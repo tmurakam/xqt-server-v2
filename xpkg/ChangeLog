@@ -1,3 +1,7 @@
+* 2005/7/14 ver 1.0.3 :  Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+	- bug fixed
+	- set builddir variable from name/ver
+	
 * 2005/7/13 ver 1.0.2 :  Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 	- bug fixed
 	- fix documents
