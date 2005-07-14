@@ -78,12 +78,12 @@ class PkgDepends
 	    @deflist = `find . -name "pkgdef" -print`.split
 	else
 	    dirlist.each do |n|
-		@deflist.push(list + "/pkgdef")
+		@deflist.push("./#{n}/pkgdef")
 	    end
 	end
 	
 	@deflist.each do |f|
-	    puts "Loading : #{f}"
+	    puts "Loading : #{f}" if ($verbose)
 	    pkg = PkgDep.new
 	    pkg.loaddef(f, "slz", "", $sysconfdir)
 	    pkg.setup()
@@ -143,7 +143,7 @@ class PkgDepends
 	dirlist = Array.new
 
 	@deflist.each do |f|
-	    f.gsub!(/\/pkgdef$/, "")
+	    f.gsub!(%r|^./(.*)/pkgdef$|, "\\1")
 	    dirlist.push(f)
 	end
 	return dirlist

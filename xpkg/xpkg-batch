@@ -27,20 +27,31 @@ $debug = false
 $LOAD_PATH.push(File.expand_path(File.dirname($0)))
 require "xpkg-common"
 
+require "pkg"
+require "depends"
+
+$autolist = false
+
 class XpkgBatch
     def main
 	cmd = parse_opt()
 
 	# load dirlist
-	f = "dirlist.#{@target}"
-	if (!FileTest.exist?(f))
-	    f = "dirlist"
+	dirlist = nil
+	if (!$autolist)
+	    f = "dirlist.#{@target}"
+	    if (!FileTest.exist?(f))
+		f = "dirlist"
+	    end
+	    if (!FileTest.exist?(f))
+		STDERR.puts "#{f} does not exist. abort."
+		exit 1
+	    end
+	    dirlist = LoadListFile(f)
+	else
+	    dep = PkgDepends.new
+	    dirlist = dep.resolve(nil)
 	end
-	if (!FileTest.exist?(f))
-	    STDERR.puts "#{f} does not exist. abort."
-	    exit 1
-	end
-	dirlist = LoadListFile(f)
 
 	# load skiplist
 	f = "skiplist.#{@target}"
@@ -116,8 +127,9 @@ class XpkgBatch
 	opt.on_head("  options:")
 	opt.on("-h", "--help", "show this message") { puts opt; exit 1; }
 	opt.on("-t", "--target=TARGET", String, "specify target") {|v| @target = v }
-#	opt.on("-v", "--verbose", "Verbose") {$verbose = true}
+	opt.on("-v", "--verbose", "Verbose") {$verbose = true}
 	opt.on("-s", "--skip=modules", String, "specify modules to skip") {|skip|}
+	opt.on("-a", "--auto", "automatically search pkgdef") { $autolist = true }
 
 	opt.on_tail("")
 	opt.on_tail("  command:")
