@@ -30,27 +30,22 @@ require "xpkg-common"
 require "pkg"
 require "depends"
 
-$autolist = false
-
 class XpkgBatch
     def main
 	cmd = parse_opt()
 
 	# load dirlist
 	dirlist = nil
-	if (!$autolist)
-	    f = "dirlist.#{@target}"
-	    if (!FileTest.exist?(f))
-		f = "dirlist"
-	    end
-	    if (!FileTest.exist?(f))
-		STDERR.puts "#{f} does not exist. abort."
-		exit 1
-	    end
-	    dirlist = LoadListFile(f)
+	f = "dirlist.#{@target}"
+	if (!FileTest.exist?(f))
+	    f = "dirlist"
+	end
+	if (!FileTest.exist?(f))
+#	    STDERR.puts "#{f} does not exist. abort."
+#	    exit 1
+	    STDERR.puts "#{f} does not exist, so search pkgdef to build dirlist."
 	else
-	    dep = PkgDepends.new
-	    dirlist = dep.resolve(nil)
+	    dirlist = LoadListFile(f)
 	end
 
 	# load skiplist
@@ -60,9 +55,19 @@ class XpkgBatch
 	end
 	skiplist = LoadListFile(f)
 
-	dirlist = RemoveSkip(dirlist, skiplist)
-	dirlist = RemoveSkip(dirlist, @skip_modules)
+	# resolve dependency
+	dep = PkgDepends.new
+	dep.resolve
 
+	dep.filter_dir(dirlist, false)
+	dep.filter_dir(@only_modules, false)
+
+	dep.filter_dir(skiplist, true)
+	dep.filter_dir(@skip_modules, true)
+
+	dep.dump if ($verbose)
+
+	dirlist = dep.getdirlist()
 	dirlist.uniq!
 
 	# execute build
@@ -118,8 +123,10 @@ class XpkgBatch
 	    @target = $default_target  # default value
 	end
 
-	skip = ""
+	skip = nil
+	only = nil
 	@skip_modules = nil
+	@only_modules = nil
 
 	opt = OptionParser.new
         opt.banner = "xpkg-batch version #{$version}\n" + $copyright + 
@@ -129,7 +136,7 @@ class XpkgBatch
 	opt.on("-t", "--target=TARGET", String, "specify target") {|v| @target = v }
 	opt.on("-v", "--verbose", "Verbose") {$verbose = true}
 	opt.on("-s", "--skip=modules", String, "specify modules to skip") {|skip|}
-	opt.on("-a", "--auto", "automatically search pkgdef") { $autolist = true }
+	opt.on("-o", "--only=modules", String, "specify modules to build only them") {|only|}
 
 	opt.on_tail("")
 	opt.on_tail("  command:")
@@ -154,7 +161,8 @@ class XpkgBatch
 
 	command = ARGV.shift
 
-	@skip_modules = skip.split(/[,:]/)
+	@skip_modules = skip.split(/[,:]/) if (skip != nil)
+	@only_modules = only.split(/[,:]/) if (only != nil)
 
 	return command
     end

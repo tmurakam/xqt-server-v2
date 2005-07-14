@@ -72,15 +72,8 @@ class PkgDepends
 	@pkgs = Hash.new
     end
 
-    def loaddeffiles(dirlist)
-	@deflist = Array.new
-	if (dirlist == nil)
-	    @deflist = `find . -name "pkgdef" -print`.split
-	else
-	    dirlist.each do |n|
-		@deflist.push("./#{n}/pkgdef")
-	    end
-	end
+    def loaddeffiles
+	@deflist = `find . -name "pkgdef" -print`.split
 	
 	@deflist.each do |f|
 	    puts "Loading : #{f}" if ($verbose)
@@ -94,6 +87,18 @@ class PkgDepends
     def resolvedeps
 	resolved = Array.new
 	loop = 0
+
+	# first, purge unknown package names
+	allnames = Array.new
+	@deflist.each do |f|
+	    p = @pkgs[f]
+	    allnames.concat(p.names)
+	end
+	@deflist.each do |f|
+	    p = @pkgs[f]
+	    unknown = p.depends - allnames
+	    p.remove_depends(unknown)
+	end
 
 	while (@deflist.length > 0) do
 =begin
@@ -143,16 +148,36 @@ class PkgDepends
 	dirlist = Array.new
 
 	@deflist.each do |f|
-	    f.gsub!(%r|^./(.*)/pkgdef$|, "\\1")
-	    dirlist.push(f)
+	    dirlist.push(f.gsub(%r|^./(.*)/pkgdef$|, "\\1"))
 	end
 	return dirlist
     end
 
-    def resolve(dirlist)
-	loaddeffiles(dirlist)
+    def resolve
+	loaddeffiles
 	resolvedeps
-	return getdirlist()
+    end
+
+    # handles dirlist/skiplist
+    def filter_dir(list, isSkip)
+	return if (list == nil)
+	newlist = Array.new
+
+	@deflist.each do |f|
+	    match = list.find{|i| f =~ /#{i}\/pkgdef/}
+
+	    if ((!isSkip && match) || (isSkip && !match))
+		newlist.push(f)
+	    end
+	end
+	@deflist = newlist
+    end
+
+    def dump
+	@deflist.each do |f|
+	    p = @pkgs[f]
+	    puts "#{p.level}:#{f}"
+	end
     end
 
     def test
