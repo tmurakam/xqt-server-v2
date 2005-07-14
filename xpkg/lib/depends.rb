@@ -35,7 +35,7 @@ class PkgDep < Pkg
 
     def load(f, target)
 	@deffile = f
-	@dir = f.gsub(%r|^./(.*)/pkgdef.*|, "\\1")
+	@dir = f.gsub(%r|/pkgdef.*|, "").gsub(/^.\//, "")
 
 	loaddef(@deffile, target, "", $sysconfdir)
 
