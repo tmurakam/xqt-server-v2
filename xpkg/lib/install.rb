@@ -53,11 +53,27 @@ class PkgInstall
     #
     # Install package files
     #
+    def checkTargetRoot
+	if (@target_root == nil)
+	    puts "Error: You must specify %{target_root} in definition files."
+	    exit 1
+	end
+    end
+
+    def checkTargetPrefix
+	if (@target_prefix == nil)
+	    puts "Error: You must specify %{target_prefix} in definition files."
+	    exit 1
+	end
+    end
+
     def InstallGenPkg(file)
+	checkTargetRoot()
 	ExecCmd("tar xvzf #{file} -C #{@target_root}")
     end
 
     def InstallGenPkgDevel(file)
+	checkTargetPrefix()
 	SetupTmpdir()
 	ExecCmd("tar xzf #{file} -C .tmp .#{@prefix}")
 	ExecCmd("tar cf - -C .tmp#{@prefix} . | tar xvf - -C #{@target_prefix}")
@@ -66,11 +82,13 @@ class PkgInstall
     end
 
     def InstallIpkg(file)
+	checkTargetRoot()
 	ExecCmd("tar xzf #{file} -O ./data.tar.gz" +
 		" | tar xvzf - -C #{@target_root}")
     end
 
     def InstallIpkgDevel(file)
+	checkTargetPrefix()
 	SetupTmpdir()
 	ExecCmd("tar xzf #{file} -O ./data.tar.gz" +
 		" | tar xzf - -C .tmp .#{@prefix}")
