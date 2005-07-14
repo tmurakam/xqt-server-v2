@@ -37,7 +37,7 @@ class PkgDep < Pkg
 	@deffile = f
 	@dir = f.gsub(%r|^./(.*)/pkgdef.*|, "\\1")
 
-	loaddef(@deffile, "slz", "", $sysconfdir)
+	loaddef(@deffile, @target, "", $sysconfdir)
 
 	@df.getPackageNames("control").each do |subpkg|
 	    @names.push(@df.getControlParam("Package", subpkg))
@@ -71,11 +71,48 @@ class PkgDep < Pkg
     end
 end
 
+# 
+# Package dependency resolver class
+#
 class PkgDepends
     def initialize
 	@pkgs = Array.new
     end
 
+    # resolve dependency
+    def resolve(target)
+	@target = target
+	loaddeffiles
+	resolvedeps
+    end
+
+    # get resulted directory list
+    def getdirlist
+	dirlist = Array.new
+	@pkgs.each do |p|
+	    dirlist.push(p.dir)
+	end
+	return dirlist.uniq
+    end
+
+    # handles dirlist/skiplist
+    def filter_dir(list, isSkip)
+	return if (list == nil)
+	newlist = Array.new
+
+	@pkgs.each do |p|
+	    match = list.find{|i| p.deffile.include?(i)}
+
+	    if ((!isSkip && match) || (isSkip && !match))
+		newlist.push(p)
+	    end
+	end
+	@pkgs = newlist
+    end
+    
+    # private methods
+    
+    # load definition files
     def loaddeffiles
 	deflist = `find . -name "pkgdef" -print`.split
 
@@ -95,11 +132,12 @@ class PkgDepends
 	    puts "Loading : #{f}" if ($verbose)
 	    pkg = PkgDep.new
 	    pkg.load(f)
-	    pkg.loaddef(f, "slz", "", $sysconfdir)
+	    pkg.loaddef(f, @target, "", $sysconfdir)
 	    @pkgs.push(pkg)
 	end
     end
 
+    # resolve dependency
     def resolvedeps
 	# first, purge unknown package names
 	allnames = Array.new
@@ -115,21 +153,6 @@ class PkgDepends
 	loop = 0
 
 	while (@pkgs.length > 0) do
-=begin
-	    puts "loop:#{loop}, resolved=#{resolved.length}, remain=#{@deflist.length}"
-	    puts
-	    puts "resolved: "
-	    resolved.each do |f|
-		@pkgs[f].dump
-	    end
-	    puts
-	    puts "remain:"
-	    @deflist.each do |f|
-		@pkgs[f].dump
-	    end
-	    puts
-=end
-
 	    # first, remove resolved package
 	    @pkgs.each do |p|
 		if (p.depends.length == 0)
@@ -152,35 +175,6 @@ class PkgDepends
 	end
 
 	@pkgs = resolved
-    end
-
-    def getdirlist
-	dirlist = Array.new
-	@pkgs.each do |p|
-	    dirlist.push(p.dir)
-	end
-	return dirlist.uniq
-    end
-
-    # main entry
-    def resolve(target)
-	loaddeffiles(target)
-	resolvedeps
-    end
-
-    # handles dirlist/skiplist
-    def filter_dir(list, isSkip)
-	return if (list == nil)
-	newlist = Array.new
-
-	@pkgs.each do |p|
-	    match = list.find{|i| p.deffile.include?(i)}
-
-	    if ((!isSkip && match) || (isSkip && !match))
-		newlist.push(p)
-	    end
-	end
-	@pkgs = newlist
     end
 
     def dump
