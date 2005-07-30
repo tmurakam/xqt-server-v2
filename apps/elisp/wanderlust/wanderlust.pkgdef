@@ -32,7 +32,7 @@ Section: elisp
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: all
 Version: 2.10.1-2
-Depends: emacs21-withx
+Depends: emacs21-withx, apel, flim, semi
 Cardinst: enable
 License: GPL
 Description: Wanderlust Message Interface on Emacsen

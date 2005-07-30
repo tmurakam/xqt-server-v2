@@ -2,6 +2,8 @@
 # wanderlust-conffiles
 # 
 
+%define builddir .
+
 %files
 !dot.addresses	/home/zaurus/.addresses
 !dot.folders	/home/zaurus/.folders

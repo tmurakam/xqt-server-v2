@@ -3,6 +3,7 @@
 # 
 
 %define	ver	1.14.6
+%define rel	1
 
 %site
 ftp://ftp.m17n.org/pub/mule/semi/semi-1.14-for-flim-1.14

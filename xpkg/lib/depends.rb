@@ -35,7 +35,7 @@ class PkgDep < Pkg
 
     def load(f, target)
 	@deffile = f
-	@dir = f.gsub(%r|/pkgdef.*|, "").gsub(/^.\//, "")
+        @dir = File.dirname(f).gsub(/^.\//, "")
 
 	loaddef(@deffile, target, "", $sysconfdir)
 
@@ -127,7 +127,7 @@ class PkgDepends
 		deflist.push(dir + line)
 	    end
 	end
-	
+
 	deflist.each do |f|
 	    puts "Loading : #{f}" if ($verbose)
 	    pkg = PkgDep.new
