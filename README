@@ -1,11 +1,9 @@
-■ X/Qt version 2
+-- X/Qt version 2
 
-○ ビルド手順
+- How to build
 
-README.build を参照。
+See README.build
 
-○ ライセンス
+- License
 
-原則、各パッケージのライセンスに従う。
-
-script ディレクトリ以下のスクリプトのライセンスは GPL である。
+See license files of the each packages.
