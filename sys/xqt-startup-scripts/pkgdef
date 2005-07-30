@@ -1,0 +1,28 @@
+%define builddir .
+
+%control xqt-startup-scripts
+Package: xqt-startup-scripts
+Priority: optional
+Section: X11
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: 0.0.3
+Depends: xqt-server,xlibs,xbase-clients,rxvt,blackbox
+Description: X/Qt server startup scripts
+License: GPL
+
+#%conffiles
+#/home/zaurus/.xinitrc
+#/home/zaurus/.xserverrc
+
+#%postinst
+#chown zaurus /home/zaurus/.xinitrc
+#chown zaurus /home/zaurus/.xserverrc
+
+%files xqt-startup-scripts
+!files/startx-wrapper		%{prefix}/bin/
+!files/dot.xinitrc		/home/zaurus/.xinitrc
+!files/dot.xserverrc		/home/zaurus/.xserverrc
+!files/startx.desktop		%{prefix}/apps/Applications/
+#!files/Xqt.desktop		%{prefix}/apps/Applications/Xqt.desktop
+
