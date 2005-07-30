@@ -2,13 +2,16 @@
 # binutils
 #
 
+%define	ver	2.15
+%define	rel	1
+
 %site
 http://ring.asahi-net.or.jp/archives/GNU/binutils/
 
 %source
-binutils-2.15.tar.gz
+binutils-%{ver}.tar.gz
 
-%define builddir binutils-2.15
+%define builddir binutils-%{ver}
 
 %build
 ./configure %{config_opts} --build=i686-pc-linux-gnu --with-sysroot=/usr \
@@ -42,7 +45,7 @@ Summary: A GNU collection of binary utilities.
 Package: binutils
 Priority: optional
 Architecture: arm
-Version: 2.15-1
+Version: %{ver}-%{rel}
 Release:
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp
 Section: system
