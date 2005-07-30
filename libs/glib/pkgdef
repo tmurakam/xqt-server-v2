@@ -47,7 +47,7 @@ Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
 Version: %{ver}-%{rel}
-Depends:
+Depends: glibc
 License: LGPL
 Description: glib additional libraries
   libgmodule.so and libgthread.so

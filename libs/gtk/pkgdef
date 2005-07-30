@@ -42,7 +42,7 @@ Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
 Version: %{ver}-%{rel}
-Depends:
+Depends: glibc, glib, xlibs
 License: LGPL
 Description: GTK+ library
  GTK+ 1.2 library

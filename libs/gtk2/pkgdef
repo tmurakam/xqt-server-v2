@@ -52,6 +52,6 @@ Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
 Version: %{ver}-%{rel}
-Depends:
+Depends: glibc, glib2, xlibs
 License: LGPL
 Description: GTK+-2

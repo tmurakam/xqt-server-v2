@@ -33,7 +33,7 @@ make
 make DESTDIR=%{destdir} libdir=%{prefix}/lib install
 
 %files
-%{prefix}/lib/*.so*
+%{prefix}
 
 %excludes
 *.la
