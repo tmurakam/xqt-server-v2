@@ -1,0 +1,50 @@
+#!/usr/bin/ruby
+
+ezurl = "http://developer.ezaurus.com/sl_j/tool/tools"
+urls = ["#{ezurl}/gcc-cross-sa1100-2.95.2-0.i386.rpm",
+        "#{ezurl}/glibc-arm-2.2.2-0.i386.rpm",
+        "#{ezurl}/linux-headers-arm-sa1100-2.4.6-3.i386.rpm",
+        "#{ezurl}/binutils-cross-arm-2.11.2-0.i386.rpm",
+        "http://xqt.sourceforge.jp/bin/qtopia-free-1.5.0-1.i386.rpm"]
+
+def dl(url)
+    file = File.basename(url)
+    return if File.exist?(file)
+    
+    system("wget #{url}")
+end
+           
+def install(url)
+    file = File.basename(url)
+    system("rpm -Uvh #{file}")
+end
+
+def uninstall(url)
+    pkg = File.basename(url).gsub(/.rpm/, "")
+    system("rpm -e #{pkg}")
+end
+
+### start from here
+
+case ARGV[0]
+when "download"
+    urls.each do |url|
+        dl(url)
+    end
+
+when "uninstall"
+    urls.each do |url|
+        uninstall(url)
+    end
+
+when "install"
+else
+    urls.each do |url|
+        dl(url)
+        install(url)
+    end
+end
+
+
+
+
