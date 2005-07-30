@@ -44,7 +44,7 @@ class PkgDep < Pkg
 
 	    dep = @df.getControlParam("Depends", subpkg)
 	    if (dep)
-		dep.split("[ ,]+").each do |d|
+		dep.split(/[ ,]+/).each do |d|
 		    d.strip!
 		    @depends.push(d.strip) if (d != "")
 		end
@@ -177,9 +177,12 @@ class PkgDepends
     end
 
     def dump
+        puts "----------------------"
 	@pkgs.each do |p|
 	    puts "#{p.level}:#{p.dir}"
+            p.dump
 	end
+        puts "----------------------"
     end
 
     def test
