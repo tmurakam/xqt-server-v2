@@ -1,37 +1,36 @@
 #
-# ~/.xpkg サンプル
+# ~/.xpkg sample
 #
 
 # 
-# $xpkgtop : パッケージトップディレクトリの指定
+# $xpkgtop : package top directory
 #
-#  distfiles やパッケージファイルの置き場所となる基本ディレクトリを指定します。
-#  デフォルトは nil (xpkg が自動的に判断)
+#  Base directory in which all distfiles and package installed.
+#  Default is nil.
 
 #$xpkgtop = nil
 
 #
-# $pkglibdir : パッケージライブラリディレクトリの指定
+# $pkglibdir : package library directory
 #
-#   xpkg が使用するライブラリディレクトリを指定します。
-#   デフォルトは /usr/lib/xpkg。
-#   通常は変更しないでください。
+#   Library directory for xpkg.
+#   Default is /usr/lib/xpkg.
+#   Usually, do not change this.
 
 #$pkglibdir = "/usr/lib/xpkg"
 
 #
-# $sysconfdir : 設定ファイルディレクトリ
+# $sysconfdir : configuration file directory.
 #
-#   設定ファイルのディレクトリを指定します。
-#   def ファイルからは %{configdir} で参照できます。
-#   デフォルトは /etc/xpkg
-#   通常は変更しないでください。
+#   This directory can be refered in def file with %{configdir}.
+#   default is  /etc/xpkg
+#   Usually, do not change this.
 
 #$sysconfdir = "/etc/xpkg"
 
 #
-# config.rb 上書き
+# override config.rb 
 #
-#   /etc/xpkg/config.rb と同じ内容を設定すると、config.rb の内容を上書きできます。
+#   You can override /etc/xpkg/config.rb
 
 #$default_target = "xqt"

@@ -1,6 +1,6 @@
-# 共通設定 (ターゲット非依存)
+# Common configurations (no depends any targets)
 
-# デフォルトのターゲット名
+# Default target name
 $default_target = "xqt"
 
 #

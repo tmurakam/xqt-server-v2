@@ -2,17 +2,17 @@
 # X/Qt-2 xpkg configuration
 #
 
-# パッケージシステムのタイプ
+# Package system type
 %define	pkgtype		ipkg
 %define	pkgarch		arm
 
-# プレフィクス
+# Prefix
 %define prefix		/opt/QtPalmtop
 
 %define	target_prefix	/opt/Embedix/tools/arm-linux
 %define	x_prefix	%{target_prefix}
 
-# ツール設定
+# Tools configurations
 %define tool_prefix	/opt/Embedix/tools/bin
 
 %env CC		%{tool_prefix}/arm-linux-gcc
@@ -30,7 +30,7 @@
 %env PKG_CONFIG_PATH	%{target_prefix}/lib/pkgconfig
 %env CONFIG_SITE	%{configdir}/config-xqt.site
 
-# *-config コマンドパス
+# *-config command path
 %env FREETYPE_CONFIG	%{target_prefix}/bin/freetype-config
 %env FT2_CONFIG		%{target_prefix}/bin/freetype-config
 %env GLIB_CONFIG        %{target_prefix}/bin/glib-config
@@ -40,7 +40,7 @@
 %env XML_CONFIG         %{target_prefix}/bin/xml2-config
 %env XFT_CONFIG         %{x_prefix}/bin/xft-config
 
-# configure オプション
+# configure options
 %define config_opts \
 	--host=arm-linux \
 	--prefix=%{prefix}
