@@ -122,9 +122,9 @@ class PkgDepends
 	    IO.readlines(list).each do |line|
 		line.chop!
 		line.strip!
-		next if (file == "" || file =~ /^#/)
+		next if (line == "" || line =~ /^#/)
 
-		deflist.push(dir + file)
+		deflist.push(dir + line)
 	    end
 	end
 	
