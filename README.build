@@ -1,114 +1,95 @@
-■■ ビルド手順
+-- HOW TO BUILD
 
-○ 必要なもの
+- Requirements
 
-開発用の母艦 PC。Linux がインストールされていること。ディストリは基本的には何でもよいはず
-だが、Fedora だとたぶん glibc-locale がうまくできない。
+You need any PC with Linux installed to cross compilation. 
+Any distribution might work. (But I can't assure).
 
-ちなみに作者が使用しているのは Cent OS 4 である。
+# At this moment, author use Cent OS 4.
 
-また、開発系のツール/ライブラリを入れておく必要がある。
-make や gcc は当然として、autoconf / automake / libtool などが必要。
-あとビルドスクリプトが ruby で記述されている関係で、ruby も必要。
-開発ライブラリは、X や GTK+ 関連のものは一通りいれておくように。
+And development tools and libraries with your distribution must be installed.
+You need make, gcc, autoconf, automake, libtool etc.
+Also, you may need X, GTK+ development libraries, and Ruby.
 
-なお、X/Qt-2 のフルビルドには、かなりディスク容量が必要である。
-('04/10月時点では、2GB 程度のディスク容量が必要)
+Also you need much disk space (over a few gigabytes.)
 
 
-○ クロス開発ツールをインストールする
+- Install cross development tools
 
-基本的に、SHARP のサイトで公開されている「Qtopia開発チュートリアル」と同じ環境が必要。
+You need almost same environments as SHARP Zaurus one.
 
-クロスコンパイラや基本ライブラリ/ヘッダなどを Zaurus 宝箱 Pro
-(http://developer.ezaurus.com/) から入手する。
-(→国内向け SLシリーズザウルス→Linux関連開発ツールにある)
+Download cross compilers and libraries, headers from SHARP Zaurus page.
+(http://developer.ezaurus.com/)
 
-以下の４つのファイルが必要。
+You need following four files. The web pages are written in Japanese,
+so I describe direct URL.
 
- - クロスコンパイラ (gcc) 
- - ライブラリ (glibc) 
- - ヘッダファイル 
- - ユーティリティ 
+ - Cross compiler (gcc) 
+   http://developer.ezaurus.com/sl_j/tool/tools/gcc-cross-sa1100-2.95.2-0.i386.rpm
 
-tmake はとりあえず X/Qt の開発では不要。
+ - Libraries (glibc) 
+   http://developer.ezaurus.com/sl_j/tool/tools/glibc-arm-2.2.2-0.i386.rpm
 
-全部 RPM ファイルになっているので、rpm -Uvh *.rpm でインストールする。
+ - Header files
+   http://developer.ezaurus.com/sl_j/tool/tools/linux-headers-arm-sa1100-2.4.6-3.i386.rpm
+
+ - Utilities
+   http://developer.ezaurus.com/sl_j/tool/tools/binutils-cross-arm-2.11.2-0.i386.rpm
+
+You must install all RPM files.
+
+  $ rpm -Uvh *.rpm
+
+You don't need tmake for X/Qt development.
 
 
-○ Qtopia のインストール
+- Install Qtopia
 
-X/Qt サーバをビルドするために、Qtopia SDK が必要。
+Qtopia SDK is needed for X/Qt server compilation.
 
-Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものが必要。
-ただ、1.5.0 のフリー版はもう Trolltech のサイトに置いてないので以下より入手されたし。
+Qtopia 1.5.0 is installed in Zaurus, so you need the SDK as same version.
+But you can't download free version of the SDK ver 1.5.0, so download from
+following URL:
 
   http://xqt.sourceforge.jp/bin/
 
 
-○ シンボリックリンクを張る
+- Make symbolic links
 
-以下のようにして /opt/QtPalmtop のシンボリックリンクを張っておく。
-こうすると、Zaurus と prefix を一致させることができる。
+Create symbolic links as follows:
 
  # ln -s /opt/Embedix/tools/arm-linux /opt/QtPalmtop
-
-ついでに、以下のシンボリックリンクも張っておく。これは Emacs をビルドするときに必要。
-
  # ln -s arm-linux /opt/Embedix/tools/armlinux
 
 
-○ ターゲットディレクトリを書き込み可能にする。
+- Change permission
 
-ビルド中にライブラリやヘッダをインストールするので、ターゲットディレクトリのオーナを
-変更して、書き込み可能にしておく。
+Change owner of the directory to enable you install libraries and headers.
 
- # chown -R あなたのユーザ名 /opt/Embedix/tools/arm-linux
-
-もし書き込み可能にしたくない場合は、sudo を使ってインストールすることも可能。
-この場合は、script/config.def ファイルの先頭あたりを修正し、sudo を使えるように
-しておくこと。
+ # chown -R [your_username] /opt/Embedix/tools/arm-linux
 
 
-○ X/Qt-2 のソースを取り出す。
+- Get X/Qt-2 sources
 
-以下のようにしてソースを取り出す (このファイルが読めているなら、もう取り出しは
-終わっているはずだ）。
+Get X/Qt-2 sources with CVS command:
 
  $ export CVSROOT=:pserver:anonymous@cvs.sourceforge.jp:/cvsroot/xqt
  $ cvs login
  $ cvs checkout xqt2
 
+- Install xpkg
 
-○ xpkg のインストール
-
-クロスビルドツールである xpkg をインストールする。
-xpkg ディレクトリに行き、INSTALL を見てインストールを行うこと。
-
-
-○ wget の設定
-
-ビルド中に、ファイルを wget を使ってダウンロードするようになっているので、Proxy を
-使う場合は http_proxy や ftp_proxy 環境変数を設定するなりなんなりしておくこと。
+Install xpkg which is cross build tool for X/Qt.
+Change directory to xpkg directory, see INSTALL file to install it.
 
 
-○ フルビルド
-
-フルビルドを行う。
+- Execute full build
 
  $ cd xqt2
  $ xpkg-batch DevelWorld
 
-ビルドされたパッケージは ipkg ディレクトリに入る。また、開発用ライブラリ/ヘッダは
-/opt/Embedix/tools/arm-linux 以下にインストールされる。
+All build packages are located in XPKG directory. Also, development libraries
+and headers are installed in /opt/Embedix/tools/arm-linux.
 
 
-○ 個別ビルド
-
-フルビルドではなく、個別にパッケージをビルドしたい場合は、各パッケージのディレクトリ
-に cd した後、xpkg DevelWorld
-
-当然ながら、依存するライブラリがある場合は、そのライブラリを事前にビルドしておか
-なければならない。
-
-以上
+That's all!

@@ -99,7 +99,7 @@ xpkg ディレクトリに行き、INSTALL を見てインストールを行うこと。
  $ cd xqt2
  $ xpkg-batch DevelWorld
 
-ビルドされたパッケージは ipkg ディレクトリに入る。また、開発用ライブラリ/ヘッダは
+ビルドされたパッケージは XPKG ディレクトリに入る。また、開発用ライブラリ/ヘッダは
 /opt/Embedix/tools/arm-linux 以下にインストールされる。
 
 
