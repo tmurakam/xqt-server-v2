@@ -1,0 +1,32 @@
+#
+# flim
+# 
+
+%define ver	1.14.7
+%define rel	1
+
+%site
+ftp://ftp.m17n.org/pub/mule/semi/semi-1.14-for-flim-1.14
+
+%source
+flim-%{ver}.tar.gz
+
+%define builddir flim-%{ver}
+
+%build
+make EMACS=emacs
+
+%install
+make install EMACS=emacs PREFIX=%{destdir}%{prefix}
+
+%control
+Package: flim
+Priority: optional
+Section: elisp
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: %{ver}-%{rel}
+Depends: emacs21-withx
+Cardinst: enable
+License: GPL
+Description: flim

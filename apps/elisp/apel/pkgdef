@@ -1,0 +1,39 @@
+#
+# apel
+# 
+
+%define ver	10.6
+%define rel	1
+
+%site
+ftp://ftp.m17n.org/pub/mule/apel/
+
+%source
+apel-%{ver}.tar.gz
+
+%define builddir apel-%{ver}
+%define develpkg yes
+
+%build
+make EMACS=emacs
+
+%install
+make install EMACS=emacs PREFIX=%{destdir}%{prefix}
+
+%files
+%{prefix}/share/emacs
+
+%excludes
+*.el
+
+%control
+Package: apel
+Priority: optional
+Section: elisp
+Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+Architecture: all
+Version: %{ver}-%{rel}
+Depends: emacs21-withx
+Cardinst: enable
+License: GPL
+Description: apel
