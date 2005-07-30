@@ -5,7 +5,7 @@
 開発用の母艦 PC。Linux がインストールされていること。ディストリは基本的には何でもよいはず
 だが、Fedora だとたぶん glibc-locale がうまくできない。
 
-ちなみに作者が使用しているのは White Box Enterprise Linux である。
+ちなみに作者が使用しているのは Cent OS 4 である。
 
 また、開発系のツール/ライブラリを入れておく必要がある。
 make や gcc は当然として、autoconf / automake / libtool などが必要。
@@ -80,6 +80,12 @@ Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものが必要。
  $ cvs checkout xqt2
 
 
+○ xpkg のインストール
+
+クロスビルドツールである xpkg をインストールする。
+xpkg ディレクトリに行き、INSTALL を見てインストールを行うこと。
+
+
 ○ wget の設定
 
 ビルド中に、ファイルを wget を使ってダウンロードするようになっているので、Proxy を
@@ -91,7 +97,7 @@ Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものが必要。
 フルビルドを行う。
 
  $ cd xqt2
- $ ./build DevWorld
+ $ xpkg-batch DevelWorld
 
 ビルドされたパッケージは ipkg ディレクトリに入る。また、開発用ライブラリ/ヘッダは
 /opt/Embedix/tools/arm-linux 以下にインストールされる。
@@ -100,7 +106,7 @@ Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものが必要。
 ○ 個別ビルド
 
 フルビルドではなく、個別にパッケージをビルドしたい場合は、各パッケージのディレクトリ
-に cd した後、make DevWorld とする。
+に cd した後、xpkg DevelWorld
 
 当然ながら、依存するライブラリがある場合は、そのライブラリを事前にビルドしておか
 なければならない。
