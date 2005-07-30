@@ -44,6 +44,6 @@ Section: libs
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
 Version: %{ver}-%{rel}
-Depends:
+Depends: zlib
 License:
 Description: OpenSSL library
