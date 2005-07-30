@@ -38,11 +38,14 @@ when "uninstall"
     end
 
 when "install"
-else
     urls.each do |url|
         dl(url)
         install(url)
     end
+
+when "symlink"
+    system("ln -s /opt/Embedix/tools/arm-linux /opt/QtPalmtop")
+    system("ln -s arm-linux /opt/Embedix/tools/armlinux")
 end
 
 
