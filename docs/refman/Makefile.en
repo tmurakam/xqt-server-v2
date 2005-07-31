@@ -1,0 +1,2 @@
+DOCNAME		= refman-en
+include ../common/Makefile.common

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+  "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+<!ENTITY % XQT-ENTITIES-EN SYSTEM "../common/xqt-entities-en.xml">
+%XQT-ENTITIES-EN;
+
+<!ENTITY INTRO SYSTEM "intro-ja.xml">
+<!ENTITY XSERVER SYSTEM "xserver-ja.xml">
+<!ENTITY INPUTMETHOD SYSTEM "inputmethod-ja.xml">
+<!ENTITY ACKNOWLEDGEMENT SYSTEM "acknowledgement-ja.xml">
+<!ENTITY COPYRIGHT SYSTEM "../common/copyright-ja.xml">
+<!ENTITY GFDL SYSTEM "../common/fdl.xml">
+]>
+
+<article lang="en">
+  <articleinfo>
+    <title>X/Qt reference guide</title>
+    <author lang="en">
+      <surname>Murakami</surname>
+      <firstname>Takuya</firstname>
+      <affiliation>
+	<address>
+      <email>tmurakam at users.sourceforge.jp</email>
+     </address>
+      </affiliation>
+    </author>
+
+    <pubdate>24 October 2004</pubdate>
+    
+    <revhistory>
+      <revision>
+	<revnumber>1.0</revnumber>
+	<date>2004-10-24</date>
+	<revremark>Initial release</revremark>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>
+	This document is a reference guide of X/Qt.
+      </para>
+    </abstract>
+  </articleinfo>
+
+  &INTRO;
+  &XSERVER;
+  &INPUTMETHOD;
+
+  <sect1>
+    <title>Shareing clipboard of Qtopia : xqtclip</title>
+    <para>TBD</para>
+  </sect1>
+
+  <sect1>
+    <title>Window manager : blackbox</title>
+    <para>TBD</para>
+  </sect1>
+
+  <sect1>
+    <title>Mailer : Sylpheed</title>
+    <para>TBD</para>
+  </sect1>
+
+  <sect1>
+    <title>Editor : Emacs</title>
+    <para>TBD</para>
+    <sect2>
+      <title>Wanderlust</title>
+      <para></para>
+    </sect2>
+    <sect2>
+      <title>navi2ch</title>
+      <para></para>
+    </sect2>
+  </sect1>
+
+
+  &ACKNOWLEDGEMENT;
+  &COPYRIGHT;
+  &GFDL;
+</article>
+
