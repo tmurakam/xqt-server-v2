@@ -38,7 +38,7 @@ Section: multimedia
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
 Version: %{ver}-%{rel}
-Depends: xlibs, glib, gtk, xmms
+Depends: xlibs, glib, gtk, xmms, libid3tag
 Cardinst: enable
 License: GPL
 Description: xmms plugin for MPEG layer 1/2/3 decoding using libmad
