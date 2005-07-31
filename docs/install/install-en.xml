@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+  "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+<!ENTITY % XQT-ENTITIES-EN SYSTEM "../common/xqt-entities-en.xml">
+%XQT-ENTITIES-EN;
+
+<!ENTITY INTRO SYSTEM "intro-ja.xml">
+<!ENTITY PREREQUISITE SYSTEM "prerequisite-ja.xml">
+<!ENTITY INSTPROC SYSTEM "instproc-ja.xml">
+<!ENTITY PACKAGES SYSTEM "packages-ja.xml">
+<!ENTITY STARTUP SYSTEM "startup-ja.xml">
+<!ENTITY ACKNOWLEDGEMENT SYSTEM "acknowledgement-ja.xml">
+<!ENTITY COPYRIGHT SYSTEM "../common/copyright-ja.xml">
+<!ENTITY GFDL SYSTEM "../common/fdl.xml">
+]>
+
+<article lang="en">
+  <articleinfo>
+    <title>X/Qt install guide</title>
+    <author lang="en">
+      <surname>Murakami</surname>
+      <firstname>Takuya</firstname>
+      <affiliation>
+	<address>
+      <email>tmurakam at users.sourceforge.jp</email>
+     </address>
+      </affiliation>
+    </author>
+
+    <pubdate>24 October 2004</pubdate>
+    
+    <revhistory>
+      <revision>
+	<revnumber>1.0</revnumber>
+	<date>2004-10-24</date>
+	<revremark>Initial release</revremark>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>
+	This document is install guide of X/Qt.
+      </para>
+    </abstract>
+  </articleinfo>
+
+  &INTRO;
+  &PREREQUISITE; 
+  &INSTPROC;
+  &PACKAGES;
+  &STARTUP;
+  &ACKNOWLEDGEMENT;
+
+  &COPYRIGHT;
+  &GFDL;
+</article>
+

@@ -1,0 +1,2 @@
+DOCNAME		= install-en
+include ../common/Makefile.common
