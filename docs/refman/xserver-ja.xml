@@ -1,138 +1,138 @@
-<?xml version="1.0" encoding="EUC-JP"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
   <sect1 id="xserver">
-    <title>X �����Ф�����</title>
+    <title>X サーバの利用</title>
     <para>
-      ������Ǥϡ�X/Qt �����Ф�������ˡ�ˤĤ��ƽҤ٤ޤ���
+      この節では、X/Qt サーバの利用方法について述べます。
     </para>
 
     <sect2>
-      <title>X/Qt �����Фε�ư�Ƚ�λ</title>
+      <title>X/Qt サーバの起動と終了</title>
       <para>
-	X/Qt �����Фε�ư�ϡ���˥塼�� "Start X" �������󤫤�Ԥ��ޤ���
+	X/Qt サーバの起動は、メニューの "Start X" アイコンから行います。
       </para>
       <para>
-	��λ�ϡ�Menu �ܥ���򲡤���ɽ������� "Shutdown" �򥯥�å����ƹԤäƤ���������
+	終了は、Menu ボタンを押して表示される "Shutdown" をクリックして行ってください。
       </para>
 
       <para>
-	X/Qt �����Ф򥳥ޥ�ɥ饤��䥹����ץȤ��鵯ư�����硢�ʲ��Υ��ޥ�ɥ饤�󥪥ץ�����
-	���Ѥ��뤳�Ȥ��Ǥ��ޤ���
+	X/Qt サーバをコマンドラインやスクリプトから起動する場合、以下のコマンドラインオプションを
+	使用することができます。
 
 	<itemizedlist>
-	  <listitem><para>-ac : ������������ȥ������̵���ˤ��ޤ���</para></listitem>
-	  <listitem><para>-rootless : rootless �⡼�ɤǵ�ư���ޤ�(�������¸���)��</para></listitem>
-	  <listitem><para>-fp : font path �����Ǥ��ޤ���</para></listitem>
-	  <listitem><para>-disable-fullscreen : �ե륹���꡼��⡼�ɤ�̵���ˤ��ޤ��� </para></listitem>
-	  <listitem><para>-help : ���ޥ�ɥ饤�󥪥ץ����ΰ�����ɽ�����ޤ���</para></listitem>
+	  <listitem><para>-ac : アクセスコントロールを無効にします。</para></listitem>
+	  <listitem><para>-rootless : rootless モードで起動します(ただし実験中)。</para></listitem>
+	  <listitem><para>-fp : font path を指定できます。</para></listitem>
+	  <listitem><para>-disable-fullscreen : フルスクリーンモードを無効にします。 </para></listitem>
+	  <listitem><para>-help : コマンドラインオプションの一覧を表示します。</para></listitem>
 	</itemizedlist>
       </para>
     </sect2>
 
     <sect2>
-      <title>�����ܡ������</title>
+      <title>キーボード操作</title>
       <para>
-	�ü쥭���ϰʲ��Τ褦�˳�����Ƥ��Ƥ��ޤ��� 
+	特殊キーは以下のように割り当てられています。 
 	<itemizedlist>
-	  <listitem><para>Cancel �� Escape</para></listitem>
-	  <listitem><para>Address �� Control</para></listitem>
-	  <listitem><para>Home �� Alt</para></listitem>
+	  <listitem><para>Cancel → Escape</para></listitem>
+	  <listitem><para>Address → Control</para></listitem>
+	  <listitem><para>Home → Alt</para></listitem>
 	</itemizedlist>
       </para>
       <para>
-	Fn+{Q,O,P,A,S,D,Z,X,C,N,M} �Ϥ��Τޤ� Ctrl �����Ȥ��Ȥ߹�碌�Ȥ���Ư���ޤ����� 
-	Address ������Ȥä��ۤ����褤�Ǥ��礦��
+	Fn+{Q,O,P,A,S,D,Z,X,C,N,M} はそのまま Ctrl キーとの組み合わせとして働きますが、 
+	Address キーを使ったほうがよいでしょう。
       </para>
       <para>
-	` �� Fn + Shift + '-' ������ޤ��� 
+	` は Fn + Shift + '-' で入ります。 
       </para>
       <note>
 	<para>
-	  X/Qt version 1 �ϡ�<ulink url="http://yakty.s31.xrea.com/linuzau/">KeyHelper applet</ulink>
-	  �Ȥ����������ޤ��ɤ��ʤ���KeyHelper �����ꤷ���������Ȥ��ޤ���
-	  X/Qt version 2 �Ǥϲ�������Ƥ��ޤ���
+	  X/Qt version 1 は、<ulink url="http://yakty.s31.xrea.com/linuzau/">KeyHelper applet</ulink>
+	  との相性があまり良くなく、KeyHelper で設定したキーが使えません。
+	  X/Qt version 2 では改善されています。
 	</para>
       </note>
     </sect2>
 
     <sect2>
-      <title>�ޥ������</title>
+      <title>マウス操作</title>
       <para>
-	�ޥ������ϡ��ʲ��Τ褦�˳�����Ƥ��Ƥ��ޤ���
+	マウス操作は、以下のように割り当てられています。
 	<itemizedlist>
-	  <listitem><para>���̤� Tap : ������å�</para></listitem>
-	  <listitem><para>Fn �����ʤ��� Tap : ������å�</para></listitem>
-	  <listitem><para>Fn+Shift �����ʤ��� Tap : �楯��å�</para></listitem>
+	  <listitem><para>普通に Tap : 左クリック</para></listitem>
+	  <listitem><para>Fn 押しながら Tap : 右クリック</para></listitem>
+	  <listitem><para>Fn+Shift 押しながら Tap : 中クリック</para></listitem>
 	</itemizedlist>
       </para>
     </sect2>
 
     <sect2>
-      <title>��˥塼</title>
+      <title>メニュー</title>
       <para>
-	Menu �ܥ���򲡤��ȥݥåץ��åץ�˥塼��ɽ������ޤ��������Ǥϡ�
-	�ʲ������򤪤��ʤ����Ȥ�����ޤ���
+	Menu ボタンを押すとポップアップメニューが表示されます。ここでは、
+	以下の操作をおこなうことが出来ます。
 
 	<itemizedlist>
-	  <listitem><para>Help : ��ñ�ʥإ�פ򻲾Ȥ��뤳�Ȥ��Ǥ��ޤ���</para></listitem>
-	  <listitem><para>Full Screen : �ե륹���꡼��⡼�ɤ��ڤ��ؤ��ޤ���</para></listitem>
-	  <listitem><para>Shutdown : X/Qt �����Ф�λ���ޤ���</para></listitem>
+	  <listitem><para>Help : 簡単なヘルプを参照することができます。</para></listitem>
+	  <listitem><para>Full Screen : フルスクリーンモードに切り替えます。</para></listitem>
+	  <listitem><para>Shutdown : X/Qt サーバを終了します。</para></listitem>
 	</itemizedlist>
       </para>
     </sect2>
     
     <sect2>
-      <title>�ե���Ȥ�����</title>
+      <title>フォントの設定</title>
       <para>
-	�����Ǥϡ�X/Qt �˥ե���Ȥ��ɲä�����ˡ�ˤĤ����������ޤ���
+	ここでは、X/Qt にフォントを追加する方法について説明します。
       </para>
       <para>
-	X/Qt �����ФǤϡ����� X �ե���ȥ����ƥ�� Xft2 �Σ��̤�Υե���ȥ����ƥ�����Ѥ��뤳�Ȥ��Ǥ��ޤ��� 
-	���� X �ե���ȥե���ȥ����ƥ�Ǥϡ�X/Qt ������¦�ǥե���Ȥ������Ԥ��ޤ���
-	Xft2 ���Ѥ�����ϡ����饤�����¦�ǥե���ȤΥ�����󥰤�Ԥ��ޤ���
+	X/Qt サーバでは、コア X フォントシステムと Xft2 の２通りのフォントシステムを利用することができます。 
+	コア X フォントフォントシステムでは、X/Qt サーバ側でフォントの描画を行います。
+	Xft2 を用いる場合は、クライアント側でフォントのレンダリングを行います。
       </para>
 
       <sect3>
-	<title>���� X �ե���ȥ����ƥ�</title>
+	<title>コア X フォントシステム</title>
 	<para>
-	  ���� X �ե���ȥ����ƥ�Ǥϡ�X ������¦�ǥե���Ȥ������Ԥ��ޤ���
-	  ���� X �ե���ȥ����ƥ�����Ѥ���ˤϡ��ե���Ȥ� /opt/QtPalmtop/lib/X11/fonts �ʲ���
-	  Ŭ�ڤʥǥ��쥯�ȥ�˥��󥹥ȡ��뤷��fonts.dir �ե������������ޤ���
+	  コア X フォントシステムでは、X サーバ側でフォントの描画を行います。
+	  コア X フォントシステムを利用するには、フォントを /opt/QtPalmtop/lib/X11/fonts 以下の
+	  適切なディレクトリにインストールし、fonts.dir ファイルを作成します。
 	</para>
 	<para>
-	  �ӥåȥޥåץե���� (*.pcf �ޤ��� *.pcf.gz) �����Ѥ�����ϡ�
-	  �ե���Ȥ�ǥ��쥯�ȥ�˥��󥹥ȡ��뤷���Τ������Υǥ��쥯�ȥ�� <command>mkfontsdir</command>
-	  ���ޥ�ɤ�¹Ԥ��ޤ�������� fonts.dir �ե����뤬�Ǥ��ޤ���
+	  ビットマップフォント (*.pcf または *.pcf.gz) を利用する場合は、
+	  フォントをディレクトリにインストールしたのち、そのディレクトリで <command>mkfontsdir</command>
+	  コマンドを実行します。これで fonts.dir ファイルができます。
 	</para>
 	<para>
-	  X/Qt �����Ф� FreeType �⥸�塼��򥵥ݡ��Ȥ��Ƥ��ꡢTrueType �ե���Ȥ����褹�뤳�Ȥ��Ǥ��ޤ���
-	  TrueType �ե���Ȥ����Ѥ�����⡢fonts.dir �ե����뤬ɬ�פˤʤ�ޤ���
-	  fonts.dir �ե������ mkttfdir �ʤɤΥġ����Ȥäƺ������Ƥ���������
+	  X/Qt サーバは FreeType モジュールをサポートしており、TrueType フォントを描画することができます。
+	  TrueType フォントを利用する場合も、fonts.dir ファイルが必要になります。
+	  fonts.dir ファイルは mkttfdir などのツールを使って作成してください。
 	</para>
 	<para>
-	  �ɤ���ξ��Ǥ⡢X/Qt �����Фˡ֥ե���ȥѥ��פ򶵤��Ƥ��ʤ����ɲä����ե���Ȥ�
-	  ���ѤǤ���褦�ˤʤ�ޤ��󡣥ե���ȥѥ��λ�����ˡ�ϣ��Ĥ���ޤ���
+	  どちらの場合でも、X/Qt サーバに「フォントパス」を教えてやらないと追加したフォントが
+	  使用できるようになりません。フォントパスの指定方法は２つあります。
 	</para>
 	<para>
-	  ���Ĥ����ˡ�ϡ�X/Qt �ε�ư�����ץ���� '-fp' ��Ȥäƻ��ꤹ����ˡ�Ǥ���
-	  ~/.xserverrc �ե������ X/Qt �����Фε�ư���������Ҥ���Ƥ���Τǡ�
-	  ������ -fp ���ץ������ɲä��ޤ���
+	  １つめの方法は、X/Qt の起動時オプション '-fp' を使って指定する方法です。
+	  ~/.xserverrc ファイルに X/Qt サーバの起動処理が記述されているので、
+	  ここに -fp オプションを追加します。
 	</para>
 	<para>
-	  �⤦���Ĥ���ˡ�ϡ�xset ���ޥ�ɤ�Ȥäƥե���ȥѥ����ɲä�����ˡ�Ǥ���
-	  �ʲ��Τ褦�ˤ��ƥե���ȥѥ����ɲäǤ��ޤ���
+	  もう１つの方法は、xset コマンドを使ってフォントパスを追加する方法です。
+	  以下のようにしてフォントパスを追加できます。
 	  <programlisting>
 xset +fp <replaceable>fontpath</replaceable>
 xset fp rehash
 	  </programlisting>
-	  ��ư���˼�ưŪ�˥ե���ȥѥ����ɲä��������ϡ�~/.xinitrc �ե������
-	  ���ν���������Ƥ����ޤ���
+	  起動時に自動的にフォントパスを追加したい場合は、~/.xinitrc ファイルに
+	  この処理を入れておきます。
 	</para>
 	<note>
 	  <para>
-	    X/Qt �����Фϡ�XFree86 �� KDrive �����Ф�١����ˤ��Ƥ��ޤ���
-	    ���μ����ˤϡ�XFree86 ������ե����� (/etc/X11/XF86Config) �Τ褦�ʤ�ΤϤ���ޤ���
-	    �����ͤϡ����٤ƥ��ޥ�ɥ饤��� xset ���ޥ�ɤ����ꤹ��ɬ�פ�����ޤ���
+	    X/Qt サーバは、XFree86 の KDrive サーバをベースにしています。
+	    この実装には、XFree86 の設定ファイル (/etc/X11/XF86Config) のようなものはありません。
+	    設定値は、すべてコマンドラインや xset コマンドで設定する必要があります。
 	  </para>
 	</note>
       </sect3>
@@ -140,16 +140,16 @@ xset fp rehash
       <sect3>
 	<title>Xft</title>
 	<para>
-	  Xft �� FreeType �Υ��󥿥ե���������ӥ���������ꥢ��/���֥ԥ����������󥰳�ĥ
-	  ��Ԥ��饤�֥��Ǥ���Xft �Ǥϡ��ե���Ȥϥ����ФǤϤʤ����饤�����¦�ǥ�����󥰤���ޤ���
-	  ���������饤�����¦�� Xft ���б����Ƥ��ʤ���Фʤ�ޤ���
+	  Xft は FreeType のインタフェースおよびアンチエイリアス/サブピクセルレンダリング拡張
+	  を行うライブラリです。Xft では、フォントはサーバではなくクライアント側でレンダリングされます。
+	  当然、クライアント側が Xft に対応していなければなりません
 	</para>
 	<para>
-	  X/Qt �ϡ�XFree86 4.3 ��Ƴ�����줿 Xft2 �饤�֥����б����Ƥ��ޤ���
+	  X/Qt は、XFree86 4.3 で導入された Xft2 ライブラリに対応しています。
 	</para>
 	<para>
-	  Xft �ѤΥե���Ȥ򥤥󥹥ȡ��뤹����⡢Ŭ�ڤʥǥ��쥯�ȥ�˥ե���Ȥ򥤥󥹥ȡ��뤷�ޤ���
-	  ���θ塢�ʲ��Υ��ޥ�ɤ�ȯ�Ԥ��ƥե���ȥ���å�����������ޤ���
+	  Xft 用のフォントをインストールする場合も、適切なディレクトリにフォントをインストールします。
+	  その後、以下のコマンドを発行してフォントキャッシュを生成します。
 	  <programlisting>
 # fc-cache -fv <replaceable>fontpath</replaceable>
 	  </programlisting>
@@ -159,11 +159,11 @@ xset fp rehash
   </sect1>
 
 <!--
-  �����Фε�ư�Ƚ�λ
-  ��˥塼
-  �������
-  �ե���ȥ����ƥ�
-  TrueType �ե����
-  ¾�Υۥ��Ȥ������Ф�
-  X �ΰ��̾���
+  サーバの起動と終了
+  メニュー
+  キー操作
+  フォントシステム
+  TrueType フォント
+  他のホストから飛ばす
+  X の一般情報
 -->

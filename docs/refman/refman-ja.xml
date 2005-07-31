@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="EUC-JP"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
   "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
@@ -16,10 +16,10 @@
 
 <article lang="ja">
   <articleinfo>
-    <title>X/Qt еъе╒ебеьеєе╣емеде╔</title>
+    <title>X/Qt уГкуГХуВбуГмуГ│уВ╣уВмуВдуГЙ</title>
     <author lang="ja">
-      <surname>┬╝╛х</surname>
-      <firstname>┬ю╠я</firstname>
+      <surname>цЭСф╕К</surname>
+      <firstname>хНУх╝е</firstname>
       <affiliation>
 	<address>
       <email>tmurakam at users.sourceforge.jp</email>
@@ -39,7 +39,7 @@
 
     <abstract>
       <para>
-	д│д╬е╔енехесеєе╚д╧бвX/Qt д╬═°═╤╝ъ░·днд╟д╣бг
+	уБУуБоуГЙуВнуГеуГбуГ│уГИуБпуАБX/Qt уБохИйчФицЙЛх╝ХуБНуБзуБЩуАВ
       </para>
     </abstract>
   </articleinfo>
@@ -49,23 +49,23 @@
   &INPUTMETHOD;
 
   <sect1>
-    <title>Qtopia д╚д╬епеъе├е╫е▄б╝е╔╢ж═н : xqtclip</title>
-    <para>╝╣╔о├ц</para>
+    <title>Qtopia уБиуБоуВпуГкуГГуГЧуГЬуГ╝уГЙхЕ▒цЬЙ : xqtclip</title>
+    <para>хЯ╖чнЖф╕н</para>
   </sect1>
 
   <sect1>
-    <title>ежегеєе╔еже▐е═б╝е╕еу : blackbox</title>
-    <para>╝╣╔о├ц</para>
+    <title>уВжуВгуГ│уГЙуВжуГЮуГНуГ╝уВ╕уГг : blackbox</title>
+    <para>хЯ╖чнЖф╕н</para>
   </sect1>
 
   <sect1>
-    <title>есб╝ещ : Sylpheed</title>
-    <para>╝╣╔о├ц</para>
+    <title>уГбуГ╝уГй : Sylpheed</title>
+    <para>хЯ╖чнЖф╕н</para>
   </sect1>
 
   <sect1>
-    <title>еие╟еге┐ : Emacs</title>
-    <para>╝╣╔о├ц</para>
+    <title>уВиуГЗуВгуВ┐ : Emacs</title>
+    <para>хЯ╖чнЖф╕н</para>
     <sect2>
       <title>Wanderlust</title>
       <para></para>
