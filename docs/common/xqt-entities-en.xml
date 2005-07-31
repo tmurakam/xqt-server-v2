@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ENTITY XQT "X/Qt">
+<!ENTITY XQTP "X/Qt Projects">
+
+<!ENTITY XF86PROJ "<ulink url='http://www.xfree86.org/'>The XFree86 Project, Inc</ulink>">
+<!ENTITY ZAURUS-JA "<ulink url='http://sourceforge.jp/projects/zaurus-ja/'>zaurus-ja</ulink>">
+
+<!ENTITY FROM-ZERO-XQT "<ulink url='http://www.yo.rim.or.jp/~mono93/mobile/enter.cgi?LinuxZaurus&#37;a4&#37;ce&#37;be&#37;ef&#37;bc&#37;b1&#37;a1&#37;a6&#37;c8&#37;f3&#37;be&#37;ef&#37;bc&#37;b1&#37;2f&#37;a5&#37;bc&#37;a5&#37;ed&#37;a4&#37;ab&#37;a4&#37;e9&#37;a4&#37;ceX&#37;a1&#37;bfQt'>Common knowledge of LinuxZaurus / Zero start of X/Qt</ulink>">
+
