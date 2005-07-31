@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="EUC-JP"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
   <sect1 id="acknowledgement">
-    <title>�ռ�</title>
+    <title>謝辞</title>
     <para>
-      X/Qt �ϡ�&XF86PROJ; �� XFree86 4.3.0 ��١����ˤ��Ƥ��ޤ���
+      X/Qt は、&XF86PROJ; の XFree86 4.3.0 をベースにしています。
     </para>
     <para>
-      X/Qt �ϡ�&ZAURUS-JA; �����̤���Ѥ��Ƥ��ޤ���
+      X/Qt は、&ZAURUS-JA; の成果を使用しています。
     </para>
     <para>
-      �ܥɥ�����Ȥκ����ˤ����ꡢ&FROM-ZERO-XQT;�򻲹ͤˤ����Ƥ��������ޤ�����
+      本ドキュメントの作成にあたり、&FROM-ZERO-XQT;を参考にさせていただきました。
     </para>
   </sect1>

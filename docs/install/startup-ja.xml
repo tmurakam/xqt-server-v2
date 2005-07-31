@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="EUC-JP"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
   <sect1 id="startup">
-    <title>X/Qt �ε�ư</title>
+    <title>X/Qt の起動</title>
     <sect2>
-      <title>X/Qt �ε�ư</title>
+      <title>X/Qt の起動</title>
       <para>
-	X/Qt ��ư���ޤ���"Start X" ��������򥿥åפ��� X/Qt ��ư���ޤ���
+	X/Qt を起動します。"Start X" アイコンをタップして X/Qt を起動します。
 
 	<mediaobject>
 	  <imageobject>
@@ -13,7 +13,7 @@
       </imageobject>
       </mediaobject>
 
-	����� X/Qt ����ư����ȡ��ʲ��Τ褦�� X/Qt �β��̤�ɽ������ޤ���
+	正常に X/Qt が起動すると、以下のように X/Qt の画面が表示されます。
 
 	<mediaobject>
 	  <imageobject>
@@ -21,14 +21,14 @@
       </imageobject>
       </mediaobject>
 
-	����ǤȤ��������ޤ�������� X/Qt �Υ��󥹥ȡ���ϴ�λ�Ǥ���
+	おめでとうございます！これで X/Qt のインストールは完了です。
       </para>
     </sect2>
 
     <sect2>
-      <title>X/Qt ������</title>
+      <title>X/Qt の利用</title>
       <para>
-	X/Qt ��������ˡ�ˤĤ��Ƥϡ�X/Qt ��ե���󥹥ޥ˥奢���������������
+	X/Qt の利用方法については、X/Qt リファレンスマニュアルをご覧ください。
       </para>
     </sect2>
   </sect1>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="EUC-JP"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
   "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
@@ -18,10 +18,10 @@
 
 <article lang="ja">
   <articleinfo>
-    <title>X/Qt едеєе╣е╚б╝еыемеде╔</title>
+    <title>X/Qt уВдуГ│уВ╣уГИуГ╝уГлуВмуВдуГЙ</title>
     <author lang="ja">
-      <surname>┬╝╛х</surname>
-      <firstname>┬ю╠я</firstname>
+      <surname>цЭСф╕К</surname>
+      <firstname>хНУх╝е</firstname>
       <affiliation>
 	<address>
       <email>tmurakam at users.sourceforge.jp</email>
@@ -41,7 +41,7 @@
 
     <abstract>
       <para>
-	д│д╬е╔енехесеєе╚д╧бвX/Qt д╬едеєе╣е╚б╝еыд╬╝ъ░·днд╟д╣бг
+	уБУуБоуГЙуВнуГеуГбуГ│уГИуБпуАБX/Qt уБоуВдуГ│уВ╣уГИуГ╝уГлуБоцЙЛх╝ХуБНуБзуБЩуАВ
       </para>
     </abstract>
   </articleinfo>

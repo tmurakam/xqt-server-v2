@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="EUC-JP"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
   <sect1 id="instproc">
-    <title>X/Qt �Υ��󥹥ȡ���</title>
+    <title>X/Qt のインストール</title>
     <para>
-      ������Ǥϡ�X/Qt �Υ��󥹥ȡ�����ˤĤ��ơ�����ɤä��������ޤ���
+      この節では、X/Qt のインストール手順について、順を追って説明します。
     </para>
 
     <sect2>
-      <title>SD �����ɤΥե����ޥå�</title>
+      <title>SD カードのフォーマット</title>
       <para>
-	�����ɬ�ܤμ��ǤϤ���ޤ��󤬡�SD �����ɤ� ext2 �ǥե����ޥåȤ��Ƥ������Ȥ�
-	�����侩���ޤ���ext2 �ե����ޥåȤˤʤäƤ��ʤ��ȡ�X/Qt �Υѥå������� SD �����ɤ�
-	���󥹥ȡ��뤷���Ȥ��˸�ư����ǽ��������ޤ���
+	これは必須の手順ではありませんが、SD カードを ext2 でフォーマットしておくことを
+	強く推奨します。ext2 フォーマットになっていないと、X/Qt のパッケージを SD カードに
+	インストールしたときに誤動作する可能性があります。
       </para>
       <para>
-	SD �����ɤΥե����ޥåȤϡ����ޥ�ɥ饤�󤫤�ʲ��Τ褦�����Ϥ��ޤ���
+	SD カードのフォーマットは、コマンドラインから以下のように入力します。
       </para>
       <programlisting>
 	<userinput>
@@ -26,22 +26,22 @@
       </programlisting>
       <note>
 	<para>
-	  ���ޥ�ɥ饤�����Ѥ���ˤϡ������ߥʥ�� embeddedkonsole �ʤɤ�ȤäƤ���������
-	  �����ߥʥ����° CD-ROM ���饤�󥹥ȡ���Ǥ��ޤ���
-	  embeddedkonsole �ϡ�<ulink url="http://sourceforge.jp/projects/zaurus-ja/">zaurus-ja</ulink>
-	  ��������Ǥ��ޤ���
-	  �ʤ���X/Qt �Υ��󥹥ȡ����ϡ�rxvt ����ѤǤ��ޤ���
+	  コマンドラインを使用するには、ターミナルや embeddedkonsole などを使ってください。
+	  ターミナルは付属 CD-ROM からインストールできます。
+	  embeddedkonsole は、<ulink url="http://sourceforge.jp/projects/zaurus-ja/">zaurus-ja</ulink>
+	  から入手できます。
+	  なお、X/Qt のインストール後は、rxvt を使用できます。
 	</para>
       </note>
       <important>
 	<para>
-	  SD �����ɤ�ե����ޥåȤ���ȡ������ɤ����Ƥ����٤ƾõ��ޤ��Τ����դ��Ƥ���������
+	  SD カードをフォーマットすると、カードの内容がすべて消去されますので注意してください。
 	</para>
       </important>
 
       <para>
-	�ʤ���ext2 �ǥե����ޥåȤ���ȡ������륹�ɥ饤�֤ǥե�����ν񤭤��ߤ��Ǥ��ʤ��ʤ�ޤ��Τǡ�
-	�ʲ��Υ��ޥ�ɤ��Ǥäƽ񤭹��߲�ǽ�ˤ��Ƥ���������
+	なお、ext2 でフォーマットすると、ザウルスドライブでファイルの書きこみができなくなりますので、
+	以下のコマンドを打って書き込み可能にしてください。
 	<programlisting>
 	  <userinput>
  # cd /mnt/card
@@ -51,53 +51,53 @@
       </para>
     </sect2>
     <sect2>
-      <title>���󥹥ȡ��륿����</title>
+      <title>インストールタイプ</title>
       <para>
-	X/Qt �Υ��󥹥ȡ���ˤϣ��̤�Τ����������ޤ���
-	�ޥ˥奢�륤�󥹥ȡ���ȥͥåȥ�����󥹥ȡ���Ǥ���
+	X/Qt のインストールには２通りのやり方があります。
+	マニュアルインストールとネットワークインストールです。
       </para>
 
       <itemizedlist>
 	<listitem>
 	  <para>
-	    �ޥ˥奢�륤�󥹥ȡ���Ǥϡ�X/Qt �Υѥå������� PC ��Ȥäƣ��ģ��ļ�ư�ǥ���������ɤ���
-	    ����� Zaurus ���Τ�ž�����ƥ��󥹥ȡ��뤷�ޤ���
+	    マニュアルインストールでは、X/Qt のパッケージを PC を使って１つ１つ手動でダウンロードし、
+	    これを Zaurus 本体に転送してインストールします。
 	  </para>
 	</listitem>
 	<listitem>
 	  <para>
-	    �ͥåȥ�����󥹥ȡ���Ǥϡ�SL-Zaurus �Υͥåȥ�����󥹥ȡ��뵡ǽ��Ȥäơ�
-	    SL-Zaurus ����ľ�ܥѥå����������������ɤ��ƥ��󥹥ȡ��뤷�ޤ���
+	    ネットワークインストールでは、SL-Zaurus のネットワークインストール機能を使って、
+	    SL-Zaurus から直接パッケージをダウンロードしてインストールします。
 	  </para>
 	</listitem>
       </itemizedlist>
       <para>
-	��Ȥ��ڤǤ��Τǡ��ͥåȥ�����󥹥ȡ���Τۤ���侩���ޤ������������ͥåȥ��
-	���󥹥ȡ����Ԥ�����ˤϥͥåȥ�������ɤ�ɬ�פˤʤ�ޤ���
+	作業が楽ですので、ネットワークインストールのほうを推奨します。ただし、ネットワーク
+	インストールを行うためにはネットワークカードが必要になります。
       </para>
       <tip>
 	<para>
-	  SL-Zaurus �� PC ����°�����֥��Ȥä� 'USB��³(�ͥåȥ��)' �ǷҤ��Ǥ����硢
-	  �����Ȥäƥͥåȥ�����󥹥ȡ��뤹�뤳�Ȥ��ǽ�Ǥ��������������ξ��� PC ¦��
-	  Proxy �����Ф�Ω�ƤƤ���ɬ�פ�����ޤ���
+	  SL-Zaurus と PC を、付属ケーブルを使って 'USB接続(ネットワーク)' で繋いでいる場合、
+	  これを使ってネットワークインストールすることも可能です。ただし、この場合は PC 側で
+	  Proxy サーバを立てておく必要があります。
 	</para>
       </tip>
     </sect2>
 
     <sect2>
-      <title>�ͥåȥ�����󥹥ȡ���</title>
+      <title>ネットワークインストール</title>
       <sect3>
-	<title>�ͥåȥ���ؤ���³</title>
+	<title>ネットワークへの接続</title>
 	<para>
-	  �ͥåȥ�����󥹥ȡ����Ԥ����ϡ��ͥåȥ���ؤ���³��ɬ�פˤʤ�ޤ���
-	  ���餫���ᡢ�ͥåȥ�������ɤ���³����TCP/IP ������򤹤ޤ��Ƥ����Ƥ���������
+	  ネットワークインストールを行う場合は、ネットワークへの接続が必要になります。
+	  あらかじめ、ネットワークカードを接続し、TCP/IP の設定をすませておいてください。
 	</para>
       </sect3>
 
       <sect3>
-	<title>���եȥ������ޥ͡����������</title>
-	<para>X/Qt �Υͥåȥ�����󥹥ȡ���ϡ�Zaurus �Υ��եȥ������ޥ͡��������Ѥ��ޤ���</para>
-	<para>������פ���֥��եȥ��������ɲäȺ���פ�ư�����֥ͥåȥ����ͳ�ǥ��եȥ������򥤥󥹥ȡ���פ򥿥åפ��ޤ���</para>
+	<title>ソフトウェアマネージャの設定</title>
+	<para>X/Qt のネットワークインストールは、Zaurus のソフトウェアマネージャを使用します。</para>
+	<para>「設定」から「ソフトウェアの追加と削除」を起動し、「ネットワーク経由でソフトウェアをインストール」をタップします。</para>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/softman.png" format="PNG"/>
@@ -105,7 +105,7 @@
 	</mediaobject>
 
 	<para>
-	  �����ˤ��륹���å��Υܥ���򲡤��������Ԥ��ޤ����ֿ��������С��פ򥯥�å����������Ф��ɲä��ޤ���
+	  右下にあるスイッチのボタンを押し、設定を行います。「新規サーバー」をクリックし、サーバを追加します。
 	</para>
 
 	<mediaobject>
@@ -116,103 +116,103 @@
 
 	<itemizedlist>
 	  <listitem>
-	    <para>'̾��' ����ˤϡ�����������ɥ����Ф�̾�Τ���ꤷ�ޤ���Ŭ����̾�������Ϥ��Ƥ���������</para>
+	    <para>'名前' の欄には、ダウンロードサーバの名称を指定します。適当な名前を入力してください。</para>
 	    <caution>
-	      <para>̾����ˤ� '/' ���Ȥ��ʤ��褦�Ǥ���'X/Qt' �ǤϤʤ���'XQt' �Τ褦�ˤ��Ƥ���������</para>
+	      <para>名前欄には '/' が使えないようです。'X/Qt' ではなく、'XQt' のようにしてください。</para>
 	    </caution>
 	  </listitem>
 	  <listitem>
 	    <para>
-	      URL: �ˤϥ���������ɤ�Ԥ� 'feed' �� URL �򵭽Ҥ��ޤ���
+	      URL: にはダウンロードを行う 'feed' の URL を記述します。
 	    </para>
 	  </listitem>
 	</itemizedlist>
 
 	<para>
-	  X/Qt �Υͥåȥ�����󥹥ȡ����ѥѥå������ϡ�'feed' ��Ȥä��󶡤���Ƥ��ޤ���
-	  X/Qt �� feed �� URL �ϡ�
+	  X/Qt のネットワークインストール用パッケージは、'feed' を使って提供されています。
+	  X/Qt の feed の URL は、
 	  <ulink url="http://xqt.sourceforge.jp/feed/">http://xqt.sourceforge.jp/feed/</ulink>
-	  �ȤʤäƤ��ޤ��Τǡ����� URL ����ꤷ�Ƥ���������
+	  となっていますので、この URL を指定してください。
 
 	  <note>
 	    <para>
-	      ����¾��<ulink url="http://xqt.sourceforge.jp/feed-testing/">X/Qt-2 �ƥ����� feed</ulink>
-	      �ʤɤ⤢��ޤ���
+	      この他、<ulink url="http://xqt.sourceforge.jp/feed-testing/">X/Qt-2 テスト用 feed</ulink>
+	      などもあります。
 	    </para>
 	  </note>
 
-	  ���꤬��λ�����顢OK �򲡤���������̤�ȴ���Ƥ���������
+	  設定が終了したら、OK を押して設定画面を抜けてください。
 	</para>
       </sect3>
 
       <sect3>
-	<title>���åץǡ��Ȥ�Ԥ�</title>
+	<title>アップデートを行う</title>
 	<para>
-	  ���եȥ������ޥ͡�����κ����ˤ���֥��åץǡ��ȡץܥ���򲡤������եȥ�����������
-	  ����������ɤ��Ƥ�������������������������ɹԤ���ȡ����̤˥��եȥ�����������ɽ��
-	  ����ޤ���
+	  ソフトウェアマネージャの左下にある「アップデート」ボタンを押し、ソフトウェア一覧を
+	  ダウンロードしてください。正しくダウンロード行われると、画面にソフトウェア一覧が表示
+	  されます。
 	</para>
       </sect3>
 
       <sect3>
-	<title>�ѥå������Υ��󥹥ȡ����Ԥ�</title>
+	<title>パッケージのインストールを行う</title>
 	<para>
-	  ���󥹥ȡ��뤹��ѥå������Υ���������֤�Ȣ���Υ�������ˤ򥯥�å����ơ�
-	  Ȣ�����������֤Υ�������ˤ��Ƥ���������
-	 ��OK�פ򲡤��ȡ��ѥå������Υ��󥹥ȡ������ʹ����ޤ��Τǡ����Υ��꤫ SD �����ɤ�
-	  ���󥹥ȡ��뤹�뤫����ꤷ�ޤ������θ塢�ѥå������Υ���������ɤȥ��󥹥ȡ��뤬
-	  ��ưŪ�˹Ԥ��ޤ���
+	  インストールするパッケージのアイコン（赤い箱状のアイコン）をクリックして、
+	  箱が開いた状態のアイコンにしてください。
+	 「OK」を押すと、パッケージのインストール先を聞かれますので、本体メモリか SD カードに
+	  インストールするかを決定します。その後、パッケージのダウンロードとインストールが
+	  自動的に行われます。
 	</para>
 	<para>
-	  ���󥹥ȡ��뤹��٤��ѥå������䡢���Υ���/SD�����ɤΤɤ���˥��󥹥ȡ��뤹��٤����ϡ�
-	  <link linkend="packages">���󥹥ȡ��뤹��ѥå�����������</link>�򻲾Ȥ��Ƥ���������
+	  インストールするべきパッケージや、本体メモリ/SDカードのどちらにインストールするべきかは、
+	  <link linkend="packages">インストールするパッケージの選択</link>を参照してください。
 	</para>
       </sect3>
     </sect2>
 
     <sect2>
-      <title>�ޥ˥奢�륤�󥹥ȡ���</title>
+      <title>マニュアルインストール</title>
       <para>
-	�ޥ˥奢�륤�󥹥ȡ����Ԥ����ϡ��ʲ��Τ褦�ˤ��ޤ���
+	マニュアルインストールを行う場合は、以下のようにします。
       </para>
       <orderedlist>
 	<listitem>
 	  <para>
-	    �ޤ���PC ��Ȥäƥѥå����������������ɤ��ޤ���
-	    ����������ɤˤϡ�X/Qt feed
+	    まず、PC を使ってパッケージをダウンロードします。
+	    ダウンロードには、X/Qt feed
 	    (<ulink url="http://xqt.sourceforge.jp/feed/">http://xqt.sourceforge.jp/feed/</ulink>)
-	    ��Ȥ����Ȥ�侩���ޤ���
-	    �⤷���ϡ�<ulink url="http://www.sourceforge.jp/projects/xqt">X/Qt �ץ��������ȥڡ���</ulink>
-	    �������������ɤ��뤳�Ȥ�Ǥ��ޤ��������������ξ��� X/Qt �ץ��������Ȥ��ӥ�ɤ���
-	    �ѥå�������������������ɤǤ��ޤ��󡣤���ʳ��Υѥå������ϡ���ˡ�
-	    <ulink url="http://sourceforge.jp/projects/zaurus-ja/">zaurus-ja �ץ���������</ulink>
-	    �ˤ���ޤ���
+	    を使うことを推奨します。
+	    もしくは、<ulink url="http://www.sourceforge.jp/projects/xqt">X/Qt プロジェクトページ</ulink>
+	    からダウンロードすることもできます。ただし、この場合は X/Qt プロジェクトがビルドした
+	    パッケージしかダウンロードできません。これ以外のパッケージは、主に、
+	    <ulink url="http://sourceforge.jp/projects/zaurus-ja/">zaurus-ja プロジェクト</ulink>
+	    にあります。
 	  </para>
 	</listitem>
 
 	<listitem>
 	  <para>
-	    ����������ɤ����ѥå������ե����� (*.ipk �ե�����)�򡢥����륹�ɥ饤������Ȥä�
-	    Zaurus ��ž�����ޤ���Documents/Install_Files �ե����������Ƥ���������
+	    ダウンロードしたパッケージファイル (*.ipk ファイル)を、ザウルスドライブ等を使って
+	    Zaurus に転送します。Documents/Install_Files フォルダに入れてください。
 	  </para>
 	</listitem>
 
 	<listitem>
 	  <para>
-	    ������פ���֥��եȥ��������ɲäȺ���פ�ư�����֥��եȥ������򥤥󥹥ȡ���פ򥿥åפ��ޤ���
+	    「設定」から「ソフトウェアの追加と削除」を起動し、「ソフトウェアをインストール」をタップします。
 	  </para>
 	</listitem>
 
 	<listitem>
 	  <para>
-	    ���եȥ�����������ɽ������ޤ��Τǡ����󥹥ȡ��뤹��ѥå����������򤷤ƥ��󥹥ȡ����ԤäƤ���������
+	    ソフトウェア一覧が表示されますので、インストールするパッケージを選択してインストールを行ってください。
 	  </para>
 	</listitem>
       </orderedlist>
 
       <para>
-	���󥹥ȡ��뤹��٤��ѥå������䡢���Υ���/SD�����ɤΤɤ���˥��󥹥ȡ��뤹��٤����ϡ�
-	<link linkend="packages">���󥹥ȡ��뤹��ѥå�����������</link>�򻲾Ȥ��Ƥ���������
+	インストールするべきパッケージや、本体メモリ/SDカードのどちらにインストールするべきかは、
+	<link linkend="packages">インストールするパッケージの選択</link>を参照してください。
       </para>
     </sect2>
   </sect1>

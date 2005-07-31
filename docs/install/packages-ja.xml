@@ -1,54 +1,54 @@
-<?xml version="1.0" encoding="EUC-JP"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
   <sect1 id="packages">
-    <title>���󥹥ȡ��뤹��ѥå�����������</title>
+    <title>インストールするパッケージの選択</title>
     <para>
-      ������Ǥϡ����󥹥ȡ��뤹��ѥå������ˤĤ����������ޤ���
+      この節では、インストールするパッケージについて説明します。
     </para>
   
     <sect2>
-      <title>���ܴĶ�</title>
+      <title>基本環境</title>
       <para>
-	X/Qt �����з���ɬ�ܤǤ���'���Υ���Τ�' �ȵ��Ҥ��줿��ΰʳ���
-	SD �����ɤˤ⥤�󥹥ȡ���Ǥ��ޤ������Ǥ���д��ܴĶ������Υ����
-	����Ƥ���������
+	X/Qt サーバ群は必須です。'本体メモリのみ' と記述されたもの以外は
+	SD カードにもインストールできますが、できれば基本環境は本体メモリに
+	入れてください。
 
 	<itemizedlist>
 	  <listitem><para>xqt-server</para></listitem>
 	</itemizedlist>
 
-	���ˡ����ܥ饤�֥��/���饤����Ȥ�ɬ�פǤ���
+	次に、基本ライブラリ/クライアントが必要です。
 
 	<itemizedlist>
-	  <listitem><para>xbase-etc (���Υ���Τ�)</para></listitem>
-	  <listitem><para>xlibs (���Υ���Τ�)</para></listitem>
-	  <listitem><para>xqt-startup-scripts(���Υ���Τ�)</para></listitem>
+	  <listitem><para>xbase-etc (本体メモリのみ)</para></listitem>
+	  <listitem><para>xlibs (本体メモリのみ)</para></listitem>
+	  <listitem><para>xqt-startup-scripts(本体メモリのみ)</para></listitem>
 	  <listitem><para>xbase-clients</para></listitem>
 	</itemizedlist>
       </para>
     </sect2>
 
     <sect2>
-      <title>�ե����</title>
+      <title>フォント</title>
       <para>
-	�ե���Ȥ����򤷤ƥ��󥹥ȡ��뤷�ޤ���
+	フォントを選択してインストールします。
 	<itemizedlist>
-	  <listitem><para>xqt-fonts-75dpi-iso8859-1 : ��ʸ�ե����</para></listitem>
-	  <listitem><para>xqt-fonts-misc : XFree86 �� misc �ե���ȡ�k14�����äƤ��롣</para></listitem>
-	  <listitem><para>xqt-fonts-misc-big : �嵭�˲ä� naga10/shinonome12 ���ɲä�����Ρ�</para></listitem>
+	  <listitem><para>xqt-fonts-75dpi-iso8859-1 : 欧文フォント</para></listitem>
+	  <listitem><para>xqt-fonts-misc : XFree86 の misc フォント。k14が入っている。</para></listitem>
+	  <listitem><para>xqt-fonts-misc-big : 上記に加え naga10/shinonome12 を追加したもの。</para></listitem>
 	</itemizedlist>
 
-	xqt-fonts-75dpi-iso8859-1 ��ɬ�ܤǤ���xqt-fonts-misc... �Ϥɤ��餫����������Ƥ���������
+	xqt-fonts-75dpi-iso8859-1 は必須です。xqt-fonts-misc... はどちらか片方を入れてください。
       </para>
 	
 	
     </sect2>
 
     <sect2>
-      <title>���ܸ�Ķ�</title>
+      <title>日本語環境</title>
       <para>
-	���ܸ�ν���/ɽ���Τ���ˡ��ʲ��δĶ��Ǥ������¾塢���٤�ɬ�ܤȸ����ޤ���
-	�ʲ��Τ�ΤϤ��٤����Υ���ˤ������󥹥ȡ���Ǥ��ޤ���
+	日本語の処理/表示のために、以下の環境です。事実上、すべて必須と言えます。
+	以下のものはすべて本体メモリにしかインストールできません。
 
 	<itemizedlist>
 	  <listitem><para>glibc-locale-eucjp</para></listitem>
@@ -62,8 +62,8 @@
       </para>
 
       <para>
-	���ܸ�������Ѥˡ�����ץåȥ᥽�åɤ�ɬ�פˤʤ�ޤ���X/Qt �Ǥϡ�UIM/Anthy ��
-	�侩���Ƥ��ޤ���
+	日本語の入力用に、インプットメソッドが必要になります。X/Qt では、UIM/Anthy を
+	推奨しています。
 
 	<itemizedlist>
 	  <listitem><para>uim-xim</para></listitem>
@@ -72,8 +72,8 @@
 
 	<note>
 	  <para>
-	    UIM/Anthy ����Ѥ����硢<filename>/home/zaurus/.xinitrc</filename>
-	    �˰ʲ��ιԤ��ɵ�����ɬ�פ�����ޤ���
+	    UIM/Anthy を使用する場合、<filename>/home/zaurus/.xinitrc</filename>
+	    に以下の行を追記する必要があります。
 
 	    <programlisting>
 export XMODIFIERS=@im=uim-anthy
@@ -87,7 +87,7 @@ exec uim-xim &amp;
     <sect2>
       <title>GTK+</title>
       <para>
-	GTK+ �饤�֥��ϡ�Sylpheed �� dillo �ʤɤ�ư���ɬ�ܤȤʤ�ޤ���
+	GTK+ ライブラリは、Sylpheed や dillo などの動作に必須となります。
 
 	<itemizedlist>
 	  <listitem><para>glib-additional</para></listitem>
@@ -98,9 +98,9 @@ exec uim-xim &amp;
     </sect2>
 
     <sect2>
-      <title>����¾�Υѥå�����</title>
+      <title>その他のパッケージ</title>
       <para>
-	�ʲ��Υѥå��������������٤��⤤�Τǡ����󥹥ȡ��뤹�뤳�Ȥ�侩���ޤ���
+	以下のパッケージは利用頻度が高いので、インストールすることを推奨します。
 
 	<itemizedlist>
 	  <listitem><para>zlib</para></listitem>
@@ -111,18 +111,18 @@ exec uim-xim &amp;
     </sect2>
 
     <sect2>
-      <title>���ץꥱ�������</title>
+      <title>アプリケーション</title>
       <para>
-	���Ѥ��������ץꥱ�������򥤥󥹥ȡ��뤷�ޤ���
+	利用したいアプリケーションをインストールします。
 
 	<itemizedlist>
-	  <listitem><para>rxvt : �����ߥʥ롣�����ɬ�ܤǤ���</para></listitem>
-	  <listitem><para>blackbox : ������ɥ��ޥ͡����㡣�����ɬ�ܡ�(���Υ���Τ�)</para></listitem>
-	  <listitem><para>Sylpheed : GUI �᡼��</para></listitem>
-	  <listitem><para>Dillo : Web �֥饦��</para></listitem>
-	  <listitem><para>Emacs : ���ǥ���</para></listitem>
-	  <listitem><para>Wanderlust : Emacs ��ư���᡼��</para></listitem>
-	  <listitem><para>navi2ch : Emacs ��ư��� 2ch �꡼��</para></listitem>
+	  <listitem><para>rxvt : ターミナル。これは必須です。</para></listitem>
+	  <listitem><para>blackbox : ウィンドウマネージャ。これも必須。(本体メモリのみ)</para></listitem>
+	  <listitem><para>Sylpheed : GUI メーラ</para></listitem>
+	  <listitem><para>Dillo : Web ブラウザ</para></listitem>
+	  <listitem><para>Emacs : エディタ</para></listitem>
+	  <listitem><para>Wanderlust : Emacs で動作するメーラ</para></listitem>
+	  <listitem><para>navi2ch : Emacs で動作する 2ch リーダ</para></listitem>
 	</itemizedlist>
       </para>
     </sect2>
