@@ -16,9 +16,14 @@
       </affiliation>
     </author>
     
-    <pubdate>23 October 2004</pubdate>
+    <pubdate>31 July 2005</pubdate>
     
     <revhistory>
+      <revision>
+	<revnumber>1.1</revnumber>
+	<date>2005-7-31</date>
+	<revremark>Modified for XPKG system</revremark>
+      </revision>
       <revision>
 	<revnumber>1.0</revnumber>
 	<date>2004-10-23</date>
@@ -44,7 +49,7 @@ X/Qt のソースの取得とビルド手順、そして新たなパッケージ
     <title>必要環境</title>
     <para>Linux をインストールした PC が必要です。ディストリビューションは基本的には何でもよいはずですが、
 Fedora だとたぶん glibc-locale がうまくビルドできないと思います。</para>
-    <para>ちなみに筆者が使用しているのは <ulink url="http://www.whiteboxlinux.org/">White Box Enterprise Linux 3.0</ulink> です。</para>
+    <para>ちなみに筆者が使用しているのは <ulink url="http://www.centos.org/">Cent OS 4</ulink> です。</para>
     <para>また、開発系のツール/ライブラリを入れておく必要があります。
 make や gcc は当然として、autoconf / automake / libtool などが必要です。
 あとビルドスクリプトが ruby で記述されている関係で、ruby も必要です。
@@ -163,6 +168,13 @@ make や gcc は当然として、autoconf / automake / libtool などが必要�
     </sect2>
 
     <sect2>
+      <title>xpkg のインストール</title>
+      <para>X/Qt 用のクロスビルドツールである xpkg をインストールしてください。
+	インストール手順は、src/xpkg/INSTALL に記載してあります。
+      </para>
+    </sect2>
+
+    <sect2>
       <title>wget の設定</title>
       <para>X/Qt-2 のビルドスクリプトは、ビルド中にソースを wget を使ってダウンロードするようになっています。
 Proxy を使う場合は、wgetrc ファイルに設定を行っておくか、http_proxy や ftp_proxy 環境変数を設定しておいてください。
@@ -174,13 +186,13 @@ Proxy を使う場合は、wgetrc ファイルに設定を行っておくか、h
       <para>X/Qt-2 のフルビルドを行います。フルビルドを行うことにより、ipkg の生成と、開発ライブラリ/ヘッダのインストールが行われます。</para>
       <programlisting>
  $ cd xqt2
- $ ./build DevWorld
+ $ xpkg-batch DevelWorld
 </programlisting>
       
-      <para>ビルドされたパッケージは <filename class="directory">ipkg</filename> ディレクトリに入ります。
-また、開発用ライブラリパッケージが <filename class="directory">devpkg</filename>に生成され、<filename class="directory">/opt/Embedix/tools/arm-linux</filename> 以下にインストールされます。
+      <para>ビルドされたパッケージは <filename class="directory">XPKG/packages</filename> ディレクトリに入ります。
+また、開発用ライブラリパッケージが <filename class="directory">XPKG/develpkgs</filename>に生成され、<filename class="directory">/opt/Embedix/tools/arm-linux</filename> 以下にインストールされます。
 </para>
-      <para>フルビルドを行うと、<filename>dirlist</filename>ファイルに指定した順番でパッケージのビルドが行われます。各パッケージのビルドにおいては、以下の処理が順番に実行されるようになっています。</para>
+      <para>フルビルドを行うと、<filename>dirlist</filename>ファイルに指定したディレクトリがビルドされます。ビルド順序は、各パッケージの依存関係(Depends:)に従って決定されます。各パッケージのビルドにおいては、以下の処理が順番に実行されるようになっています。</para>
       <orderedlist>
 	<listitem><para>ソースファイルのダウンロード</para></listitem>
 	<listitem><para>ソースファイルの展開</para></listitem>
@@ -196,17 +208,17 @@ Proxy を使う場合は、wgetrc ファイルに設定を行っておくか、h
     <sect2>
       <title id="build-each">個別ビルド</title>
       <para>フルビルドを行った場合、<filename>dirlist</filename> に指定した順序ですべてのパッケージがビルドされますが、パッケージを個別にビルドすることも可能です。</para>
-      <para>個別ビルドを行う場合は、各パッケージのディレクトリに <command>chdir</command>して、make を実行します。make のターゲットには以下のものが指定できます。</para>
+      <para>個別ビルドを行う場合は、各パッケージのディレクトリに <command>chdir</command>して、xpkg を実行します。xpkg のターゲットには以下のものが指定できます。</para>
 
       <itemizedlist>
 	<listitem><para>source : ソースの取得と展開</para></listitem>
 	<listitem><para>build : ビルド(configure / make)</para></listitem>
 	<listitem><para>install : 仮想インストール</para></listitem>
-	<listitem><para>ipkg : ipkg の生成</para></listitem>
-	<listitem><para>devpkg : 開発パッケージの生成</para></listitem>
-	<listitem><para>install-devpkg : 開発パッケージのインストール</para></listitem>
+	<listitem><para>pkg : ipkg の生成</para></listitem>
+	<listitem><para>develpkg : 開発パッケージの生成</para></listitem>
+	<listitem><para>install-develpkg : 開発パッケージのインストール</para></listitem>
 	<listitem><para>World : source/build/install/ipkg までを実行</para></listitem>
-	<listitem><para>DevWorld : World に加え、devpkg/install-devpkg まで実行</para></listitem>
+	<listitem><para>DevWorld : World に加え、develpkg/install-develpkg まで実行</para></listitem>
 	<listitem><para>cleanup : ビルドディレクトリ/仮想インストールディレクトリを削除する</para></listitem>
       </itemizedlist>
     </sect2>
@@ -238,16 +250,20 @@ Proxy を使う場合は、wgetrc ファイルに設定を行っておくか、h
       <programlisting>
 #
 # Glib 1.2
-#
+# 
+
+%define ver     1.2.10
+%define rel     2
 
 %site
 ftp://ftp.gtk.org/pub/gtk/v1.2
 
 %source
-glib-1.2.10.tar.gz
-local:glib-1.2.10-cross.patch;patch=1
+glib-%{ver}.tar.gz
+local:glib-%{ver}-cross.patch;patch=1
 
-%define builddir        glib-1.2.10
+%define builddir	glib-%{ver}
+%define develpkg yes
 
 %prep
 rm acinclude.m4
@@ -262,8 +278,6 @@ make
 
 %install
 make %{install_opts} install
-
-%define devpkg  glib
 
 %files
 %{prefix}/lib/libgmodule*
@@ -282,8 +296,8 @@ Priority: optional
 Section: libs
 Maintainer: Takuya Murakami &lt;tmurakam@mtd.biglobe.ne.jp&gt;
 Architecture: arm
-Version: 1.2.10-2
-Depends:
+Version: %{ver}-%{rel}
+Depends: glibc
 License: LGPL
 Description: glib additional libraries
   libgmodule.so and libgthread.so
@@ -300,7 +314,7 @@ Description: glib additional libraries
 	<listitem><para>%prep には、ソース展開後に行う処理を記述します。</para></listitem>
 	<listitem><para>%build には、ビルドスクリプトを記述します。</para></listitem>
 	<listitem><para>%install には、仮想インストール処理スクリプトを記述します。</para></listitem>
-	<listitem><para>%define devpkg には、開発パッケージ名（のプレフィクス）を指定します。</para></listitem>
+	<listitem><para>%define develpkg yes と記述すると、開発パッケージが生成されます。</para></listitem>
 	<listitem><para>%files には、ipkg に含めるファイル一覧を列挙します。</para></listitem>
 	<listitem><para>%excludes には、ipkg に含めないファイルパターンを列挙します。</para></listitem>
 	<listitem><para>%strip には、ipkg 生成前に strip を行うファイルパターンを列挙します。</para></listitem>
@@ -316,19 +330,9 @@ Description: glib additional libraries
     </sect2>
 
     <sect2>
-      <title>Makefile の作成</title>
-      <para>Makefile を作成します。Glib の Makefile の例を示します。</para>
-      <programlisting>
-TOPDIR = ../..
-include $(TOPDIR)/script/common.mk
-</programlisting>
-      <para>TOPDIR を指定して、common.mk を include するだけなので、非常に単純です。</para>
-    </sect2>
-
-    <sect2>
       <title>ビルドを行う</title>
       <para>ビルド手順は、<link linkend="build-each" endterm="build-each"/>と同じです。</para>
-      <programlisting><command> $ make DevWorld</command></programlisting>
+      <programlisting><command> $ xpkg DevelWorld</command></programlisting>
       <para>フルビルド時に全自動でビルドされるようにするには、dirlist ファイルにディレクトリを追加しておきます。</para>
     </sect2>
 
