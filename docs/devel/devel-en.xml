@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+  "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+
+<article lang="en">
+  <articleinfo>
+    <title>X/Qt-2 Developers HOWTO</title>
+    <author>
+      <surname>Murakami</surname>
+      <firstname>Takuya</firstname>
+      <affiliation>
+	<address>
+	  <email>tmurakam at users.sourceforge.jp</email>
+	</address>
+      </affiliation>
+    </author>
+    
+    <pubdate>31 July 2005</pubdate>
+    
+    <revhistory>
+      <revision>
+	<revnumber>1.1</revnumber>
+	<date>2005-7-31</date>
+	<revremark>Modified for XPKG system</revremark>
+      </revision>
+      <revision>
+	<revnumber>1.0</revnumber>
+	<date>2004-10-23</date>
+	<revremark>Initial release</revremark>
+      </revision>
+    </revhistory>
+
+    <abstract>
+      <para>
+This document is tutorial for X/Qt-2 developers.
+</para>
+    </abstract>
+  </articleinfo>
+
+  <sect1 id="intro">
+    <title>Introduction</title>
+    <para>This document is tutorial for X/Qt-2 developers. This describes
+how to setup cross compilation environments, get sources of X/Qt-2, build it,
+and add your custom packages.</para>
+  </sect1>
+
+  <sect1 id="presetup">
+    <title>Requrements</title>
+    <para>You need any PC with Linux installed to cross compilation. 
+Any distribution might work. (But I can't assure).</para>
+    <para>At this moment, author uses <ulink url="http://www.centos.org/">Cent OS 4</ulink>.</para>
+    <para>And development tools and libraries with your distribution must be installed.
+You need make, gcc, autoconf, automake, libtool etc.
+Also, you may need X, GTK+ development libraries, and Ruby.
+</para>
+    <para>Also you need much disk space (over a few gigabytes.)</para>
+  </sect1>
+
+  <sect1 id="setup">
+    <title>How to setup cross development environments</title>
+
+    <sect2>
+      <title>Install cross development tools</title>
+
+      <para>You need almost same environments as SHARP Zaurus one.
+Download cross compilers and libraries, headers from SHARP Zaurus page.
+(<ulink url="http://developer.ezaurus.com">http://developer.ezaurus.com/</ulink>)</para>
+
+      <para>You need following four files. The web pages are written in Japanese,
+so I describe direct URL.</para>
+      <itemizedlist>
+	  <listitem><para><ulink url="http://developer.ezaurus.com/sl_j/tool/tools/gcc-cross-sa1100-2.95.2-0.i386.rpm">Cross compiler (gcc)</ulink></para></listitem>
+	  <listitem><para><ulink url="http://developer.ezaurus.com/sl_j/tool/tools/glibc-arm-2.2.2-0.i386.rpm">Libraries (glibc)</ulink></para></listitem>
+	  <listitem><para><ulink url="http://developer.ezaurus.com/sl_j/tool/tools/linux-headers-arm-sa1100-2.4.6-3.i386.rpm">Header files</ulink></para></listitem>
+	  <listitem><para><ulink url="http://developer.ezaurus.com/sl_j/tool/tools/binutils-cross-arm-2.11.2-0.i386.rpm">binutils</ulink></para></listitem>
+	</itemizedlist>
+      <para>tmake is not needed for X/Qt-2.</para>
+      <para>You must install all RPM files as <command>rpm -Uvh <replaceable>filenames</replaceable></command>.</para>
+    </sect2>
+
+    <sect2>
+      <title>Install Qtopia SDK</title>
+      <para>Qtopia SDK is needed for X/Qt server compilation.
+Qtopia 1.5.0 is installed in Zaurus, so you need the SDK as same version.
+</para>
+
+      <note>
+	<para>You can't download free version of the SDK ver 1.5.0, so download from
+following URL:</para>
+	<para><ulink url="http://xqt.sourceforge.jp/bin/">http://xqt.sourceforge.jp/bin/</ulink></para>
+      </note>
+    </sect2>
+
+    <sect2>
+      <title>Make symbolic links</title>
+      <para>Create symbolic links as follows:</para>
+      <programlisting>
+<command># ln -s /opt/Embedix/tools/arm-linux /opt/QtPalmtop</command>
+</programlisting>
+
+      <para>ついでに、以下のシンボリックリンクも張っておきます。これは Emacs をビルドするときに必要です。</para>
+      <programlisting>
+<command># ln -s /opt/Embedix/tools/arm-linux /opt/QtPalmtop</command>
+<command># ln -s arm-linux /opt/Embedix/tools/armlinux</command>
+</programlisting>
+    </sect2>
+
+    <sect2>
+      <title>Change permission of target directory</title>
+      <para>Change owner of the directory to enable you install libraries and headers.</para>
+
+      <programlisting>
+<command># chown -R <replaceable>username</replaceable> /opt/Embedix/tools/arm-linux</command>
+</programlisting>
+    </sect2>
+  </sect1>
+
+  <sect1 id="buildxqt">
+    <title>Building X/Qt-2</title>
+
+    <sect2>
+      <title>Why you need to build X/Qt-2 from source?</title>
+      <para>There are two purpose to build X/Qt-2 from source. First is create ipkg files.</para>
+      <para>Second is installing development libraries and headers to build development environments. Following libraries are built:</para>
+
+      <itemizedlist>
+	<listitem><para>XFree86</para></listitem>
+	<listitem><para>glibc</para></listitem>
+	<listitem><para>ncurses</para></listitem>
+	<listitem><para>zlib</para></listitem>
+	<listitem><para>libjpeg</para></listitem>
+	<listitem><para>libpng</para></listitem>
+	<listitem><para>libungif</para></listitem>
+	<listitem><para>libtiff</para></listitem>
+	<listitem><para>freetype</para></listitem>
+	<listitem><para>expat</para></listitem>
+	<listitem><para>fontconfig</para></listitem>
+	<listitem><para>GLib</para></listitem>
+	<listitem><para>GTK+</para></listitem>
+	<listitem><para>OpenSSL</para></listitem>
+      </itemizedlist>
+
+      <note>
+	<para>GTK+-2 related packages (Glib-2, ATK, Pango, GTK+-2) are under construction.</para>
+      </note>
+    </sect2>
+
+    <sect2>
+      <title>Get X/Qt-2 sources</title>
+      <para>Get X/Qt-2 sources with CVS command:</para>
+      <programlisting>
+ $ export CVSROOT=:pserver:anonymous@cvs.sourceforge.jp:/cvsroot/xqt
+ $ cvs login
+   [enter empty password]
+ $ cvs checkout xqt2
+</programlisting>
+    </sect2>
+
+    <sect2>
+      <title>Install xpkg</title>
+      <para>
+	Install xpkg which is cross build tool for X/Qt.
+	Change directory to xpkg directory, see INSTALL file to install it.
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>Configure wget</title>
+      <para>xpkg downloads some package files from Internet with wget command.
+	If you need HTTP Proxy, you must configure wgetrc file or set http_proxy/ftp_proxy environment variables.
+</para>
+    </sect2>
+
+    <sect2>
+      <title>Execute full build</title>
+      <para>Execute full build of X/Qt-2.</para>
+      <programlisting>
+ $ cd xqt2
+ $ xpkg-batch DevelWorld
+</programlisting>
+      
+      <para>All build packages are located in XPKG directory. Also, development libraries
+and headers are installed in /opt/Embedix/tools/arm-linux.</para>
+    </sect2>
+  </sect1>
+
+  <sect1 id="addpkg">
+    <title>How to add custom packages</title>
+    <para>この節では、独自パッケージを追加する手順について説明します。</para>
+    <sect2>
+      <title>パッケージディレクトリを作成する</title>
+      <para>まず最初に、パッケージディレクトリを作成します。</para>
+      <para>X/Qt-2 では、パッケージ毎にディレクトリを作成しています。パッケージの種別毎に、以下のようなディレクトリがありますので、適宜これらの下にディレクトリを作成してください。</para>
+      <itemizedlist>
+	<listitem><para>apps: アプリケーション</para></listitem>
+	<listitem><para>net: ネットワーキング</para></listitem>
+	<listitem><para>fonts: フォント</para></listitem>
+	<listitem><para>wm: ウィンドウマネージャ</para></listitem>
+	<listitem><para>im: インプットメソッド</para></listitem>
+	<listitem><para>libs: ライブラリ</para></listitem>
+	<listitem><para>sys: システム</para></listitem>
+      </itemizedlist>
+    </sect2>
+
+    <sect2>
+      <title>pkgdef ファイルの作成</title>
+      <para>pkgdef ファイルを作成します。</para>
+      <para>pkgdef ファイルは、RPM の spec ファイルのようなもので、パッケージの取得方法や、ビルド手順、ipkg の生成手順などが記載されています。</para>
+      <para>以下は、Glib の pkgdef ファイルです。</para>
+      <programlisting>
+#
+# Glib 1.2
+# 
+
+%define ver     1.2.10
+%define rel     2
+
+%site
+ftp://ftp.gtk.org/pub/gtk/v1.2
+
+%source
+glib-%{ver}.tar.gz
+local:glib-%{ver}-cross.patch;patch=1
+
+%define builddir	glib-%{ver}
+%define develpkg yes
+
+%prep
+rm acinclude.m4
+aclocal
+libtoolize --force
+automake --copy --add-missing
+autoconf
+
+%build
+./configure %{config_opts} --enable-shared --disable-static
+make
+
+%install
+make %{install_opts} install
+
+%files
+%{prefix}/lib/libgmodule*
+%{prefix}/lib/libgthread*
+
+%excludes
+*.la
+*.a
+
+%strip
+*.so*
+
+%control
+Package: glib-additional
+Priority: optional
+Section: libs
+Maintainer: Takuya Murakami &lt;tmurakam@mtd.biglobe.ne.jp&gt;
+Architecture: arm
+Version: %{ver}-%{rel}
+Depends: glibc
+License: LGPL
+Description: glib additional libraries
+  libgmodule.so and libgthread.so
+</programlisting>
+      <para>このファイルには、以下の内容が記述されています。</para>
+      <itemizedlist>
+	<listitem><para>%site には、ソースパッケージをダウンロードするサイトの URL を記載します</para></listitem>
+	<listitem><para>%source には、ソースパッケージのファイル名を記載します。
+通常は、%site で指定したサイトからファイルがダウンロードされます。</para>
+
+<para>先頭が local: で始まっている場合は、ローカルファイルを使用します。また、末尾が ;patch=n と記述されている場合は、このファイルをパッチファイルと見なして自動的にパッチを適用します。n の値は patch コマンドの -p オプションに渡される値です。
+</para></listitem>
+	<listitem><para>%define builddir には、ビルドを行うディレクトリを指定します。</para></listitem>
+	<listitem><para>%prep には、ソース展開後に行う処理を記述します。</para></listitem>
+	<listitem><para>%build には、ビルドスクリプトを記述します。</para></listitem>
+	<listitem><para>%install には、仮想インストール処理スクリプトを記述します。</para></listitem>
+	<listitem><para>%define develpkg yes と記述すると、開発パッケージが生成されます。</para></listitem>
+	<listitem><para>%files には、ipkg に含めるファイル一覧を列挙します。</para></listitem>
+	<listitem><para>%excludes には、ipkg に含めないファイルパターンを列挙します。</para></listitem>
+	<listitem><para>%strip には、ipkg 生成前に strip を行うファイルパターンを列挙します。</para></listitem>
+	<listitem><para>%control には、ipkg の control ファイルを記述します。</para></listitem>
+      </itemizedlist>
+
+      <para>ファイル中に %{...} という記述がありますが、これは %define で定義されたシンボルを置換する役割があります。たとえば、<command>%define foo bar</command> と定義しておくと、以後 %{foo} は bar に置換されます。
+</para>
+      <para>%{config_opts} や %{install_opts} は定義済みのシンボルで、これらは <filename>script/config.def</filename>で設定されています。</para>
+
+      <para>上記サンプルには入っていませんが、%preinst, %postinst, %postrm, %conffiles を使うと %control と同様に ipkg の制御ファイルを設定できます。ipkg の詳細は、<ulink url="http://zaurus-ja.sourceforge.jp/ipkg.html">ipkg を作るには</ulink>が参考になります。</para>
+
+    </sect2>
+
+    <sect2>
+      <title>ビルドを行う</title>
+      <para>See xpkg manual.</para>
+      <programlisting><command> $ xpkg DevelWorld</command></programlisting>
+      <para>フルビルド時に全自動でビルドされるようにするには、dirlist ファイルにディレクトリを追加しておきます。</para>
+    </sect2>
+
+    <sect2>
+      <title>X/Qt-2 本家にフィードバックするには</title>
+      <para>作成したパッケージを X/Qt-2 本家に入れたい場合は、pkgdef ファイルを管理者まで e-mail で送ってください。管理者側で動作を確認し、パッケージを取り込みます。</para>
+    </sect2>
+  </sect1>
+
+  <appendix>
+    <title>Copyrights</title>
+    <para>Copyright (c) 2004 Takuya Murakami</para>
+    <para>
+      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.1
+      or any later version published by the Free Software Foundation;
+      with no Invariant Sections, with no Front-Cover Texts, and with no Back-Cover Texts.
+     A copy of the license is available at
+     <ulink url="http://www.gnu.org/copyleft/fdl.html">
+     http://www.gnu.org/copyleft/fdl.html</ulink>.
+</para>
+  </appendix>
+</article>
+

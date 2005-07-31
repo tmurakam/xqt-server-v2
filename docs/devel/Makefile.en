@@ -1,0 +1,2 @@
+DOCNAME		= devel-en
+include ../common/Makefile.common
