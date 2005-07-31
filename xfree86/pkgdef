@@ -82,7 +82,7 @@ Section: Qtopia
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
 Version: %{xqtver}
-Depends: xlibs,xbase-clients,freetype
+Depends: xlibs,xbase-clients,freetype,fontconfig
 Description: X/Qt Server 
  XFree86 server port over Qtopia.
 License: GPL
