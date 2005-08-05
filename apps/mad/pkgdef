@@ -23,8 +23,8 @@ make prefix=%{destdir}%{prefix} install
 %{prefix}/share
 
 %strip
-!%{prefix}/bin/*
-*.so*
+%{prefix}/bin/*
+%{prefix}/bin/*.so*
 
 %control
 Package: mad
