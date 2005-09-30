@@ -73,7 +73,7 @@ class XpkgBatch
 	# execute build
 	dirlist.each do |dir|
 	    puts "----------- START : #{cmd} in #{dir} -------------"
-	    cmdline = "(cd #{dir} && xpkg #{cmd})"
+	    cmdline = "(cd #{dir} && xpkg --target=#{@target} #{cmd})"
 	    puts cmdline
 	    if (!system(cmdline))
 		puts "Abort."
