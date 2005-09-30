@@ -1,3 +1,6 @@
+* 2005/9/30 ver 1.0.5 :  Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+	- bug fix: xpkg-batch does not handle -t option.
+	
 * 2005/7/30 ver 1.0.4 :  Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 	- bug fixed
 	
