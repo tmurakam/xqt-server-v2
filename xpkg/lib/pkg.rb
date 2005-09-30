@@ -116,6 +116,8 @@ class Pkg
 	builddir, opt = getBuildDir()
 	if (builddir != nil && builddir != "." && FileTest.exist?(builddir) && opt != "noclean")
 	    ExecCmd("/bin/rm -rf #{builddir}")
+	elsif (FileTest.exist?("Makefile"))
+	    ExecCmd("make clean")
 	end
 
 	if (FileTest.exist?(@destdir))
