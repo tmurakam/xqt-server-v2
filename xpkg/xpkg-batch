@@ -24,6 +24,8 @@
 
 $debug = false
 
+$flushcache = false
+
 $LOAD_PATH.push(File.expand_path(File.dirname($0)))
 require "xpkg-common"
 
@@ -57,6 +59,9 @@ class XpkgBatch
 
 	# resolve dependency
 	dep = PkgDepends.new
+	if ($flushcache) 
+	    dep.clear_deflist_cache
+	end
 	dep.resolve(@target)
 
 	dep.filter_dir(dirlist, false)
@@ -137,6 +142,7 @@ class XpkgBatch
 	opt.on("-v", "--verbose", "Verbose") {$verbose = true}
 	opt.on("-s", "--skip=modules", String, "specify modules to skip") {|skip|}
 	opt.on("-o", "--only=modules", String, "specify modules to build only them") {|only|}
+	opt.on("-f", "--flush", "Flush cache file") {$flushcache = true}
 
 	opt.on_tail("")
 	opt.on_tail("  command:")

@@ -1,4 +1,7 @@
-* 2005/9/30 ver 1.0.5 :  Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+* 2005/10/5 ver 1.0.5 :  Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+	- xpkg-batch: use cache file
+	
+* 2005/9/30 :  Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 	- bug fix: xpkg-batch does not handle -t option.
 	
 * 2005/7/30 ver 1.0.4 :  Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>

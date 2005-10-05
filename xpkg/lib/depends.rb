@@ -22,6 +22,8 @@
 # xpkg dependency resolve library
 # 
 
+DeffilesCache = ".xpkg-batch.cache"
+
 class PkgDep < Pkg
 
     attr_reader :deffile, :dir, :names, :depends, :level
@@ -114,18 +116,26 @@ class PkgDepends
     
     # load definition files
     def loaddeffiles
-	deflist = `find . -name "pkgdef" -print`.split
+	deflist = loaddeflist_from_cache
+	if (deflist == nil)
+	    # no cache
+	    puts "Searching pkgdef files..." if ($verbose)
 
-	`find . -name "pkgdef.list" -print`.split.each do |list|
-	    dir = list.gsub(%r|pkgdef.list$|, "")
+	    deflist = `find . -name "pkgdef" -print`.split
 
-	    IO.readlines(list).each do |line|
-		line.chop!
-		line.strip!
-		next if (line == "" || line =~ /^#/)
+	    `find . -name "pkgdef.list" -print`.split.each do |list|
+		dir = list.gsub(%r|pkgdef.list$|, "")
 
-		deflist.push(dir + line)
+		IO.readlines(list).each do |line|
+		    line.chop!
+		    line.strip!
+		    next if (line == "" || line =~ /^#/)
+
+		    deflist.push(dir + line)
+		end
 	    end
+
+	    savedeflist_to_cache(deflist)
 	end
 
 	deflist.each do |f|
@@ -133,6 +143,34 @@ class PkgDepends
 	    pkg = PkgDep.new
 	    pkg.load(f, @target)
 	    @pkgs.push(pkg)
+	end
+    end
+
+    def savedeflist_to_cache(deflist)
+	open(DeffilesCache, "w") do |fh|
+	    deflist.each do |line|
+		fh.puts line
+	    end
+	end
+    end
+
+    def loaddeflist_from_cache
+	if (FileTest.exist?(DeffilesCache))
+	    puts "Use xpkg-batch cache" if ($verbose)
+	    deflist = Array.new
+	    IO.readlines(DeffilesCache).each do |line|
+		line.chop!
+		line.strip!
+		deflist.push(line)
+	    end
+	    return deflist
+	end
+	return nil
+    end
+
+    def clear_deflist_cache
+	if (FileTest.exist?(DeffilesCache))
+	    File.unlink(DeffilesCache)
 	end
     end
 
