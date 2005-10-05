@@ -29,6 +29,15 @@ Specify modules to skip build.
 .B -t, --target=[target]
 Specify build target.
 
+.TP
+.B -o, --only=[modules]
+Specify modules to only build them.
+
+.TP
+.B -f, --flush
+Flush cache file of pkgdef files listing. When some pkgdef files are
+added, you must use this option to flush the cache file.
+
 .SH DIRECTORY LISTING
 
 You can specify directory listing file as 'dirlist' or 'dirlist.[target]'
