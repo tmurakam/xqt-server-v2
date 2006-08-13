@@ -27,7 +27,7 @@ Section: apps
 Maintainer: Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 Architecture: arm
 Version: 0.8.0-i18n-misc-20040627-1
-Depends: xlibs, gtk, openssl, freetype, fontconfig, libjpeg, libpng, zlib
+Depends: xlibs, gtk+, openssl, freetype, fontconfig, libjpeg, libpng, zlib
 Cardinst: enable
 License: GPL
 Description: dillo web browser
