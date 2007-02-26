@@ -75,10 +75,7 @@ Zaurus に入っているのは Qtopia 1.5.0 なので、それに対応したものが必要。
 以下のようにしてソースを取り出す (このファイルが読めているなら、もう取り出しは
 終わっているはずだ）。
 
- $ export CVSROOT=:pserver:anonymous@cvs.sourceforge.jp:/cvsroot/xqt
- $ cvs login
- $ cvs checkout xqt2
-
+ $ svn checkout http://svn.sourceforge.jp/svnroot/xqt/xqt2/trunk xqt2
 
 ○ xpkg のインストール
 
