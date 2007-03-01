@@ -71,11 +71,9 @@ Change owner of the directory to enable you install libraries and headers.
 
 - Get X/Qt-2 sources
 
-Get X/Qt-2 sources with CVS command:
+Get X/Qt-2 sources with svn command:
 
- $ export CVSROOT=:pserver:anonymous@cvs.sourceforge.jp:/cvsroot/xqt
- $ cvs login
- $ cvs checkout xqt2
+ $ svn checkout http://svn.sourceforge.jp/svnroot/xqt/xqt2/trunk xqt2
 
 - Install xpkg
 
