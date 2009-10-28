@@ -24,7 +24,7 @@
 
 $debug = false
 
-$flushcache = false
+$flushcache = true
 
 $LOAD_PATH.push(File.expand_path(File.dirname($0)))
 require "xpkg-common"
@@ -62,13 +62,16 @@ class XpkgBatch
 	if ($flushcache) 
 	    dep.clear_deflist_cache
 	end
-	dep.resolve(@target)
+
+        dep.finddeffiles(@target)
 
 	dep.filter_dir(dirlist, false)
 	dep.filter_dir(@only_modules, false)
 
 	dep.filter_dir(skiplist, true)
 	dep.filter_dir(@skip_modules, true)
+
+	dep.resolve(@target)
 
 	dep.dump if ($verbose)
 
@@ -93,6 +96,7 @@ class XpkgBatch
 
     # load dirlist/skiplist
     def LoadListFile(file)
+        puts "Loading : #{file}" if ($verbose)
 	ary = Array.new
 	begin
 	    open(file, "r") do |fh|
@@ -142,7 +146,7 @@ class XpkgBatch
 	opt.on("-v", "--verbose", "Verbose") {$verbose = true}
 	opt.on("-s", "--skip=modules", String, "specify modules to skip") {|skip|}
 	opt.on("-o", "--only=modules", String, "specify modules to build only them") {|only|}
-	opt.on("-f", "--flush", "Flush cache file") {$flushcache = true}
+	opt.on("-c", "--cache", "Use cache file") {$flushcache = false}
 
 	opt.on_tail("")
 	opt.on_tail("  command:")

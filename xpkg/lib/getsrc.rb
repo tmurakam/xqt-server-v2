@@ -47,7 +47,7 @@ module GetSource
 
 	    if (file =~ /^local:(.*)/) 
 		file = $1
-		fullpath = "../" + file   # ad hoc...
+		fullpath = Dir.pwd + "/" + file   # ad hoc...
 
 		if (!FileTest.exist?(file))
 		    STDERR.puts "no file: #{file}"
@@ -121,7 +121,7 @@ module GetSource
 	    system("mkdir -p #{@builddir}") if (!FileTest.exist?(@builddir))
 	    cmd = "cd #{@builddir} && #{cat} #{file} | patch -p#{patchlevel}"
 	elsif (file =~ /\.tar\.[bg]z2?$/ || file =~ /\.tgz$/ || file =~ /\.tar$/)
-	    # extract
+	    # extract (do not chdir)
 	    cmd = "#{cat} #{file} | tar xvf -"
 	else
 	    # copy file to builddir

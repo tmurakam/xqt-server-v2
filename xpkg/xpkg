@@ -87,7 +87,9 @@ class Xpkg
 
     # build one module
     def execBuildCommand(pkg, command, workstate)
-	return if (command != "clear" && workstate.done?(command))
+        if (workstate.done?(command))
+            return if (command != "clear" && command != "install-pkg")
+        end
 
         puts "----- Execute #{command} with #{pkg.deffile}"
         begin

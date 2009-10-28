@@ -81,11 +81,37 @@ class PkgDepends
 	@pkgs = Array.new
     end
 
+    # find deffiles
+    def finddeffiles(target)
+        @target = target
+
+	@deflist = loaddeflist_from_cache
+	if (@deflist == nil)
+	    # no cache
+	    puts "Searching pkgdef files..." if ($verbose)
+            
+	    @deflist = `find . -name "pkgdef" -print`.split
+
+	    `find . -name "pkgdef.list" -print`.split.each do |list|
+		dir = list.gsub(%r|pkgdef.list$|, "")
+
+		IO.readlines(list).each do |line|
+		    line.chop!
+		    line.strip!
+		    next if (line == "" || line =~ /^#/)
+
+		    @deflist.push(dir + line)
+		end
+	    end
+
+	    savedeflist_to_cache(@deflist)
+	end
+    end
+
     # resolve dependency
-    def resolve(target)
-	@target = target
-	loaddeffiles
-	resolvedeps
+    def resolve()
+        loaddeffiles()
+        resolvedeps()
     end
 
     # get resulted directory list
@@ -102,50 +128,18 @@ class PkgDepends
 	return if (list == nil)
 	newlist = Array.new
 
-	@pkgs.each do |p|
-	    match = list.find{|i| p.deffile.include?(i)}
+        @deflist.each do |f|
+	    match = list.find{|dir| f.include?("/" + dir + "/")}
 
 	    if ((!isSkip && match) || (isSkip && !match))
-		newlist.push(p)
+		newlist.push(f)
 	    end
 	end
-	@pkgs = newlist
+	@deflist = newlist
     end
     
     # private methods
     
-    # load definition files
-    def loaddeffiles
-	deflist = loaddeflist_from_cache
-	if (deflist == nil)
-	    # no cache
-	    puts "Searching pkgdef files..." if ($verbose)
-
-	    deflist = `find . -name "pkgdef" -print`.split
-
-	    `find . -name "pkgdef.list" -print`.split.each do |list|
-		dir = list.gsub(%r|pkgdef.list$|, "")
-
-		IO.readlines(list).each do |line|
-		    line.chop!
-		    line.strip!
-		    next if (line == "" || line =~ /^#/)
-
-		    deflist.push(dir + line)
-		end
-	    end
-
-	    savedeflist_to_cache(deflist)
-	end
-
-	deflist.each do |f|
-	    puts "Loading : #{f}" if ($verbose)
-	    pkg = PkgDep.new
-	    pkg.load(f, @target)
-	    @pkgs.push(pkg)
-	end
-    end
-
     def savedeflist_to_cache(deflist)
 	open(DeffilesCache, "w") do |fh|
 	    deflist.each do |line|
@@ -171,6 +165,16 @@ class PkgDepends
     def clear_deflist_cache
 	if (FileTest.exist?(DeffilesCache))
 	    File.unlink(DeffilesCache)
+	end
+    end
+
+    # load definition files
+    def loaddeffiles
+	@deflist.each do |f|
+	    puts "Loading : #{f}" if ($verbose)
+	    pkg = PkgDep.new
+	    pkg.load(f, @target)
+	    @pkgs.push(pkg)
 	end
     end
 

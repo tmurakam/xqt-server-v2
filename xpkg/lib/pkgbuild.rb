@@ -243,8 +243,8 @@ end
 # Build normal packages (other than ipkg)
 class GenPkgBuild < PkgBuild
     def initialize
-	@pkgsuffix = ".xpkg"
-	@devpkgsuffix = ".xdevpkg"
+	@pkgsuffix = ".tar.gz"
+	@devpkgsuffix = ".tar.gz"
     end
 
     # generate package file

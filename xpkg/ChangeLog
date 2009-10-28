@@ -1,3 +1,9 @@
+* 2009/10/28 : Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
+	- xpkg-batch: add -c option instead of -f option.
+	- fix resolve dependency handling
+	- modify local:... handling.
+	- change file prefix to ".tar.gz"
+	
 * 2005/10/5 ver 1.0.5 :  Takuya Murakami <tmurakam@mtd.biglobe.ne.jp>
 	- xpkg-batch: use cache file
 	
